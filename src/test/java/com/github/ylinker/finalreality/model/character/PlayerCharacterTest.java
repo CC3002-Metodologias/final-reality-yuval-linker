@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.github.ylinker.finalreality.model.character.player.CharacterClass;
-import com.github.ylinker.finalreality.model.character.player.PlayerCharacter;
+import com.github.ylinker.finalreality.model.character.alternate.PlayerCharacter;
 import java.util.EnumMap;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;

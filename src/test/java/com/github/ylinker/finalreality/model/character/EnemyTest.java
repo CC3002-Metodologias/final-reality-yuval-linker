@@ -1,7 +1,7 @@
 package com.github.ylinker.finalreality.model.character;
 
 import com.github.ylinker.finalreality.model.character.player.CharacterClass;
-import com.github.ylinker.finalreality.model.character.player.PlayerCharacter;
+import com.github.ylinker.finalreality.model.character.alternate.PlayerCharacter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

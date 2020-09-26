@@ -2,7 +2,7 @@ package com.github.ylinker;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.player.CharacterClass;
-import com.github.ylinker.finalreality.model.character.player.PlayerCharacter;
+import com.github.ylinker.finalreality.model.character.alternate.PlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.Weapon;
 import com.github.ylinker.finalreality.model.weapon.WeaponType;
 import java.util.Random;

@@ -2,7 +2,6 @@ package com.github.ylinker.finalreality.model.character.player.mage;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.player.CharacterClass;
-import com.github.ylinker.finalreality.model.character.player.PlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
