@@ -1,10 +1,10 @@
-package com.github.cc3002;
+package com.github.ylinker;
 
-import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
-import com.github.cc3002.finalreality.model.weapon.WeaponType;
+import com.github.ylinker.finalreality.model.character.ICharacter;
+import com.github.ylinker.finalreality.model.character.player.CharacterClass;
+import com.github.ylinker.finalreality.model.character.player.PlayerCharacter;
+import com.github.ylinker.finalreality.model.weapon.Weapon;
+import com.github.ylinker.finalreality.model.weapon.WeaponType;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

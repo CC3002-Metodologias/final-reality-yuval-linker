@@ -1,4 +1,4 @@
-package com.github.cc3002.finalreality.model.weapon;
+package com.github.ylinker.finalreality.model.weapon;
 
 import java.util.Objects;
 

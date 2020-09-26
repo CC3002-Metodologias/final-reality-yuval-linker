@@ -1,7 +1,7 @@
-package com.github.cc3002.finalreality.model.character.player;
+package com.github.ylinker.finalreality.model.character.player;
 
-import com.github.cc3002.finalreality.model.character.AbstractCharacter;
-import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.ylinker.finalreality.model.character.AbstractCharacter;
+import com.github.ylinker.finalreality.model.character.ICharacter;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
