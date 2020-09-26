@@ -11,6 +11,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * An abstract class that holds the common behaviour of all the mage characters in the game.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Yuval Linker Groisman
+ */
 public abstract class AbstractMage implements IPlayerCharacter, ICharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;
@@ -18,12 +24,14 @@ public abstract class AbstractMage implements IPlayerCharacter, ICharacter {
     private final CharacterClass characterClass;
     private Weapon equippedWeapon = null;
     private ScheduledExecutorService scheduledExecutor;
+    protected final int mana;
 
     protected AbstractMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull String name, CharacterClass characterClass) {
+                                @NotNull String name, CharacterClass characterClass, final int mana) {
         this.turnsQueue = turnsQueue;
         this.name = name;
         this.characterClass = characterClass;
+        this.mana = mana;
     }
 
     @Override

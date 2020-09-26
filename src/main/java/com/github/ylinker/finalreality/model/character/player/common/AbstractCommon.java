@@ -11,6 +11,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * An abstract class that holds the common behaviour of all the common (non-mages) characters in the game.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Yuval Linker Groisman
+ */
 public abstract class AbstractCommon implements ICharacter, IPlayerCharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;

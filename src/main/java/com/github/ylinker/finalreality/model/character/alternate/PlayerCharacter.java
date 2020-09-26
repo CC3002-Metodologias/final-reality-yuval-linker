@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * A class that holds all the information of a single character of the game.
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Yuval Linker Groisman
  */
 public class PlayerCharacter extends AbstractCharacter {
 

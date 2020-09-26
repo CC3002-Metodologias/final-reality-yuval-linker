@@ -1,5 +1,10 @@
 package com.github.ylinker.finalreality.model.weapon;
 
+/**
+ * A Class that represents a Staff
+ *
+ * @author Yuval Linker Groisman
+ */
 public class Staff extends Weapon {
 
     private final int magicDamage;

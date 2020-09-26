@@ -7,8 +7,22 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * A class that holds all the information of a single knight character of the game.
+ *
+ * @author Ignacio Slater Muñoz.
+ * @author Yuval Linker Groisman
+ */
 public class Knight extends AbstractCommon {
 
+    /**
+     * Creates a new knight character.
+     *
+     * @param name
+     *     the character's name
+     * @param turnsQueue
+     *     the queue with the characters waiting for their turn
+     */
     public Knight(@NotNull BlockingQueue<ICharacter> turnsQueue,
                   @NotNull String name) {
         super(turnsQueue, name, CharacterClass.KNIGHT);
