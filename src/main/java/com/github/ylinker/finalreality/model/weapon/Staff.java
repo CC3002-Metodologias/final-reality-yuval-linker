@@ -2,7 +2,7 @@ package com.github.ylinker.finalreality.model.weapon;
 
 public class Staff extends Weapon {
 
-    private int magicDamage;
+    private final int magicDamage;
 
     public Staff(final String name, final int damage, final int weight,
                  final int magicDamage) {
