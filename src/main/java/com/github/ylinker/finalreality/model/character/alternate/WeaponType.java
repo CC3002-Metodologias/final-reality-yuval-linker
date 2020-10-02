@@ -1,4 +1,4 @@
-package com.github.ylinker.finalreality.model.weapon;
+package com.github.ylinker.finalreality.model.character.alternate;
 
 /**
  * Enumeration of all the weapon types.

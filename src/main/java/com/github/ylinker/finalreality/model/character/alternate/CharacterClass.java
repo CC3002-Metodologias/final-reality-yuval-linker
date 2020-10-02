@@ -1,4 +1,4 @@
-package com.github.ylinker.finalreality.model.character.player;
+package com.github.ylinker.finalreality.model.character.alternate;
 
 /**
  * Enumeration of the classes a player character may have.

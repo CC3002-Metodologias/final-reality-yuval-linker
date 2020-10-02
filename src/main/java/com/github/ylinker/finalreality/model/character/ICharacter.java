@@ -1,8 +1,5 @@
 package com.github.ylinker.finalreality.model.character;
 
-import com.github.ylinker.finalreality.model.character.player.CharacterClass;
-import com.github.ylinker.finalreality.model.weapon.Weapon;
-
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).

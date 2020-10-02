@@ -1,5 +1,7 @@
 package com.github.ylinker.finalreality.model.weapon;
 
+import com.github.ylinker.finalreality.model.character.alternate.WeaponType;
+
 import java.util.Objects;
 
 /**

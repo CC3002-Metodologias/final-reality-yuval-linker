@@ -4,7 +4,6 @@ import com.github.ylinker.finalreality.model.character.ICharacter;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-import com.github.ylinker.finalreality.model.character.player.CharacterClass;
 import org.jetbrains.annotations.NotNull;
 
 /**

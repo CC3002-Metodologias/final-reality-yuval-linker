@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.model.weapon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.github.ylinker.finalreality.model.character.alternate.WeaponType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

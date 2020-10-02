@@ -1,6 +1,5 @@
 package com.github.ylinker.finalreality.model.character;
 
-import com.github.ylinker.finalreality.model.character.player.CharacterClass;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
