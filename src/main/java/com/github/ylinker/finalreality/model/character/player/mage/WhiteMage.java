@@ -26,15 +26,12 @@ public class WhiteMage extends AbstractMage {
      *     the character's mana
      */
     public WhiteMage(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue, final int mana) {
-        super(turnsQueue, name, CharacterClass.WHITE_MAGE, mana);
+        super(turnsQueue, name, mana);
     }
 
     @Override
-    public CharacterClass getCharacterClass() { return CharacterClass.WHITE_MAGE; }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(getCharacterClass());
+        return Objects.hash(getName());
     }
 
     @Override
@@ -46,8 +43,7 @@ public class WhiteMage extends AbstractMage {
             return false;
         }
         final WhiteMage that = (WhiteMage) o;
-        return getCharacterClass() == that.getCharacterClass()
-                && getName().equals(that.getName());
+        return getName().equals(that.getName());
     }
 
 

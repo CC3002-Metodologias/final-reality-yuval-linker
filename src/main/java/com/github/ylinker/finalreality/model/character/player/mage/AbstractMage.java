@@ -21,16 +21,14 @@ public abstract class AbstractMage implements IPlayerCharacter, ICharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
-    private final CharacterClass characterClass;
     private Weapon equippedWeapon = null;
     private ScheduledExecutorService scheduledExecutor;
     protected final int mana;
 
     protected AbstractMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull String name, CharacterClass characterClass, final int mana) {
+                                @NotNull String name, final int mana) {
         this.turnsQueue = turnsQueue;
         this.name = name;
-        this.characterClass = characterClass;
         this.mana = mana;
     }
 
@@ -62,7 +60,4 @@ public abstract class AbstractMage implements IPlayerCharacter, ICharacter {
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
-
-    @Override
-    public abstract CharacterClass getCharacterClass();
 }

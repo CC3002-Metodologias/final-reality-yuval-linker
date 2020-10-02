@@ -27,15 +27,12 @@ public class BlackMage extends AbstractMage {
      */
     public BlackMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
                      @NotNull String name, final int mana) {
-        super(turnsQueue, name, CharacterClass.BLACK_MAGE, mana);
+        super(turnsQueue, name, mana);
     }
 
     @Override
-    public CharacterClass getCharacterClass() { return CharacterClass.BLACK_MAGE; }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(getCharacterClass());
+        return Objects.hash(getName());
     }
 
     @Override
@@ -47,7 +44,6 @@ public class BlackMage extends AbstractMage {
             return false;
         }
         final BlackMage that = (BlackMage) o;
-        return getCharacterClass() == that.getCharacterClass()
-                && getName().equals(that.getName());
+        return getName().equals(that.getName());
     }
 }

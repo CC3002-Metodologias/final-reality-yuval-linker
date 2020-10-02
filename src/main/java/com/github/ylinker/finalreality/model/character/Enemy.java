@@ -60,8 +60,6 @@ public class Enemy implements ICharacter {
     return weight;
   }
 
-  public CharacterClass getCharacterClass() { return CharacterClass.ENEMY; }
-
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
@@ -71,7 +69,8 @@ public class Enemy implements ICharacter {
       return false;
     }
     final Enemy enemy = (Enemy) o;
-    return getWeight() == enemy.getWeight();
+    return getWeight() == enemy.getWeight() &&
+            getName().equals(enemy.getName());
   }
 
   @Override

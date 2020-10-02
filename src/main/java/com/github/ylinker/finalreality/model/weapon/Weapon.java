@@ -48,16 +48,3 @@ public abstract class Weapon implements IWeapon {
     return Objects.hash(getName(), getDamage(), getWeight());
   }
 }
-
-// if (this == o) {
-//         return true;
-//         }
-//         if (!(o instanceof Weapon)) {
-//         return false;
-//         }
-// final Weapon weapon = (Weapon) o;
-//         return getDamage() == weapon.getDamage() &&
-//         getWeight() == weapon.getWeight() &&
-//         getName().equals(weapon.getName()) &&
-//         getType() == weapon.getType();
-//         }

@@ -21,15 +21,13 @@ public abstract class AbstractCommon implements ICharacter, IPlayerCharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
-    private final CharacterClass characterClass;
     private Weapon equippedWeapon = null;
     private ScheduledExecutorService scheduledExecutor;
 
     protected AbstractCommon(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull String name, CharacterClass characterClass) {
+                                @NotNull String name) {
         this.turnsQueue = turnsQueue;
         this.name = name;
-        this.characterClass = characterClass;
     }
 
     @Override
@@ -61,7 +59,4 @@ public abstract class AbstractCommon implements ICharacter, IPlayerCharacter {
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
-
-    @Override
-    public abstract CharacterClass getCharacterClass();
 }
