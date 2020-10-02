@@ -66,4 +66,3 @@ public abstract class AbstractMage implements IPlayerCharacter, ICharacter {
     @Override
     public abstract CharacterClass getCharacterClass();
 }
-}

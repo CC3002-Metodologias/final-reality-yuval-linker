@@ -11,9 +11,23 @@ public class Staff extends Weapon {
 
     public Staff(final String name, final int damage, final int weight,
                  final int magicDamage) {
-        super(name, damage, weight, WeaponType.STAFF);
+        super(name, damage, weight);
         this.magicDamage = magicDamage;
     }
 
     public int getMagicDamage() { return magicDamage; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Staff)) {
+            return false;
+        }
+        final Staff staff = (Staff) o;
+        return getDamage() == staff.getDamage() &&
+                getWeight() == staff.getWeight() &&
+                getName().equals(staff.getName());
+    }
 }
