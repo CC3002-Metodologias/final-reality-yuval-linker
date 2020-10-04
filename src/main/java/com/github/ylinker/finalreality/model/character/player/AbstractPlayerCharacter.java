@@ -1,4 +1,4 @@
-package com.github.ylinker.finalreality.model.character.player.common;
+package com.github.ylinker.finalreality.model.character.player;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
@@ -11,20 +11,20 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * An abstract class that holds the common behaviour of all the common (non-mages) characters in the game.
+ * An abstract class that holds the common behaviour of all the playable characters in the game.
  *
  * @author Ignacio Slater Muñoz.
  * @author Yuval Linker Groisman
  */
-public abstract class AbstractCommon implements ICharacter, IPlayerCharacter {
+public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerCharacter {
 
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
     private Weapon equippedWeapon = null;
     private ScheduledExecutorService scheduledExecutor;
 
-    protected AbstractCommon(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull String name) {
+    protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
+                                      @NotNull String name) {
         this.turnsQueue = turnsQueue;
         this.name = name;
     }

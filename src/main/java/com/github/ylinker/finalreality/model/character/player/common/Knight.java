@@ -1,6 +1,7 @@
 package com.github.ylinker.finalreality.model.character.player.common;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
+import com.github.ylinker.finalreality.model.character.player.AbstractPlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
  * @author Ignacio Slater Muñoz.
  * @author Yuval Linker Groisman
  */
-public class Knight extends AbstractCommon {
+public class Knight extends AbstractPlayerCharacter {
 
     /**
      * Creates a new knight character.

@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.model.character.player.mage;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
+import com.github.ylinker.finalreality.model.character.player.AbstractPlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.Weapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,47 +17,18 @@ import java.util.concurrent.TimeUnit;
  * @author Ignacio Slater Muñoz.
  * @author Yuval Linker Groisman
  */
-public abstract class AbstractMage implements IPlayerCharacter, ICharacter {
+public abstract class AbstractMage extends AbstractPlayerCharacter implements IPlayerCharacter, ICharacter {
 
-    protected final BlockingQueue<ICharacter> turnsQueue;
-    protected final String name;
-    private Weapon equippedWeapon = null;
-    private ScheduledExecutorService scheduledExecutor;
     protected final int mana;
 
     protected AbstractMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
                                 @NotNull String name, final int mana) {
-        this.turnsQueue = turnsQueue;
-        this.name = name;
+        super(turnsQueue, name);
         this.mana = mana;
     }
 
-    @Override
-    public void waitTurn() {
-        scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
-    }
-
     /**
-     * Adds this character to the turns queue.
+     * Get the mana of the mage
      */
-    private void addToQueue() {
-        turnsQueue.add(this);
-        scheduledExecutor.shutdown();
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void equip(Weapon weapon) {
-            this.equippedWeapon = weapon;
-    }
-
-    @Override
-    public Weapon getEquippedWeapon() {
-        return equippedWeapon;
-    }
+    public int getMana() { return this.mana; }
 }
