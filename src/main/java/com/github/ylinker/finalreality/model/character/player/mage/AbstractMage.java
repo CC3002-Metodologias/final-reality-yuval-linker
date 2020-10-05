@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @author Ignacio Slater Muñoz.
  * @author Yuval Linker Groisman
  */
-public abstract class AbstractMage extends AbstractPlayerCharacter {
+public abstract class AbstractMage extends AbstractPlayerCharacter implements IMage {
 
     protected final int mana;
 

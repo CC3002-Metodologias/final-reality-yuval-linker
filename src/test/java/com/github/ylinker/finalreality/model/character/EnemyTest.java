@@ -1,7 +1,6 @@
 package com.github.ylinker.finalreality.model.character;
 
-import com.github.ylinker.finalreality.model.character.alternate.CharacterClass;
-import com.github.ylinker.finalreality.model.character.alternate.PlayerCharacter;
+import com.github.ylinker.finalreality.model.character.player.common.Thief;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +12,14 @@ class EnemyTest extends AbstractCharacterTest {
   void setUp() {
     basicSetUp();
     testCharacters.add(new Enemy(ENEMY_NAME, 10, turns));
+    testEnemy = new Enemy(ENEMY_NAME, 10, turns);
   }
 
   @Test
   void constructorTest() {
     checkConstruction(new Enemy(ENEMY_NAME, 10, turns),
-        testCharacters.get(0),
+        testEnemy,
         new Enemy(ENEMY_NAME, 11, turns),
-        new PlayerCharacter(ENEMY_NAME, turns, CharacterClass.THIEF));
+        new Thief(turns, ENEMY_NAME));
   }
 }

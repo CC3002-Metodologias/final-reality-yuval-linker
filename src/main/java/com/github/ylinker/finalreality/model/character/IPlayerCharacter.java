@@ -1,5 +1,6 @@
 package com.github.ylinker.finalreality.model.character;
 
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import com.github.ylinker.finalreality.model.weapon.Weapon;
 
 /**
@@ -13,10 +14,10 @@ public interface IPlayerCharacter {
     /**
      * Equips a weapon to the character.
      */
-    void equip(Weapon weapon);
+    void equip(IWeapon weapon);
 
     /**
      * Return this character's equipped weapon.
      */
-    Weapon getEquippedWeapon();
+    IWeapon getEquippedWeapon();
 }

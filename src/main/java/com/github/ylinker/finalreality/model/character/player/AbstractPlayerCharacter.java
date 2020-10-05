@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.model.character.player;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import com.github.ylinker.finalreality.model.weapon.Weapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +21,7 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
 
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
-    private Weapon equippedWeapon = null;
+    private IWeapon equippedWeapon = null;
     private ScheduledExecutorService scheduledExecutor;
 
     protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
@@ -50,12 +51,12 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
     }
 
     @Override
-    public void equip(Weapon weapon) {
+    public void equip(IWeapon weapon) {
             this.equippedWeapon = weapon;
     }
 
     @Override
-    public Weapon getEquippedWeapon() {
+    public IWeapon getEquippedWeapon() {
         return equippedWeapon;
     }
 }
