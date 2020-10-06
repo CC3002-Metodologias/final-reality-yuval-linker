@@ -55,6 +55,7 @@ public class Enemy implements ICharacter {
   /**
    * Returns the weight of this enemy.
    */
+  @Override
   public int getWeight() {
     return weight;
   }

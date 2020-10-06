@@ -17,6 +17,7 @@ public class BlackMageTest extends AbstractMageTest {
     void blackMageSetUp() {
         setUp();
         testMage = new BlackMage(turns, BLACK_MAGE_NAME, MAGE_MANA);
+        testCommon = new BlackMage(turns, BLACK_MAGE_NAME, MAGE_MANA);
     }
 
     @Test
@@ -27,5 +28,10 @@ public class BlackMageTest extends AbstractMageTest {
                 new Knight(turns, "Arthur"));
         assertNotEquals(testMage, testEnemy);
         assertEquals(new BlackMage(turns, BLACK_MAGE_NAME, 5), testMage);
+    }
+
+    @Test
+    void weaponTest() {
+        equipWeaponCheck((IPlayerCharacter) testMage);
     }
 }

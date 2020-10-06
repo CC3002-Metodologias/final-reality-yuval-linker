@@ -14,15 +14,20 @@ public class ThiefTest extends AbstractPlayerTest {
     @BeforeEach
     void thiefSetUp() {
         setUp();
-        testMage = new Thief(turns, THIEF_NAME);
+        testCommon = new Thief(turns, THIEF_NAME);
     }
 
     @Test
     void constructorTest() {
         checkConstruction(new Thief(turns, THIEF_NAME),
-                (ICharacter) testMage,
+                (ICharacter) testCommon,
                 new Thief( turns, "Test"),
                 new Knight(turns, "Arthur"));
-        assertNotEquals(testMage, testEnemy);
+        assertNotEquals(testCommon, testEnemy);
+    }
+
+    @Test
+    void weaponTest() {
+        equipWeaponCheck((IPlayerCharacter) testCommon);
     }
 }

@@ -21,6 +21,7 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
 
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
+    protected int weight = 10;
     private IWeapon equippedWeapon = null;
     private ScheduledExecutorService scheduledExecutor;
 
@@ -33,7 +34,7 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
     @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
+        scheduledExecutor.schedule(this::addToQueue, this.weight / 10, TimeUnit.SECONDS);
 
     }
 
@@ -52,11 +53,17 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
 
     @Override
     public void equip(IWeapon weapon) {
-            this.equippedWeapon = weapon;
+        this.equippedWeapon = weapon;
+        this.weight = weapon.getWeight();
     }
 
     @Override
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
+    }
+
+    @Override
+    public int getWeight() {
+        return weight;
     }
 }

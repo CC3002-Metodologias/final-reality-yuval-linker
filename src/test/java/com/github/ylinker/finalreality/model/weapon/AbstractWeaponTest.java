@@ -11,11 +11,12 @@ public abstract class AbstractWeaponTest {
     protected static final int WEIGHT = 5;
     protected IWeapon testWeapon;
 
-    @Test
-    protected void checkConstruction(IWeapon expectedWeapon,
+
+    protected void checkConstruction(final IWeapon expectedWeapon,
                                      final IWeapon testEqualWeapon,
                                      final IWeapon sameClassDifferentWeapon,
                                      final IWeapon differentClassWeapon) {
+        assertEquals(testEqualWeapon, testEqualWeapon);
         assertEquals(expectedWeapon, testEqualWeapon);
         assertEquals(expectedWeapon.hashCode(), testEqualWeapon.hashCode());
         assertNotEquals(sameClassDifferentWeapon, testEqualWeapon);

@@ -21,9 +21,7 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractCharacterTest {
 
   protected BlockingQueue<ICharacter> turns;
-  protected List<ICharacter> testCharacters;
-  protected Enemy testEnemy;
-  protected IPlayerCharacter testMage;
+  protected ICharacter testCommon;
 
   /**
    * Checks that the character waits the appropriate amount of time for it's turn.
@@ -31,7 +29,7 @@ public abstract class AbstractCharacterTest {
   @Test
   void waitTurnTest() {
     Assertions.assertTrue(turns.isEmpty());
-    testCharacters.get(0).waitTurn();
+    testCommon.waitTurn();
     try {
       // Thread.sleep is not accurate so this values may be changed to adjust the
       // acceptable error margin.
@@ -40,7 +38,7 @@ public abstract class AbstractCharacterTest {
       Assertions.assertEquals(0, turns.size());
       Thread.sleep(200);
       Assertions.assertEquals(1, turns.size());
-      Assertions.assertEquals(testCharacters.get(0), turns.peek());
+      Assertions.assertEquals(testCommon, turns.peek());
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -50,6 +48,7 @@ public abstract class AbstractCharacterTest {
       final ICharacter testEqualCharacter,
       final ICharacter sameClassDifferentCharacter,
       final ICharacter differentClassCharacter) {
+    assertEquals(testEqualCharacter, testEqualCharacter);
     assertEquals(expectedCharacter, testEqualCharacter);
     assertNotEquals(sameClassDifferentCharacter, testEqualCharacter);
     assertNotEquals(testEqualCharacter, differentClassCharacter);
@@ -58,6 +57,5 @@ public abstract class AbstractCharacterTest {
 
   protected void basicSetUp() {
     turns = new LinkedBlockingQueue<>();
-    testCharacters = new ArrayList<>();
   }
 }

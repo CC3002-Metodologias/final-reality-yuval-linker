@@ -10,15 +10,14 @@ class EnemyTest extends AbstractCharacterTest {
 
   @BeforeEach
   void setUp() {
-    basicSetUp();
-    testCharacters.add(new Enemy(ENEMY_NAME, 10, turns));
-    testEnemy = new Enemy(ENEMY_NAME, 10, turns);
+    super.basicSetUp();
+    testCommon = new Enemy(ENEMY_NAME, 10, turns);
   }
 
   @Test
   void constructorTest() {
     checkConstruction(new Enemy(ENEMY_NAME, 10, turns),
-        testEnemy,
+        testCommon,
         new Enemy(ENEMY_NAME, 11, turns),
         new Thief(turns, ENEMY_NAME));
   }

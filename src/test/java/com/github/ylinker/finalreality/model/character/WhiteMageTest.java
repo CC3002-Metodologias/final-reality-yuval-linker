@@ -16,6 +16,7 @@ public class WhiteMageTest extends AbstractMageTest {
     void whiteMageSetUp() {
         setUp();
         testMage = new WhiteMage(WHITE_MAGE_NAME, turns, MAGE_MANA);
+        testCommon = new WhiteMage(WHITE_MAGE_NAME, turns, MAGE_MANA);
     }
 
     @Test
@@ -26,5 +27,10 @@ public class WhiteMageTest extends AbstractMageTest {
                 new Knight(turns, "Arthur"));
         assertNotEquals(this.testMage, testEnemy);
         assertEquals(new WhiteMage(WHITE_MAGE_NAME, turns, 5), this.testMage);
+    }
+
+    @Test
+    void weaponTest() {
+        equipWeaponCheck((IPlayerCharacter) testMage);
     }
 }

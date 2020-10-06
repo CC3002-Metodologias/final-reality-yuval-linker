@@ -12,7 +12,7 @@ public class AxeTest extends AbstractWeaponTest {
 
     @Test
     void constructorTest() {
-        checkConstruction(new Axe("knifeTest", DAMAGE, SPEED, WEIGHT),
+        checkConstruction(new Axe("axeTest", DAMAGE, SPEED, WEIGHT),
                 testWeapon,
                 new Axe("Test", DAMAGE, SPEED, WEIGHT),
                 new Sword("sword", DAMAGE, SPEED, WEIGHT));
