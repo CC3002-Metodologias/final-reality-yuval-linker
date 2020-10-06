@@ -7,6 +7,8 @@ public interface IWeapon {
 
     public int getWeight();
 
+    public int getSpeed();
+
     public boolean equals(final Object o);
 
     public int hashCode();

@@ -7,8 +7,8 @@ package com.github.ylinker.finalreality.model.weapon;
  */
 public class Bow extends Weapon {
 
-    public Bow(final String name, final int damage, final int weight) {
-        super(name, damage, weight);
+    public Bow(final String name, final int damage, final int speed, final int weight) {
+        super(name, damage, speed, weight);
     }
 
     @Override

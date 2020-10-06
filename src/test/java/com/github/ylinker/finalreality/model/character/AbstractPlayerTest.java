@@ -15,8 +15,8 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
     @BeforeEach
     void setUp() {
         basicSetUp();
-        weapons.put("axe", new Axe("axeTest", 10, 5));
-        weapons.put("bow", new Bow("bowTest", 10, 5));
+        weapons.put("axe", new Axe("axeTest", 10, 5, 5));
+        weapons.put("bow", new Bow("bowTest", 10, 5, 5));
         testEnemy = new Enemy("testEnemy", 10, turns);
     }
 

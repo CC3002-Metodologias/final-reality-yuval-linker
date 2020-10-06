@@ -9,9 +9,9 @@ public class Staff extends Weapon {
 
     private final int magicDamage;
 
-    public Staff(final String name, final int damage, final int weight,
+    public Staff(final String name, final int damage, final int speed, final int weight,
                  final int magicDamage) {
-        super(name, damage, weight);
+        super(name, damage, speed, weight);
         this.magicDamage = magicDamage;
     }
 
