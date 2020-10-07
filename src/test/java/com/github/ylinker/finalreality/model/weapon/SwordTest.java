@@ -15,6 +15,9 @@ public class SwordTest extends AbstractWeaponTest {
         checkConstruction(new Sword("swordTest", DAMAGE, SPEED, WEIGHT),
                 testWeapon,
                 new Sword("Test", DAMAGE, SPEED, WEIGHT),
+                new Sword("swordTest", DIFF_DAMAGE, SPEED, WEIGHT),
+                new Sword("swordTest", DAMAGE, DIFF_SPEED, WEIGHT),
+                new Sword("swordTest", DAMAGE, SPEED, DIFF_WEIGHT),
                 new Bow("bow", DAMAGE, SPEED, WEIGHT));
     }
 }

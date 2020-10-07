@@ -28,6 +28,8 @@ public class Staff extends Weapon {
         final Staff staff = (Staff) o;
         return getDamage() == staff.getDamage() &&
                 getWeight() == staff.getWeight() &&
+                getSpeed() == staff.getSpeed() &&
+                getMagicDamage() == staff.getMagicDamage() &&
                 getName().equals(staff.getName());
     }
 }

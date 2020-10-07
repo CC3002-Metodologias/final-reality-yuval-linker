@@ -9,17 +9,26 @@ public abstract class AbstractWeaponTest {
     protected static final int DAMAGE = 15;
     protected static final int SPEED = 10;
     protected static final int WEIGHT = 5;
+    protected static final int DIFF_DAMAGE = 10;
+    protected static final int DIFF_SPEED = 3;
+    protected static final int DIFF_WEIGHT = 7;
     protected IWeapon testWeapon;
 
 
     protected void checkConstruction(final IWeapon expectedWeapon,
                                      final IWeapon testEqualWeapon,
-                                     final IWeapon sameClassDifferentWeapon,
+                                     final IWeapon sameClassDifferentName,
+                                     final IWeapon sameClassDifferentDamage,
+                                     final IWeapon sameClassDifferentSpeed,
+                                     final IWeapon sameClassDifferentWeight,
                                      final IWeapon differentClassWeapon) {
         assertEquals(testEqualWeapon, testEqualWeapon);
         assertEquals(expectedWeapon, testEqualWeapon);
         assertEquals(expectedWeapon.hashCode(), testEqualWeapon.hashCode());
-        assertNotEquals(sameClassDifferentWeapon, testEqualWeapon);
+        assertNotEquals(sameClassDifferentName, testEqualWeapon);
+        assertNotEquals(sameClassDifferentDamage, testEqualWeapon);
+        assertNotEquals(sameClassDifferentSpeed, testEqualWeapon);
+        assertNotEquals(sameClassDifferentWeight, testEqualWeapon);
         assertNotEquals(testEqualWeapon, differentClassWeapon);
         assertEquals(expectedWeapon.hashCode(), testEqualWeapon.hashCode());
     }

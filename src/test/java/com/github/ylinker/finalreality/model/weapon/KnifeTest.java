@@ -15,6 +15,9 @@ public class KnifeTest extends AbstractWeaponTest {
             checkConstruction(new Knife("knifeTest", DAMAGE, SPEED, WEIGHT),
                     testWeapon,
                     new Knife("Test", DAMAGE, SPEED, WEIGHT),
+                    new Knife("knifeTest", DIFF_DAMAGE, SPEED, WEIGHT),
+                    new Knife("knifeTest", DAMAGE, DIFF_SPEED, WEIGHT),
+                    new Knife("knifeTest", DAMAGE, SPEED, DIFF_WEIGHT),
                     new Sword("sword", DAMAGE, SPEED, WEIGHT));
     }
 }

@@ -22,6 +22,7 @@ public class Bow extends Weapon {
         final Bow bow = (Bow) o;
         return getDamage() == bow.getDamage() &&
                 getWeight() == bow.getWeight() &&
+                getSpeed() == bow.getSpeed() &&
                 getName().equals(bow.getName());
     }
 }

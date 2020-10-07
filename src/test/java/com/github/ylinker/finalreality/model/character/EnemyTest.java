@@ -3,6 +3,7 @@ package com.github.ylinker.finalreality.model.character;
 import com.github.ylinker.finalreality.model.character.player.common.Thief;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class EnemyTest extends AbstractCharacterTest {
 
@@ -20,5 +21,6 @@ class EnemyTest extends AbstractCharacterTest {
         testCommon,
         new Enemy(ENEMY_NAME, 11, turns),
         new Thief(turns, ENEMY_NAME));
+    assertNotEquals(new Enemy("Test", 10, turns), testCommon);
   }
 }

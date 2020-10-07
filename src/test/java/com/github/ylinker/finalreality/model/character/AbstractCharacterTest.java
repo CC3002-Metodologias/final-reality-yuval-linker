@@ -3,9 +3,6 @@ package com.github.ylinker.finalreality.model.character;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import com.github.ylinker.finalreality.model.weapon.Weapon;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.junit.jupiter.api.Assertions;

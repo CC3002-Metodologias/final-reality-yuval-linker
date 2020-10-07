@@ -22,6 +22,7 @@ public class Sword extends Weapon {
         final Sword sword = (Sword) o;
         return getDamage() == sword.getDamage() &&
                 getWeight() == sword.getWeight() &&
+                getSpeed() == sword.getSpeed() &&
                 getName().equals(sword.getName());
     }
 

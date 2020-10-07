@@ -22,6 +22,7 @@ public class Axe extends Weapon {
         final Axe axe = (Axe) o;
         return getDamage() == axe.getDamage() &&
                 getWeight() == axe.getWeight() &&
+                getSpeed() == axe.getSpeed() &&
                 getName().equals(axe.getName());
     }
 }

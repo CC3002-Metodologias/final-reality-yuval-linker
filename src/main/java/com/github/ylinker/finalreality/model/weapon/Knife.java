@@ -22,6 +22,7 @@ public class Knife extends Weapon {
         final Knife knife = (Knife) o;
         return getDamage() == knife.getDamage() &&
                 getWeight() == knife.getWeight() &&
+                getSpeed() == knife.getSpeed() &&
                 getName().equals(knife.getName());
     }
 }

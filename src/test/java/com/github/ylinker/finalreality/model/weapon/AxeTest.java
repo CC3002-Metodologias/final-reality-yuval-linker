@@ -15,6 +15,9 @@ public class AxeTest extends AbstractWeaponTest {
         checkConstruction(new Axe("axeTest", DAMAGE, SPEED, WEIGHT),
                 testWeapon,
                 new Axe("Test", DAMAGE, SPEED, WEIGHT),
+                new Axe("axeTest", DIFF_DAMAGE, SPEED, WEIGHT),
+                new Axe("axeTest", DAMAGE, DIFF_SPEED, WEIGHT),
+                new Axe("axeTest", DAMAGE, SPEED, DIFF_WEIGHT),
                 new Sword("sword", DAMAGE, SPEED, WEIGHT));
     }
 }
