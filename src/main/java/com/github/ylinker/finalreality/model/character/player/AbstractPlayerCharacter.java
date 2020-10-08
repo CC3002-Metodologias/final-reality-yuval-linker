@@ -1,5 +1,6 @@
 package com.github.ylinker.finalreality.model.character.player;
 
+import com.github.ylinker.finalreality.model.character.AbstractCharacter;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
@@ -17,18 +18,13 @@ import java.util.concurrent.TimeUnit;
  * @author Ignacio Slater Muñoz.
  * @author Yuval Linker Groisman
  */
-public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerCharacter {
+public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayerCharacter {
 
-    protected final BlockingQueue<ICharacter> turnsQueue;
-    protected final String name;
-    protected int weight = 10;
     private IWeapon equippedWeapon = null;
-    private ScheduledExecutorService scheduledExecutor;
 
     protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
                                       @NotNull String name) {
-        this.turnsQueue = turnsQueue;
-        this.name = name;
+        super(name, turnsQueue);
     }
 
     @Override
@@ -36,19 +32,6 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutor.schedule(this::addToQueue, this.weight / 10, TimeUnit.SECONDS);
 
-    }
-
-    /**
-     * Adds this character to the turns queue.
-     */
-    private void addToQueue() {
-        turnsQueue.add(this);
-        scheduledExecutor.shutdown();
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override
@@ -60,10 +43,5 @@ public abstract class AbstractPlayerCharacter implements ICharacter, IPlayerChar
     @Override
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
-    }
-
-    @Override
-    public int getWeight() {
-        return weight;
     }
 }

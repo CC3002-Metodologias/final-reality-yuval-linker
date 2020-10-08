@@ -12,14 +12,9 @@ import org.jetbrains.annotations.NotNull;
  * A class that holds all the information of a single enemy of the game.
  *
  * @author Ignacio Slater Muñoz
- * @author <Your name>
+ * @author Yuval Linker
  */
-public class Enemy implements ICharacter {
-
-  private final int weight;
-  protected final BlockingQueue<ICharacter> turnsQueue;
-  protected final String name;
-  private ScheduledExecutorService scheduledExecutor;
+public class Enemy extends AbstractCharacter {
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -27,8 +22,7 @@ public class Enemy implements ICharacter {
    */
   public Enemy(@NotNull final String name, final int weight,
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    this.turnsQueue = turnsQueue;
-    this.name = name;
+    super(name, turnsQueue);
     this.weight = weight;
   }
 
@@ -38,27 +32,6 @@ public class Enemy implements ICharacter {
     var enemy = (Enemy) this;
     scheduledExecutor.schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
     }
-
-  /**
-   * Adds this character to the turns queue.
-   */
-  private void addToQueue() {
-    turnsQueue.add(this);
-    scheduledExecutor.shutdown();
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Returns the weight of this enemy.
-   */
-  @Override
-  public int getWeight() {
-    return weight;
-  }
 
   @Override
   public boolean equals(final Object o) {
@@ -75,6 +48,6 @@ public class Enemy implements ICharacter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getWeight());
+    return Objects.hash(getName(), getWeight());
   }
 }
