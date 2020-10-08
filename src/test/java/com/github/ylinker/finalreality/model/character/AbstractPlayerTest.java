@@ -18,8 +18,8 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
     void setUp() {
         basicSetUp();
         weapons = new HashMap<>();
-        weapons.put("axe", new Axe("axeTest", 10, 5, 5));
-        weapons.put("bow", new Bow("bowTest", 10, 5, 7));
+        weapons.put("axe", new Axe("axeTest", 10, 5));
+        weapons.put("bow", new Bow("bowTest", 10, 7));
         testEnemy = new Enemy("testEnemy", 10, turns);
     }
 

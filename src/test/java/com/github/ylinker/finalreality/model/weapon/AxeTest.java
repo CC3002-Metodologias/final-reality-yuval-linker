@@ -7,17 +7,16 @@ public class AxeTest extends AbstractWeaponTest {
 
     @BeforeEach
     void setUp() {
-        testWeapon = new Axe("axeTest", DAMAGE, SPEED, WEIGHT);
+        testWeapon = new Axe("axeTest", DAMAGE, WEIGHT);
     }
 
     @Test
     void constructorTest() {
-        checkConstruction(new Axe("axeTest", DAMAGE, SPEED, WEIGHT),
+        checkConstruction(new Axe("axeTest", DAMAGE, WEIGHT),
                 testWeapon,
-                new Axe("Test", DAMAGE, SPEED, WEIGHT),
-                new Axe("axeTest", DIFF_DAMAGE, SPEED, WEIGHT),
-                new Axe("axeTest", DAMAGE, DIFF_SPEED, WEIGHT),
-                new Axe("axeTest", DAMAGE, SPEED, DIFF_WEIGHT),
-                new Sword("sword", DAMAGE, SPEED, WEIGHT));
+                new Axe("Test", DAMAGE, WEIGHT),
+                new Axe("axeTest", DIFF_DAMAGE, WEIGHT),
+                new Axe("axeTest", DAMAGE, DIFF_WEIGHT),
+                new Sword("sword", DAMAGE, WEIGHT));
     }
 }

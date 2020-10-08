@@ -14,20 +14,19 @@ public class StaffTest extends AbstractWeaponTest {
 
     @BeforeEach
     void setUp() {
-        testStaff = new Staff("testStaff", DAMAGE, SPEED, WEIGHT, MAGIC_DAMAGE);
-        testWeapon = new Staff("testStaff", DAMAGE, SPEED, WEIGHT, MAGIC_DAMAGE);
+        testStaff = new Staff("testStaff", DAMAGE, WEIGHT, MAGIC_DAMAGE);
+        testWeapon = new Staff("testStaff", DAMAGE, WEIGHT, MAGIC_DAMAGE);
     }
 
     @Test
     void constructorTest(){
-        checkConstruction(new Staff("testStaff", DAMAGE, SPEED, WEIGHT, MAGIC_DAMAGE),
+        checkConstruction(new Staff("testStaff", DAMAGE, WEIGHT, MAGIC_DAMAGE),
                 testWeapon,
-                new Staff("Test", DAMAGE, SPEED, WEIGHT, MAGIC_DAMAGE),
-                new Staff("staffTest", DIFF_DAMAGE, SPEED, WEIGHT, MAGIC_DAMAGE),
-                new Staff("staffTest", DAMAGE, DIFF_SPEED, WEIGHT, MAGIC_DAMAGE),
-                new Staff("staffTest", DAMAGE, SPEED, DIFF_WEIGHT, MAGIC_DAMAGE),
-                new Sword("sword", DAMAGE, SPEED, WEIGHT));
-        assertNotEquals(new Staff("staffTest", DAMAGE, SPEED, WEIGHT, DIFF_MAGIC_DAMAGE),
+                new Staff("Test", DAMAGE, WEIGHT, MAGIC_DAMAGE),
+                new Staff("staffTest", DIFF_DAMAGE, WEIGHT, MAGIC_DAMAGE),
+                new Staff("staffTest", DAMAGE, DIFF_WEIGHT, MAGIC_DAMAGE),
+                new Sword("sword", DAMAGE, WEIGHT));
+        assertNotEquals(new Staff("staffTest", DAMAGE, WEIGHT, DIFF_MAGIC_DAMAGE),
                 testWeapon
                 );
     }

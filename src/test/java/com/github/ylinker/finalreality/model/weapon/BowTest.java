@@ -7,17 +7,16 @@ public class BowTest extends AbstractWeaponTest {
 
     @BeforeEach
     void setUp() {
-        testWeapon = new Bow("bowTest", DAMAGE, SPEED, WEIGHT);
+        testWeapon = new Bow("bowTest", DAMAGE, WEIGHT);
     }
 
     @Test
     void constructorTest() {
-        checkConstruction(new Bow("bowTest", DAMAGE, SPEED, WEIGHT),
+        checkConstruction(new Bow("bowTest", DAMAGE, WEIGHT),
                 testWeapon,
-                new Bow("Test", DAMAGE, SPEED, WEIGHT),
-                new Bow("bowTest", DIFF_DAMAGE, SPEED, WEIGHT),
-                new Bow("bowTest", DAMAGE, DIFF_SPEED, WEIGHT),
-                new Bow("bowTest", DAMAGE, SPEED, DIFF_WEIGHT),
-                new Sword("sword", DAMAGE, SPEED, WEIGHT));
+                new Bow("Test", DAMAGE, WEIGHT),
+                new Bow("bowTest", DIFF_DAMAGE, WEIGHT),
+                new Bow("bowTest", DAMAGE, DIFF_WEIGHT),
+                new Sword("sword", DAMAGE, WEIGHT));
     }
 }

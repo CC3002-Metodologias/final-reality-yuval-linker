@@ -9,9 +9,9 @@ public class Staff extends Weapon {
 
     private final int magicDamage;
 
-    public Staff(final String name, final int damage, final int speed, final int weight,
+    public Staff(final String name, final int damage, final int weight,
                  final int magicDamage) {
-        super(name, damage, speed, weight);
+        super(name, damage, weight);
         this.magicDamage = magicDamage;
     }
 
@@ -28,7 +28,6 @@ public class Staff extends Weapon {
         final Staff staff = (Staff) o;
         return getDamage() == staff.getDamage() &&
                 getWeight() == staff.getWeight() &&
-                getSpeed() == staff.getSpeed() &&
                 getMagicDamage() == staff.getMagicDamage() &&
                 getName().equals(staff.getName());
     }

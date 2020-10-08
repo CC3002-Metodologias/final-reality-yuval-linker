@@ -7,17 +7,16 @@ public class KnifeTest extends AbstractWeaponTest {
 
     @BeforeEach
     void setUp() {
-        testWeapon = new Knife("knifeTest", DAMAGE, SPEED, WEIGHT);
+        testWeapon = new Knife("knifeTest", DAMAGE, WEIGHT);
     }
 
     @Test
     void constructorTest() {
-            checkConstruction(new Knife("knifeTest", DAMAGE, SPEED, WEIGHT),
+            checkConstruction(new Knife("knifeTest", DAMAGE, WEIGHT),
                     testWeapon,
-                    new Knife("Test", DAMAGE, SPEED, WEIGHT),
-                    new Knife("knifeTest", DIFF_DAMAGE, SPEED, WEIGHT),
-                    new Knife("knifeTest", DAMAGE, DIFF_SPEED, WEIGHT),
-                    new Knife("knifeTest", DAMAGE, SPEED, DIFF_WEIGHT),
-                    new Sword("sword", DAMAGE, SPEED, WEIGHT));
+                    new Knife("Test", DAMAGE, WEIGHT),
+                    new Knife("knifeTest", DIFF_DAMAGE, WEIGHT),
+                    new Knife("knifeTest", DAMAGE, DIFF_WEIGHT),
+                    new Sword("sword", DAMAGE, WEIGHT));
     }
 }

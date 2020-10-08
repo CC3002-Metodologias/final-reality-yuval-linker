@@ -7,8 +7,8 @@ package com.github.ylinker.finalreality.model.weapon;
  */
 public class Knife extends Weapon {
 
-    public Knife(final String name, final int damage, final int speed, final int weight) {
-        super(name, damage, speed, weight);
+    public Knife(final String name, final int damage, final int weight) {
+        super(name, damage, weight);
     }
 
     @Override
@@ -22,7 +22,6 @@ public class Knife extends Weapon {
         final Knife knife = (Knife) o;
         return getDamage() == knife.getDamage() &&
                 getWeight() == knife.getWeight() &&
-                getSpeed() == knife.getSpeed() &&
                 getName().equals(knife.getName());
     }
 }
