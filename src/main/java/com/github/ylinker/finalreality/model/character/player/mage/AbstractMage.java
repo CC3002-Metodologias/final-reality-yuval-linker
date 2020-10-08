@@ -30,5 +30,6 @@ public abstract class AbstractMage extends AbstractPlayerCharacter implements IM
     /**
      * Get the mana of the mage
      */
+    @Override
     public int getMana() { return this.mana; }
 }

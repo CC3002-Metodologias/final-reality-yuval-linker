@@ -31,7 +31,6 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutor.schedule(this::addToQueue, this.weight / 10, TimeUnit.SECONDS);
-
     }
 
     @Override

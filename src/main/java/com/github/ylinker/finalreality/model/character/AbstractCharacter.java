@@ -3,9 +3,8 @@ package com.github.ylinker.finalreality.model.character;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * An abstract class that holds the common behaviour of all the characters in the game.
@@ -36,6 +35,7 @@ public abstract class AbstractCharacter implements ICharacter {
         scheduledExecutor.shutdown();
     }
 
+    @Override
     public int getWeight(){
         return weight;
     }

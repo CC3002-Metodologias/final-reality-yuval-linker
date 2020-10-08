@@ -17,8 +17,14 @@ import org.jetbrains.annotations.NotNull;
 public class Enemy extends AbstractCharacter {
 
   /**
-   * Creates a new enemy with a name, a weight and the queue with the characters ready to
-   * play.
+   * Creates a new enemy
+   *
+   * @param name
+   *    The enemy's name
+   * @param weight
+   *    the enemy's weight
+   * @param turnsQueue
+   *    the queue with the characters waiting for their turn
    */
   public Enemy(@NotNull final String name, final int weight,
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
