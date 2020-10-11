@@ -32,6 +32,9 @@ public class Enemy extends AbstractCharacter {
     this.weight = weight;
   }
 
+  /**
+   * Puts the enemy in the queue with a delay equals to its weight
+   */
   @Override
   public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -39,6 +42,12 @@ public class Enemy extends AbstractCharacter {
     scheduledExecutor.schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
     }
 
+  /**
+   * Test another object to see if it is equal to this enemy
+    * @param o
+   *    The other object
+   * @return true if it is equal, false otherwise
+   */
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
@@ -52,6 +61,10 @@ public class Enemy extends AbstractCharacter {
             getName().equals(enemy.getName());
   }
 
+  /**
+   * Makes a unique hashcode for this enemy
+   * @return an int that is the hashcode
+   */
   @Override
   public int hashCode() {
     return Objects.hash(getName(), getWeight());

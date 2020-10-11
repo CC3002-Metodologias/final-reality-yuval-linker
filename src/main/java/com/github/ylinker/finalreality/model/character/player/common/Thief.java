@@ -28,11 +28,21 @@ public class Thief extends AbstractPlayerCharacter {
         super(turnsQueue, name);
     }
 
+    /**
+     * Makes a unique hashcode for this thief
+     * @return an int that is the hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getName());
     }
 
+    /**
+     * Test another object to see if it is equal to this thief
+     * @param o
+     *    The other object
+     * @return true if it is equal, false otherwise
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

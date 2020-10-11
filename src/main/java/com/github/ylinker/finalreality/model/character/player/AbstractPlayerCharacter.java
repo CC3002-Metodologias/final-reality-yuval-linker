@@ -22,23 +22,43 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
 
     private IWeapon equippedWeapon = null;
 
+    /**
+     * The base constructor of every Playable Character.
+     * @param turnsQueue
+     *      The character's queue to wait it's turn
+     * @param name
+     *      The character's name
+     */
     protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
                                       @NotNull String name) {
         super(name, turnsQueue);
     }
 
+    /**
+     * Adds the character to the queue and sets a delay based on weight
+     */
     @Override
     public void waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutor.schedule(this::addToQueue, this.weight / 10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Equips the character with a weapon
+     * The weight of the character is now the weapon's weight
+     * @param weapon
+     *      The weapon that should be equipped
+     */
     @Override
     public void equip(IWeapon weapon) {
         this.equippedWeapon = weapon;
         this.weight = weapon.getWeight();
     }
 
+    /**
+     * Gets the current weapon that the character is equipped with
+     * @return the equipped weapon
+     */
     @Override
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
