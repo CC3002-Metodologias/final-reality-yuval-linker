@@ -3,7 +3,7 @@ ChangeLog
 
 Version 2.0
 -----------
-Write your changes in here
+- (B.1) Changed Design of model and Implemented Tests
 
 Version 1.0
 -----------
