@@ -18,7 +18,7 @@ public abstract class AbstractCharacter implements ICharacter {
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
     protected int health;
-    protected int attack;
+    protected int baseAttack;
     protected int defense;
     protected ScheduledExecutorService scheduledExecutor;
 
@@ -31,7 +31,7 @@ public abstract class AbstractCharacter implements ICharacter {
      * @param health
      *      The character's initial health points
      * @param attack
-     *      The character's initial attack
+     *      The character's base attack
      * @param defense
      *      The character's initial defense
      */
@@ -43,7 +43,7 @@ public abstract class AbstractCharacter implements ICharacter {
         this.name = name;
         this.turnsQueue = turnsQueue;
         this.health = health;
-        this.attack = attack;
+        this.baseAttack = attack;
         this.defense = defense;
     }
 
@@ -78,7 +78,7 @@ public abstract class AbstractCharacter implements ICharacter {
      */
     @Override
     public int getAttack() {
-        return attack;
+        return baseAttack;
     }
 
     /**

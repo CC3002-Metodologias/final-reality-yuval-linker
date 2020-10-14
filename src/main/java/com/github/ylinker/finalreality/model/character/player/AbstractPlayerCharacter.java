@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayerCharacter {
 
     private IWeapon equippedWeapon = null;
+    protected int attack;
 
     /**
      * The base constructor of every Playable Character.
@@ -31,7 +32,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
      * @param health
      *      The character's initial health points
      * @param attack
-     *      The character's initial attack
+     *      The character's base attack
      * @param defense
      *      The character's initial defense
      */
@@ -39,6 +40,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
                                       @NotNull String name, final int health,
                                       final int attack, final int defense) {
         super(turnsQueue, name, health, attack, defense);
+        this.attack = attack;
     }
 
     /**
@@ -60,6 +62,16 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     public void equip(IWeapon weapon) {
         this.equippedWeapon = weapon;
         this.weight = weapon.getWeight();
+        this.attack = this.baseAttack + weapon.getDamage();
+    }
+
+    /**
+     * Returns the character's attack. This includes base attack and equipped weapon's damage.
+     * @return An int with the character's true attack points
+     */
+    @Override
+    public int getAttack() {
+        return attack;
     }
 
     /**

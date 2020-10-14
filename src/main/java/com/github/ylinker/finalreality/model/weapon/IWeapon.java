@@ -4,25 +4,24 @@ public interface IWeapon {
     /**
      * Returns this weapon's name
      */
-    public String getName();
+    String getName();
 
     /**
      * Returns this weapon's damage
      */
-    public int getDamage();
+    int getDamage();
 
     /**
      * Returns this weapon's weight
      */
-    public int getWeight();
-
+    int getWeight();
     /**
      * Returns wether another object is equal to this instance of a weapon
      */
-    public boolean equals(final Object o);
+    boolean equals(final Object o);
 
     /**
      * Returns this unique hashcode
      */
-    public int hashCode();
+    int hashCode();
 }
