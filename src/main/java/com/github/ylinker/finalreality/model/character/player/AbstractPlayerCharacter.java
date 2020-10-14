@@ -28,10 +28,17 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
      *      The character's queue to wait it's turn
      * @param name
      *      The character's name
+     * @param health
+     *      The character's initial health points
+     * @param attack
+     *      The character's initial attack
+     * @param defense
+     *      The character's initial defense
      */
     protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                      @NotNull String name) {
-        super(name, turnsQueue);
+                                      @NotNull String name, final int health,
+                                      final int attack, final int defense) {
+        super(turnsQueue, name, health, attack, defense);
     }
 
     /**

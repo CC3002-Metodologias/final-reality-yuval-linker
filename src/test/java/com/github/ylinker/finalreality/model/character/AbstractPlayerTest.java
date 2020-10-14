@@ -14,13 +14,14 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
     protected Map<String, IWeapon> weapons;
     protected Enemy testEnemy;
 
+
     @BeforeEach
     void setUp() {
         basicSetUp();
         weapons = new HashMap<>();
         weapons.put("axe", new Axe("axeTest", 10, 5));
         weapons.put("bow", new Bow("bowTest", 10, 7));
-        testEnemy = new Enemy("testEnemy", 10, turns);
+        testEnemy = new Enemy(turns, "testEnemy", 50, 10, 20, 10);
     }
 
     void equipWeaponCheck(IPlayerCharacter testCharacter) {

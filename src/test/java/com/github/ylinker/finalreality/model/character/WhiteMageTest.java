@@ -15,18 +15,18 @@ public class WhiteMageTest extends AbstractMageTest {
     @BeforeEach
     void whiteMageSetUp() {
         setUp();
-        testMage = new WhiteMage(WHITE_MAGE_NAME, turns, MAGE_MANA);
-        testCommon = new WhiteMage(WHITE_MAGE_NAME, turns, MAGE_MANA);
+        testMage = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testCommon = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
     }
 
     @Test
     void constructorTest() {
-        checkConstruction(new WhiteMage(WHITE_MAGE_NAME, turns, 10),
+        checkConstruction(new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA),
                 (ICharacter) testMage,
-                new WhiteMage( "Test", turns, 10),
-                new Knight(turns, "Arthur"));
+                new WhiteMage( turns, "Test", HEALTH, ATTACK, DEFENSE, MAGE_MANA),
+                new Knight(turns, "Arthur", HEALTH, ATTACK, DEFENSE));
         assertNotEquals(this.testMage, testEnemy);
-        assertEquals(new WhiteMage(WHITE_MAGE_NAME, turns, 5), this.testMage);
+        assertEquals(new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, 5), this.testMage);
     }
 
     @Test

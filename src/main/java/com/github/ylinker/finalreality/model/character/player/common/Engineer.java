@@ -21,10 +21,16 @@ public class Engineer extends AbstractPlayerCharacter {
      *     the character's name
      * @param turnsQueue
      *     the queue with the characters waiting for their turn
+     * @param health
+     *      The character's initial health points
+     * @param attack
+     *      The character's initial attack
+     * @param defense
+     *      The character's initial defense
      */
     public Engineer(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                  @NotNull String name) {
-        super(turnsQueue, name);
+                  @NotNull String name, final int health, final int attack, final int defense) {
+        super(turnsQueue, name, health, attack, defense);
     }
 
     /**

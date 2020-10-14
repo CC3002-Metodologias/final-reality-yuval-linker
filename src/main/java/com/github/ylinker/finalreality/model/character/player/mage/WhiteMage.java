@@ -23,9 +23,20 @@ public class WhiteMage extends AbstractMage {
      *     the queue with the characters waiting for their turn
      * @param mana
      *     the character's mana
+     * @param attack
+     *     the character's attack points
+     * @param defense
+     *     the character's defense points
+     * @param health
+     *      The character's initial health points
+     * @param attack
+     *      The character's initial attack
+     * @param defense
+     *      The character's initial defense
      */
-    public WhiteMage(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue, final int mana) {
-        super(turnsQueue, name, mana);
+    public WhiteMage(@NotNull BlockingQueue<ICharacter> turnsQueue, @NotNull String name,
+                     final int health, final int attack, final int defense, final int mana) {
+        super(turnsQueue, name, health, attack, defense, mana);
     }
 
     /**

@@ -14,15 +14,15 @@ public class KnightTest extends AbstractPlayerTest {
     @BeforeEach
     void knightSetUp() {
         setUp();
-        testCommon = new Knight(turns, KNIGHT_NAME);
+        testCommon = new Knight(turns, KNIGHT_NAME, HEALTH, ATTACK, DEFENSE);
     }
 
     @Test
     void constructorTest() {
-        checkConstruction(new Knight(turns, KNIGHT_NAME),
+        checkConstruction(new Knight(turns, KNIGHT_NAME, HEALTH, ATTACK, DEFENSE),
                 (ICharacter) testCommon,
-                new Knight( turns, "Test"),
-                new Engineer(turns, "Tesla"));
+                new Knight( turns, "Test", HEALTH, ATTACK, DEFENSE),
+                new Engineer(turns, "Tesla", HEALTH, ATTACK, DEFENSE));
         assertNotEquals(testCommon, testEnemy);
     }
 

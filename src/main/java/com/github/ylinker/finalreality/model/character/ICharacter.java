@@ -24,4 +24,19 @@ public interface ICharacter {
    * Returns this character's weight
    */
   int getWeight();
+
+  /**
+   * Returns this character's attack
+   */
+  int getAttack();
+
+  /**
+   * Returns this character's defense
+   */
+  int getDefense();
+
+  /**
+   * Returns this character's Health points
+   */
+  int getHealth();
 }

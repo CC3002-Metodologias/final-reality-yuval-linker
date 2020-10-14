@@ -25,10 +25,17 @@ public class Enemy extends AbstractCharacter {
    *    the enemy's weight
    * @param turnsQueue
    *    the queue with the characters waiting for their turn
+   * @param health
+   *      The character's initial health points
+   * @param attack
+   *      The character's initial attack
+   * @param defense
+   *      The character's initial defense
    */
-  public Enemy(@NotNull final String name, final int weight,
-      @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(name, turnsQueue);
+  public Enemy(@NotNull final BlockingQueue<ICharacter> turnsQueue,
+               @NotNull final String name, final int health,
+               final int attack, final int defense, final int weight) {
+    super(turnsQueue, name, health, attack, defense);
     this.weight = weight;
   }
 

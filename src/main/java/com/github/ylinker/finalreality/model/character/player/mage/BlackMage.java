@@ -23,10 +23,18 @@ public class BlackMage extends AbstractMage {
      *     the queue with the characters waiting for their turn
      * @param mana
      *     the character's mana
+     * @param health
+     *      The character's initial health points
+     * @param attack
+     *      The character's initial attack
+     * @param defense
+     *      The character's initial defense
      */
     public BlackMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                     @NotNull String name, final int mana) {
-        super(turnsQueue, name, mana);
+                     @NotNull String name, final int health,
+                     final int attack, final int defense,
+                     final int mana) {
+        super(turnsQueue, name, health, attack, defense, mana);
     }
 
     /**
