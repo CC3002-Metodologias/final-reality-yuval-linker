@@ -1,6 +1,7 @@
 package com.github.ylinker.finalreality.model.character.player.mage;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -66,5 +67,14 @@ public class WhiteMage extends AbstractMage {
         return getName().equals(that.getName());
     }
 
+    @Override
+    public void equip(IWeapon weapon) {
+        IWeapon myWeapon = weapon.equipToWhiteMage();
+        if(myWeapon != null) {
+            this.equippedWeapon = myWeapon;
+            this.attack = this.baseAttack + myWeapon.getDamage();
+            this.weight = this.baseWeight + myWeapon.getWeight();
+        }
+    }
 
 }

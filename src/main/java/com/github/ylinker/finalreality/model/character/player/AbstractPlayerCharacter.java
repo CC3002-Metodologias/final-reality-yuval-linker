@@ -20,8 +20,9 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayerCharacter {
 
-    private IWeapon equippedWeapon = null;
+    protected IWeapon equippedWeapon = null;
     protected int attack;
+    protected int weight;
 
     /**
      * The base constructor of every Playable Character.
@@ -41,6 +42,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
                                       final int attack, final int defense) {
         super(turnsQueue, name, health, attack, defense);
         this.attack = attack;
+        this.weight = this.baseWeight;
     }
 
     /**
@@ -62,6 +64,15 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     }
 
     /**
+     * Returns the character's weight. This includes base weight and equipped weapon's weight.
+     * @return An int with the character's true weight
+     */
+    @Override
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
      * Gets the current weapon that the character is equipped with
      * @return the equipped weapon
      */
@@ -72,7 +83,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
 
     /**
      * Equips the character with a weapon
-     * The weight of the character is now the weapon's weight
+     * The weight of the character is now the base weight plus the weapon's weight
      * @param weapon
      *      The weapon that should be equipped
      */

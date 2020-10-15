@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.model.character.player.common;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -59,5 +60,15 @@ public class Knight extends AbstractPlayerCharacter {
         }
         final Knight that = (Knight) o;
         return getName().equals(that.getName());
+    }
+
+    @Override
+    public void equip(IWeapon weapon) {
+        IWeapon myWeapon = weapon.equipToKnight();
+        if(myWeapon != null) {
+            this.equippedWeapon = myWeapon;
+            this.attack = this.baseAttack + myWeapon.getDamage();
+            this.weight = this.baseWeight + myWeapon.getWeight();
+        }
     }
 }

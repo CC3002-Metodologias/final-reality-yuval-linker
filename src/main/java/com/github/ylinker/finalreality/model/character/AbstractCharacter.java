@@ -14,7 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public abstract class AbstractCharacter implements ICharacter {
 
-    protected int weight;
+    protected int baseWeight;
     protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
     protected int health;
@@ -39,7 +39,7 @@ public abstract class AbstractCharacter implements ICharacter {
                                 @NotNull final String name, final int health,
                                 final int attack, final int defense) {
         // Default weight is 10
-        this.weight = 10;
+        this.baseWeight = 10;
         this.name = name;
         this.turnsQueue = turnsQueue;
         this.health = health;
@@ -61,7 +61,7 @@ public abstract class AbstractCharacter implements ICharacter {
      */
     @Override
     public int getWeight(){
-        return weight;
+        return baseWeight;
     }
 
     /**
