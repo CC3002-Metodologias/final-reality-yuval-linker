@@ -74,4 +74,50 @@ public abstract class Weapon implements IWeapon {
   public int hashCode() {
     return Objects.hash(getName(), getDamage(), getWeight());
   }
+
+  /**
+   * Equips this Weapon to a Character of class Engineer
+   * @return this weapon if its equippable, null otherwise
+   */
+  @Override
+  public IWeapon equipToEngineer() {
+    return null;
+  }
+
+  /**
+   * Equips this Weapon to a Character of class Knight
+   * @return this weapon if its equippable, null otherwise
+   */
+  @Override
+  public IWeapon equipToKnight() {
+    return null;
+  }
+
+  /**
+   * Equips this Weapon to a Character of class Thief
+   * @return this weapon if its equippable, null otherwise
+   */
+  @Override
+  public IWeapon equipToThief() {
+    return null;
+  }
+
+  /**
+   * Equips this Weapon to a Character of class Black Mage
+   * @return this weapon if its equippable, null otherwise
+   */
+  @Override
+  public IWeapon equipToBlackMage() {
+    return null;
+  }
+
+  /**
+   * Equips this Weapon to a Character of class White Mage
+   * @return this weapon if its equippable, null otherwise
+   */
+  @Override
+  public IWeapon equipToWhiteMage() {
+    return null;
+  }
+
 }

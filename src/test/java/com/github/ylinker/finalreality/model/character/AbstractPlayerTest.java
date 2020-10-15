@@ -13,6 +13,7 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
 
     protected Map<String, IWeapon> weapons;
     protected Enemy testEnemy;
+    protected IPlayerCharacter testPlayer;
 
 
     @BeforeEach
@@ -21,22 +22,12 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
         weapons = new HashMap<>();
         weapons.put("axe", new Axe("axeTest", 10, 5));
         weapons.put("bow", new Bow("bowTest", 15, 7));
+        weapons.put("knife", new Knife("knife", 7, 4));
+        weapons.put("staff", new Staff("staff", 5, 17, 30));
+        weapons.put("sword", new Sword("sword", 25, 20));
         testEnemy = new Enemy(turns, "testEnemy", 50, 10, 20, 10);
     }
 
-    void equipWeaponCheck(IPlayerCharacter testCharacter) {
-        assertEquals(null, testCharacter.getEquippedWeapon());
-        attackCheck(ATTACK, (ICharacter) testCharacter);
-        weightCheck(10, (ICharacter) testCharacter);
-        testCharacter.equip(weapons.get("axe"));
-        assertEquals(weapons.get("axe"), testCharacter.getEquippedWeapon());
-        attackCheck(ATTACK + 10, (ICharacter) testCharacter);
-        weightCheck(weapons.get("axe").getWeight(), (ICharacter) testCharacter);
-        testCharacter.equip(weapons.get("bow"));
-        attackCheck(ATTACK + 15, (ICharacter) testCharacter);
-        assertEquals(weapons.get("bow"), testCharacter.getEquippedWeapon());
-        weightCheck(weapons.get("bow").getWeight(), (ICharacter) testCharacter);
-    }
 
     void weightCheck(int expected, ICharacter testCharacter) {
         assertEquals(expected, testCharacter.getWeight());

@@ -3,8 +3,8 @@ package com.github.ylinker.finalreality.model.weapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class StaffTest extends AbstractWeaponTest {
 
@@ -34,5 +34,14 @@ public class StaffTest extends AbstractWeaponTest {
     @Test
     void magicDamageTest() {
         assertEquals(MAGIC_DAMAGE, testStaff.getMagicDamage());
+    }
+
+    @Test
+    void equipTest() {
+        assertEquals(testWeapon, testWeapon.equipToWhiteMage());
+        assertEquals(testWeapon, testWeapon.equipToBlackMage());
+        assertNull(testWeapon.equipToKnight());
+        assertNull(testWeapon.equipToThief());
+        assertNull(testWeapon.equipToEngineer());
     }
 }

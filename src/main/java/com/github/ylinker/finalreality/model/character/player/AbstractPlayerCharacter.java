@@ -53,19 +53,6 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     }
 
     /**
-     * Equips the character with a weapon
-     * The weight of the character is now the weapon's weight
-     * @param weapon
-     *      The weapon that should be equipped
-     */
-    @Override
-    public void equip(IWeapon weapon) {
-        this.equippedWeapon = weapon;
-        this.weight = weapon.getWeight();
-        this.attack = this.baseAttack + weapon.getDamage();
-    }
-
-    /**
      * Returns the character's attack. This includes base attack and equipped weapon's damage.
      * @return An int with the character's true attack points
      */
@@ -82,4 +69,13 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     public IWeapon getEquippedWeapon() {
         return equippedWeapon;
     }
+
+    /**
+     * Equips the character with a weapon
+     * The weight of the character is now the weapon's weight
+     * @param weapon
+     *      The weapon that should be equipped
+     */
+    @Override
+    public abstract void equip(IWeapon weapon);
 }

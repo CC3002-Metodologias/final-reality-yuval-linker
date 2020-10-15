@@ -24,4 +24,29 @@ public interface IWeapon {
      * Returns this unique hashcode
      */
     int hashCode();
+
+    /**
+     * Equips this weapon to an Engineer
+     */
+    IWeapon equipToEngineer();
+
+    /**
+     * Equips this weapon to a Knight
+     */
+    IWeapon equipToKnight();
+
+    /**
+     * Equips this weapon to a Thief
+     */
+    IWeapon equipToThief();
+
+    /**
+     * Equips this weapon to a Black Mage
+     */
+    IWeapon equipToBlackMage();
+
+    /**
+     * Equips this weapon to a White Mage
+     */
+    IWeapon equipToWhiteMage();
 }
