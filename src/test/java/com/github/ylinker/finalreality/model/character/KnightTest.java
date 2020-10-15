@@ -16,6 +16,7 @@ public class KnightTest extends AbstractPlayerTest {
     void knightSetUp() {
         setUp();
         testCommon = new Knight(turns, KNIGHT_NAME, HEALTH, ATTACK, DEFENSE);
+        testDead = new Knight(turns, KNIGHT_NAME, 0, ATTACK, DEFENSE);
     }
 
     @Test
@@ -58,5 +59,11 @@ public class KnightTest extends AbstractPlayerTest {
         assertEquals(weapons.get("sword"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("sword").getDamage(), (ICharacter) testPlayer);
         weightCheck(10 + weapons.get("sword").getWeight(), (ICharacter) testPlayer);
+    }
+
+    @Test
+    void deadTest() {
+        checkDeadDontAttack(testEnemy);
+        checkDeadDontEquip((IPlayerCharacter) testDead);
     }
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public abstract class AbstractPlayerTest extends AbstractCharacterTest {
 
@@ -35,5 +36,12 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
 
     void attackCheck(int expected, ICharacter testCharacter) {
         assertEquals(expected, testCharacter.getAttack());
+    }
+
+    void checkDeadDontEquip(IPlayerCharacter dead) {
+        for (Map.Entry<String, IWeapon> entry : weapons.entrySet()) {
+            dead.equip(entry.getValue());
+            assertNull(dead.getEquippedWeapon());
+        }
     }
 }

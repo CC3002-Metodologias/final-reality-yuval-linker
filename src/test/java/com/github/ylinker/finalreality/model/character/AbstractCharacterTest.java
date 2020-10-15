@@ -19,6 +19,7 @@ public abstract class AbstractCharacterTest {
 
   protected BlockingQueue<ICharacter> turns;
   protected ICharacter testCommon;
+  protected ICharacter testDead;
   protected final int HEALTH = 50;
   protected final int DEFENSE = 20;
   protected final int ATTACK = 10;
@@ -64,5 +65,12 @@ public abstract class AbstractCharacterTest {
     assertEquals(testCommon.getHealth(), 50);
     assertEquals(testCommon.getAttack(), 10);
     assertEquals(testCommon.getDefense(), 20);
+  }
+
+
+  void checkDeadDontAttack(ICharacter other) {
+    int health = other.getHealth();
+    testDead.attack(other);
+    assertEquals(health, other.getHealth());
   }
 }

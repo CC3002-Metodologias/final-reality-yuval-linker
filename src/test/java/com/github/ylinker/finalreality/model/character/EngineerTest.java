@@ -16,6 +16,7 @@ public class EngineerTest extends AbstractPlayerTest {
     void engineerSetUp() {
         setUp();
         testCommon = new Engineer(turns, ENGINEER_NAME, HEALTH, ATTACK, DEFENSE);
+        testDead = new Engineer(turns, ENGINEER_NAME, 0, ATTACK, DEFENSE);
     }
 
     @Test
@@ -58,5 +59,11 @@ public class EngineerTest extends AbstractPlayerTest {
         assertEquals(weapons.get("bow"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("bow").getDamage(), (ICharacter) testPlayer);
         weightCheck(10 + weapons.get("bow").getWeight(), (ICharacter) testPlayer);
+    }
+
+    @Test
+    void deadTest() {
+        checkDeadDontAttack(testEnemy);
+        checkDeadDontEquip((IPlayerCharacter) testDead);
     }
 }

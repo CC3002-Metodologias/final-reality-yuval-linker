@@ -18,6 +18,7 @@ public class BlackMageTest extends AbstractMageTest {
         testMage = new BlackMage(turns, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
         testCommon = new BlackMage(turns, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
         testPlayer = new BlackMage(turns, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testDead = new BlackMage(turns, BLACK_MAGE_NAME, 0, ATTACK, DEFENSE, MAGE_MANA);
     }
 
     @Test
@@ -61,5 +62,11 @@ public class BlackMageTest extends AbstractMageTest {
         assertEquals(weapons.get("knife"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("knife").getDamage(), (ICharacter) testPlayer);
         weightCheck(10 + weapons.get("knife").getWeight(), (ICharacter) testPlayer);
+    }
+
+    @Test
+    void deadTest() {
+        checkDeadDontAttack(testEnemy);
+        checkDeadDontEquip((IPlayerCharacter) testDead);
     }
 }

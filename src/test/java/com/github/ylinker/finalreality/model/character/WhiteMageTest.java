@@ -16,6 +16,7 @@ public class WhiteMageTest extends AbstractMageTest {
         setUp();
         testMage = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
         testCommon = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testDead = new WhiteMage(turns, WHITE_MAGE_NAME, 0, ATTACK, DEFENSE, MAGE_MANA);
     }
 
     @Test
@@ -59,5 +60,11 @@ public class WhiteMageTest extends AbstractMageTest {
         assertEquals(weapons.get("staff"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("staff").getDamage(), (ICharacter) testPlayer);
         weightCheck(10 + weapons.get("staff").getWeight(), (ICharacter) testPlayer);
+    }
+
+    @Test
+    void deadTest() {
+        checkDeadDontAttack(testEnemy);
+        checkDeadDontEquip((IPlayerCharacter) testDead);
     }
 }

@@ -1,5 +1,6 @@
 package com.github.ylinker.finalreality.model.character;
 
+import com.github.ylinker.finalreality.model.character.player.common.Knight;
 import com.github.ylinker.finalreality.model.character.player.common.Thief;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ class EnemyTest extends AbstractCharacterTest {
   void setUp() {
     super.basicSetUp();
     testCommon = new Enemy(turns, ENEMY_NAME, HEALTH, ATTACK, DEFENSE, 10);
+    testDead = new Enemy(turns, ENEMY_NAME, 0, ATTACK, DEFENSE, 10);
   }
 
   @Test
@@ -22,5 +24,10 @@ class EnemyTest extends AbstractCharacterTest {
         new Enemy(turns, ENEMY_NAME, 50, 10, 20, 20),
         new Thief(turns, ENEMY_NAME, 50, 10, 20));
     assertNotEquals(new Enemy(turns, "Test", 50, 10, 20, 10), testCommon);
+  }
+
+  @Test
+  void deadTest() {
+    checkDeadDontAttack(new Knight(turns, "defend", 20, 10, 20));
   }
 }

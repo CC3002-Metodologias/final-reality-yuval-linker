@@ -97,6 +97,43 @@ public abstract class AbstractCharacter implements ICharacter {
         return health;
     }
 
+    private void setHealth(final int newHealth) {
+        this.health = newHealth;
+    }
+
+    private void receiveDamage(final int damage) {
+        setHealth(Math.max(this.health - damage, 0));
+    }
+
+    /**
+     * Checks if the character is alive (has more than 0 health)
+     * @return true if the character has more than 0 health, false otherwise
+     */
+    public boolean isAlive() {
+        return this.health > 0;
+    }
+
+    @Override
+    public int attack(ICharacter other) {
+        if (this.isAlive()) {
+            return other.defend(this.getAttack());
+        } else {
+            System.out.println(this.name + " can't attack while dead!");
+            return -1;
+        }
+    }
+
+    @Override
+    public int defend(int otherAttack) {
+        int damage = otherAttack - getDefense();
+        if(damage > 0){
+            receiveDamage(damage);
+            return damage;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Method that manages how a character should wait its turn in the queue
      */
