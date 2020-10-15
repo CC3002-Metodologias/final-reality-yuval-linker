@@ -64,11 +64,13 @@ public class Thief extends AbstractPlayerCharacter {
 
     @Override
     public void equip(IWeapon weapon) {
-        IWeapon myWeapon = weapon.equipToThief();
-        if(myWeapon != null) {
-            this.equippedWeapon = myWeapon;
-            this.attack = this.baseAttack + myWeapon.getDamage();
-            this.weight = this.baseWeight + myWeapon.getWeight();
+        if(isAlive()) {
+            IWeapon myWeapon = weapon.equipToThief();
+            if (myWeapon != null) {
+                this.equippedWeapon = myWeapon;
+                this.attack = this.baseAttack + myWeapon.getDamage();
+                this.weight = this.baseWeight + myWeapon.getWeight();
+            }
         }
     }
 }

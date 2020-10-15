@@ -16,6 +16,7 @@ public class ThiefTest extends AbstractPlayerTest {
     void thiefSetUp() {
         setUp();
         testCommon = new Thief(turns, THIEF_NAME, HEALTH, ATTACK, DEFENSE);
+        testPlayer = new Thief(turns, THIEF_NAME, HEALTH, ATTACK, DEFENSE);
         testDead = new Thief(turns, THIEF_NAME, 0, ATTACK, DEFENSE);
     }
 

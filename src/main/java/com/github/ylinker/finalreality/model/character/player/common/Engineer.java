@@ -36,11 +36,13 @@ public class Engineer extends AbstractPlayerCharacter {
 
     @Override
     public void equip(IWeapon weapon) {
-        IWeapon myWeapon = weapon.equipToEngineer();
-        if(myWeapon != null) {
-            this.equippedWeapon = myWeapon;
-            this.attack = this.baseAttack + myWeapon.getDamage();
-            this.weight = this.baseWeight + myWeapon.getWeight();
+        if(isAlive()) {
+            IWeapon myWeapon = weapon.equipToEngineer();
+            if (myWeapon != null) {
+                this.equippedWeapon = myWeapon;
+                this.attack = this.baseAttack + myWeapon.getDamage();
+                this.weight = this.baseWeight + myWeapon.getWeight();
+            }
         }
     }
 

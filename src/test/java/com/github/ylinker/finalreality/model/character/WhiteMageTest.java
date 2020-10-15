@@ -16,6 +16,7 @@ public class WhiteMageTest extends AbstractMageTest {
         setUp();
         testMage = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
         testCommon = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testPlayer = new WhiteMage(turns, WHITE_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
         testDead = new WhiteMage(turns, WHITE_MAGE_NAME, 0, ATTACK, DEFENSE, MAGE_MANA);
     }
 

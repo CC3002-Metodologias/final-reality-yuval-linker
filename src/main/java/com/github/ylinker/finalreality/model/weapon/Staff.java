@@ -52,4 +52,14 @@ public class Staff extends Weapon {
                 getMagicDamage() == staff.getMagicDamage() &&
                 getName().equals(staff.getName());
     }
+
+    @Override
+    public IWeapon equipToBlackMage() {
+        return this;
+    }
+
+    @Override
+    public IWeapon equipToWhiteMage() {
+        return this;
+    }
 }

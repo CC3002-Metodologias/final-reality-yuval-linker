@@ -16,6 +16,7 @@ public class EngineerTest extends AbstractPlayerTest {
     void engineerSetUp() {
         setUp();
         testCommon = new Engineer(turns, ENGINEER_NAME, HEALTH, ATTACK, DEFENSE);
+        testPlayer = new Engineer(turns, ENGINEER_NAME, HEALTH, ATTACK, DEFENSE);
         testDead = new Engineer(turns, ENGINEER_NAME, 0, ATTACK, DEFENSE);
     }
 

@@ -39,4 +39,13 @@ public class Sword extends Weapon {
                 getName().equals(sword.getName());
     }
 
+    @Override
+    public IWeapon equipToKnight() {
+        return this;
+    }
+
+    @Override
+    public IWeapon equipToThief() {
+        return this;
+    }
 }

@@ -36,7 +36,7 @@ public class Enemy extends AbstractCharacter {
                @NotNull final String name, final int health,
                final int attack, final int defense, final int weight) {
     super(turnsQueue, name, health, attack, defense);
-    this.weight = weight;
+    this.baseWeight = weight;
   }
 
   /**

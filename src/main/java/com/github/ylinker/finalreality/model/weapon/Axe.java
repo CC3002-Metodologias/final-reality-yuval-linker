@@ -38,4 +38,16 @@ public class Axe extends Weapon {
                 getWeight() == axe.getWeight() &&
                 getName().equals(axe.getName());
     }
+
+    @Override
+    public IWeapon equipToEngineer() {
+        return this;
+    }
+
+    @Override
+    public IWeapon equipToKnight() {
+        return this;
+    }
+
+
 }

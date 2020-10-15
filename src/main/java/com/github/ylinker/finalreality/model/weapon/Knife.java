@@ -38,4 +38,19 @@ public class Knife extends Weapon {
                 getWeight() == knife.getWeight() &&
                 getName().equals(knife.getName());
     }
+
+    @Override
+    public IWeapon equipToKnight() {
+        return this;
+    }
+
+    @Override
+    public IWeapon equipToThief() {
+        return this;
+    }
+
+    @Override
+    public IWeapon equipToBlackMage() {
+        return this;
+    }
 }

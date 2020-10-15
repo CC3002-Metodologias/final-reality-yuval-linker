@@ -38,4 +38,14 @@ public class Bow extends Weapon {
                 getWeight() == bow.getWeight() &&
                 getName().equals(bow.getName());
     }
+
+    @Override
+    public IWeapon equipToEngineer() {
+        return this;
+    }
+
+    @Override
+    public IWeapon equipToThief() {
+        return this;
+    }
 }

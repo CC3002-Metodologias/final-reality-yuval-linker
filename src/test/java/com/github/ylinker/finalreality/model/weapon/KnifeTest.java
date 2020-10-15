@@ -28,7 +28,7 @@ public class KnifeTest extends AbstractWeaponTest {
         assertEquals(testWeapon, testWeapon.equipToKnight());
         assertEquals(testWeapon, testWeapon.equipToThief());
         assertEquals(testWeapon, testWeapon.equipToBlackMage());
-        assertNull(testWeapon.equipToThief());
+        assertNull(testWeapon.equipToEngineer());
         assertNull(testWeapon.equipToWhiteMage());
     }
 }

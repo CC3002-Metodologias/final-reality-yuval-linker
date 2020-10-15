@@ -67,11 +67,13 @@ public class BlackMage extends AbstractMage {
 
     @Override
     public void equip(IWeapon weapon) {
-        IWeapon myWeapon = weapon.equipToBlackMage();
-        if(myWeapon != null) {
-            this.equippedWeapon = myWeapon;
-            this.attack = this.baseAttack + myWeapon.getDamage();
-            this.weight = this.baseWeight + myWeapon.getWeight();
+        if(isAlive()) {
+            IWeapon myWeapon = weapon.equipToBlackMage();
+            if (myWeapon != null) {
+                this.equippedWeapon = myWeapon;
+                this.attack = this.baseAttack + myWeapon.getDamage();
+                this.weight = this.baseWeight + myWeapon.getWeight();
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ public class KnightTest extends AbstractPlayerTest {
     void knightSetUp() {
         setUp();
         testCommon = new Knight(turns, KNIGHT_NAME, HEALTH, ATTACK, DEFENSE);
+        testPlayer = new Knight(turns, KNIGHT_NAME, HEALTH, ATTACK, DEFENSE);
         testDead = new Knight(turns, KNIGHT_NAME, 0, ATTACK, DEFENSE);
     }
 
@@ -46,14 +47,14 @@ public class KnightTest extends AbstractPlayerTest {
         weightCheck(10 + weapons.get("axe").getWeight(), (ICharacter) testPlayer);
         // Equip Knife
         testPlayer.equip(weapons.get("knife"));
-        assertEquals(weapons.get("axe"), testPlayer.getEquippedWeapon());
-        attackCheck(ATTACK + weapons.get("axe").getDamage(), (ICharacter) testPlayer);
-        weightCheck(10 + weapons.get("axe").getWeight(), (ICharacter) testPlayer);
+        assertEquals(weapons.get("knife"), testPlayer.getEquippedWeapon());
+        attackCheck(ATTACK + weapons.get("knife").getDamage(), (ICharacter) testPlayer);
+        weightCheck(10 + weapons.get("knife").getWeight(), (ICharacter) testPlayer);
         // Equip Bow
         testPlayer.equip(weapons.get("bow"));
-        assertEquals(weapons.get("axe"), testPlayer.getEquippedWeapon());
-        attackCheck(ATTACK + weapons.get("axe").getDamage(), (ICharacter) testPlayer);
-        weightCheck(10 + weapons.get("axe").getWeight(), (ICharacter) testPlayer);
+        assertEquals(weapons.get("knife"), testPlayer.getEquippedWeapon());
+        attackCheck(ATTACK + weapons.get("knife").getDamage(), (ICharacter) testPlayer);
+        weightCheck(10 + weapons.get("knife").getWeight(), (ICharacter) testPlayer);
         // Equip Sword
         testPlayer.equip(weapons.get("sword"));
         assertEquals(weapons.get("sword"), testPlayer.getEquippedWeapon());
