@@ -21,8 +21,9 @@ To run this project please compile it using a Java Virtual Machine first and the
 
 Assumptions
 ---
-The code assumes that the playable characters have a base weight of 10.
-It also assumes that there is only one type of enemy (*Although is open to add different classes*)
+- The code assumes that the playable characters have a base weight of 10.
+- It also assumes that there is only one type of enemy (*Although is open to add different classes*)
+- The thief class can equip swords, knifes, and bows.
 
 The Code's Logic
 ---
@@ -42,3 +43,9 @@ except for the fact that mages can use spells and have mana.
 This is why mages have their own interface and abstract class. With this said the **Staff**
 weapon is different from the other weapons because it has *magic damage*. But since it is a
 particular case it doesnt have another abstract class or interface of its own.
+
+To implement the attack and equip a weapon of a character the **double dispatch**
+technique is used. This is done by implementing an *attack* and *defend* method
+on each character. Also every playable character has an *equip* method that
+messages a weapon what class it's trying to equip that weapon. And finally every 
+weapon has a method that can answer accordingly (all the equipTo*Class* methods) 
