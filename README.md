@@ -24,6 +24,8 @@ Assumptions
 - The code assumes that the playable characters have a base weight of 10.
 - It also assumes that there is only one type of enemy (*Although is open to add different classes*)
 - The thief class can equip swords, knifes, and bows.
+- Each character has a base attack, base defense, base weight. The weapons stats add
+to that base.
 
 The Code's Logic
 ---
