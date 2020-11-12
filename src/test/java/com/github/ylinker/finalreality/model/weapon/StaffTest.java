@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class StaffTest extends AbstractWeaponTest {
+public class StaffTest extends AbstractAbstractWeaponTest {
 
     private final int MAGIC_DAMAGE = 20;
     private final int DIFF_MAGIC_DAMAGE = 12;

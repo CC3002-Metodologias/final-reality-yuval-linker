@@ -5,7 +5,7 @@ package com.github.ylinker.finalreality.model.weapon;
  *
  * @author Yuval Linker Groisman
  */
-public class Bow extends Weapon {
+public class Bow extends AbstractWeapon {
     /**
      * Creates a new bow
      * @param name

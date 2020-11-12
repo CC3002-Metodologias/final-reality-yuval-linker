@@ -5,7 +5,7 @@ package com.github.ylinker.finalreality.model.weapon;
  *
  * @author Yuval Linker Groisman
  */
-public class Staff extends Weapon {
+public class Staff extends AbstractWeapon {
 
     private final int magicDamage;
 

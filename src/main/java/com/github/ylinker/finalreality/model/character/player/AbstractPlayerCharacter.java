@@ -4,12 +4,10 @@ import com.github.ylinker.finalreality.model.character.AbstractCharacter;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
-import com.github.ylinker.finalreality.model.weapon.Weapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**

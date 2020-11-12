@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Ignacio Slater Muñoz.
  * @author Yuval Linker
  */
-public abstract class Weapon implements IWeapon {
+public abstract class AbstractWeapon implements IWeapon {
 
   private final String name;
   private final int damage;
@@ -24,7 +24,7 @@ public abstract class Weapon implements IWeapon {
    * @param weight
    *    The weapon's weight
    */
-  protected Weapon(final String name, final int damage, final int weight) {
+  protected AbstractWeapon(final String name, final int damage, final int weight) {
     this.name = name;
     this.damage = damage;
     this.weight = weight;
@@ -76,7 +76,7 @@ public abstract class Weapon implements IWeapon {
   }
 
   /**
-   * Equips this Weapon to a Character of class Engineer
+   * Equips this AbstractWeapon to a Character of class Engineer
    * @return this weapon if its equippable, null otherwise
    */
   @Override
@@ -85,7 +85,7 @@ public abstract class Weapon implements IWeapon {
   }
 
   /**
-   * Equips this Weapon to a Character of class Knight
+   * Equips this AbstractWeapon to a Character of class Knight
    * @return this weapon if its equippable, null otherwise
    */
   @Override
@@ -94,7 +94,7 @@ public abstract class Weapon implements IWeapon {
   }
 
   /**
-   * Equips this Weapon to a Character of class Thief
+   * Equips this AbstractWeapon to a Character of class Thief
    * @return this weapon if its equippable, null otherwise
    */
   @Override
@@ -103,7 +103,7 @@ public abstract class Weapon implements IWeapon {
   }
 
   /**
-   * Equips this Weapon to a Character of class Black Mage
+   * Equips this AbstractWeapon to a Character of class Black Mage
    * @return this weapon if its equippable, null otherwise
    */
   @Override
@@ -112,7 +112,7 @@ public abstract class Weapon implements IWeapon {
   }
 
   /**
-   * Equips this Weapon to a Character of class White Mage
+   * Equips this AbstractWeapon to a Character of class White Mage
    * @return this weapon if its equippable, null otherwise
    */
   @Override

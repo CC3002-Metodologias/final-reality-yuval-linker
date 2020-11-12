@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class KnifeTest extends AbstractWeaponTest {
+public class KnifeTest extends AbstractAbstractWeaponTest {
 
     @BeforeEach
     void setUp() {

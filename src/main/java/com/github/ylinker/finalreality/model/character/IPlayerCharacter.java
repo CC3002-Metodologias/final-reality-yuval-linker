@@ -1,7 +1,6 @@
 package com.github.ylinker.finalreality.model.character;
 
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
-import com.github.ylinker.finalreality.model.weapon.Weapon;
 
 /**
  * This represents a character that a player can control.

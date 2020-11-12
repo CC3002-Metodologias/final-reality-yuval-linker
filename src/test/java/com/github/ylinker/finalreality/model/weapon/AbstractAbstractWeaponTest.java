@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public abstract class AbstractWeaponTest {
+public abstract class AbstractAbstractWeaponTest {
     protected static final int DAMAGE = 15;
     protected static final int WEIGHT = 5;
     protected static final int DIFF_DAMAGE = 10;

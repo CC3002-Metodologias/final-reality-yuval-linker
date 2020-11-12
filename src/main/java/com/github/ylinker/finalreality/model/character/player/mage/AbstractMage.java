@@ -1,15 +1,10 @@
 package com.github.ylinker.finalreality.model.character.player.mage;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
-import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import com.github.ylinker.finalreality.model.character.player.AbstractPlayerCharacter;
-import com.github.ylinker.finalreality.model.weapon.Weapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * An abstract class that holds the common behaviour of all the mage characters in the game.
