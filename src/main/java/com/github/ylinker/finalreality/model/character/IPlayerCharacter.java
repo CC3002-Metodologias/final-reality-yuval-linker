@@ -8,7 +8,7 @@ import com.github.ylinker.finalreality.model.weapon.IWeapon;
  *
  * @author Yuval Linker
  */
-public interface IPlayerCharacter {
+public interface IPlayerCharacter extends ICharacter {
 
     /**
      * Equips a weapon to the character.

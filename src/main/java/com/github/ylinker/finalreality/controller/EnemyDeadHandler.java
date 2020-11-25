@@ -5,7 +5,7 @@ import com.github.ylinker.finalreality.model.character.Enemy;
 import java.beans.PropertyChangeEvent;
 
 public class EnemyDeadHandler implements IEventHandler {
-    private GameController controller;
+    private final GameController controller;
 
     public EnemyDeadHandler(GameController controller) {
         this.controller=controller;

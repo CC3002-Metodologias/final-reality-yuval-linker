@@ -1,6 +1,8 @@
 package com.github.ylinker.finalreality.model.character.player.mage;
 
-public interface IMage {
+import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
+
+public interface IMage extends IPlayerCharacter {
     /**
      * @return the mage's mana
      */

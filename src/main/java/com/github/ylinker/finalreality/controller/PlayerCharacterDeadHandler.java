@@ -5,7 +5,7 @@ import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import java.beans.PropertyChangeEvent;
 
 public class PlayerCharacterDeadHandler implements IEventHandler {
-    private GameController controller;
+    private final GameController controller;
 
     public PlayerCharacterDeadHandler(GameController controller) {
         this.controller=controller;

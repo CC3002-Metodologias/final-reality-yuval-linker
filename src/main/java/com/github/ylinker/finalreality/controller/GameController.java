@@ -22,10 +22,10 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Controls the messages and actions between the player and the game
  */
 public class GameController {
-    private LinkedHashSet<IPlayerCharacter> playerCharacters;
-    private LinkedHashSet<Enemy> enemies;
+    private final LinkedHashSet<IPlayerCharacter> playerCharacters;
+    private final LinkedHashSet<Enemy> enemies;
     private LinkedHashSet<IWeapon> inventory;
-    private BlockingQueue<ICharacter> queue;
+    private final BlockingQueue<ICharacter> queue;
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
 
@@ -43,8 +43,7 @@ public class GameController {
      */
     private void addPlayerCharacter(IPlayerCharacter character){
         playerCharacters.add(character);
-        ICharacter c = (ICharacter) character;
-        c.addListener(characterDeadHandler);
+        character.addListener(characterDeadHandler);
     }
 
     public void createEngineer(@NotNull String name, int health, int attack, int defense){
@@ -65,6 +64,15 @@ public class GameController {
 
     public void createBlackMage(@NotNull String name, int health, int attack, int defense, int mana){
         addPlayerCharacter(new BlackMage(this.queue, name, health, attack, defense, mana));
+    }
+
+    private void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+        enemy.addListener(enemyDeadHandler);
+    }
+
+    public void createEnemy(@NotNull String name, int health, int attack, int defense, int weight) {
+        addEnemy(new Enemy(queue, name, health, attack, defense, weight));
     }
 
     /**
