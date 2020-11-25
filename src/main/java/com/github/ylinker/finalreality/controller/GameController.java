@@ -26,6 +26,8 @@ public class GameController {
     private LinkedHashSet<Enemy> enemies;
     private LinkedHashSet<IWeapon> inventory;
     private BlockingQueue<ICharacter> queue;
+    private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
+    private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
 
     public GameController() {
         playerCharacters = new LinkedHashSet<>();
@@ -41,6 +43,8 @@ public class GameController {
      */
     private void addPlayerCharacter(IPlayerCharacter character){
         playerCharacters.add(character);
+        ICharacter c = (ICharacter) character;
+        c.addListener(characterDeadHandler);
     }
 
     public void createEngineer(@NotNull String name, int health, int attack, int defense){
@@ -112,5 +116,36 @@ public class GameController {
      */
     public void attack(ICharacter attacker, ICharacter attacked){
         attacker.attack(attacked);
+    }
+
+    public ICharacter beginTurn() throws InterruptedException {
+        if (queue.isEmpty()) {
+            Thread.sleep(6000);
+            return beginTurn();
+        } else {
+            return queue.poll();
+        }
+    }
+
+    public void endTurn(ICharacter character) {
+        character.waitTurn();
+    }
+
+    public void onCharacterDeath(IPlayerCharacter character) {
+        playerCharacters.remove(character);
+        queue.remove(character);
+    }
+
+    public void onEnemyDeath(Enemy enemy) {
+        enemies.remove(enemy);
+        queue.remove(enemy);
+    }
+
+    public boolean playerWon() {
+        return enemies.isEmpty();
+    }
+
+    public boolean playerLost() {
+        return playerCharacters.isEmpty();
     }
 }

@@ -1,5 +1,7 @@
 package com.github.ylinker.finalreality.model.character;
 
+import com.github.ylinker.finalreality.controller.IEventHandler;
+
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
@@ -68,4 +70,6 @@ public interface ICharacter {
    * @return the amount of damage done to this character
    */
   int defend(int otherAttack);
+
+  void addListener(IEventHandler handler);
 }

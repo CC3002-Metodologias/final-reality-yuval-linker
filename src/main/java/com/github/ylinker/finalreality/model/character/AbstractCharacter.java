@@ -1,9 +1,11 @@
 package com.github.ylinker.finalreality.model.character;
 
+import com.github.ylinker.finalreality.controller.IEventHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.beans.PropertyChangeSupport;
 
 
 /**
@@ -21,6 +23,8 @@ public abstract class AbstractCharacter implements ICharacter {
     protected int baseAttack;
     protected int defense;
     protected ScheduledExecutorService scheduledExecutor;
+    protected final PropertyChangeSupport characterDeadEvent = new PropertyChangeSupport(this);
+
 
     /**
      * Constructs an Abstract Character. It's the base of every character's constructor.
@@ -99,6 +103,9 @@ public abstract class AbstractCharacter implements ICharacter {
 
     private void setHealth(final int newHealth) {
         this.health = newHealth;
+        if(!isAlive()) {
+            characterDeadEvent.firePropertyChange("Is Dead", null, this);
+        }
     }
 
     private void receiveDamage(final int damage) {
@@ -118,7 +125,7 @@ public abstract class AbstractCharacter implements ICharacter {
         if (this.isAlive()) {
             return other.defend(this.getAttack());
         } else {
-            System.out.println(this.name + " can't attack while dead!");
+            // System.out.println(this.name + " can't attack while dead!");
             return -1;
         }
     }
@@ -132,6 +139,10 @@ public abstract class AbstractCharacter implements ICharacter {
         } else {
             return 0;
         }
+    }
+
+    public void addListener(IEventHandler handler) {
+        characterDeadEvent.addPropertyChangeListener(handler);
     }
 
     /**
