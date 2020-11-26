@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
@@ -24,18 +25,34 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Controls the messages and actions between the player and the game
  */
 public class GameController {
-    private final LinkedHashSet<IPlayerCharacter> playerCharacters;
-    private final LinkedHashSet<Enemy> enemies;
-    private ArrayList<IWeapon> inventory;
+    private final ArrayList<ICharacter> playerCharacters;
+    private final ArrayList<Enemy> enemies;
+    private final ArrayList<IWeapon> inventory;
     private final BlockingQueue<ICharacter> queue;
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
 
     public GameController() {
-        playerCharacters = new LinkedHashSet<>();
-        enemies = new LinkedHashSet<>();
+        playerCharacters = new ArrayList<>();
+        enemies = new ArrayList<>();
         inventory = new ArrayList<>();
         queue = new LinkedBlockingQueue<>();
+    }
+
+    public ArrayList<ICharacter> getCharacters() {
+        return playerCharacters;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public ArrayList<IWeapon> getInventory() {
+        return inventory;
+    }
+
+    public BlockingQueue<ICharacter> getQueue() {
+        return queue;
     }
 
     /**
