@@ -11,6 +11,8 @@ import com.github.ylinker.finalreality.model.character.player.mage.WhiteMage;
 import com.github.ylinker.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
@@ -24,7 +26,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class GameController {
     private final LinkedHashSet<IPlayerCharacter> playerCharacters;
     private final LinkedHashSet<Enemy> enemies;
-    private LinkedHashSet<IWeapon> inventory;
+    private ArrayList<IWeapon> inventory;
     private final BlockingQueue<ICharacter> queue;
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
@@ -32,7 +34,7 @@ public class GameController {
     public GameController() {
         playerCharacters = new LinkedHashSet<>();
         enemies = new LinkedHashSet<>();
-        inventory = new LinkedHashSet<>();
+        inventory = new ArrayList<>();
         queue = new LinkedBlockingQueue<>();
     }
 
@@ -47,23 +49,23 @@ public class GameController {
     }
 
     public void createEngineer(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Engineer(this.queue, name, health, attack, defense));
+        addPlayerCharacter(new Engineer(this.queue, this.inventory, name, health, attack, defense));
     }
 
     public void createKnight(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Knight(this.queue, name, health, attack, defense));
+        addPlayerCharacter(new Knight(this.queue, this.inventory, name, health, attack, defense));
     }
 
     public void createThief(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Thief(this.queue, name, health, attack, defense));
+        addPlayerCharacter(new Thief(this.queue, this.inventory, name, health, attack, defense));
     }
 
     public void createWhiteMage(@NotNull String name, int health, int attack, int defense, int mana){
-        addPlayerCharacter(new WhiteMage(this.queue, name, health, attack, defense, mana));
+        addPlayerCharacter(new WhiteMage(this.queue, this.inventory, name, health, attack, defense, mana));
     }
 
     public void createBlackMage(@NotNull String name, int health, int attack, int defense, int mana){
-        addPlayerCharacter(new BlackMage(this.queue, name, health, attack, defense, mana));
+        addPlayerCharacter(new BlackMage(this.queue, this.inventory, name, health, attack, defense, mana));
     }
 
     private void addEnemy(Enemy enemy) {
@@ -112,7 +114,7 @@ public class GameController {
      *      The weapon to be equipped
      */
     public void equip(IPlayerCharacter character, IWeapon weapon){
-        character.equip(weapon);
+            character.equip(weapon);
     }
 
     /**

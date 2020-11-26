@@ -3,8 +3,11 @@ package com.github.ylinker.finalreality.model.character;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +26,7 @@ public abstract class AbstractCharacterTest {
   protected final int HEALTH = 50;
   protected final int DEFENSE = 20;
   protected final int ATTACK = 10;
+  protected ArrayList<IWeapon> inventory;
 
   /**
    * Checks that the character waits the appropriate amount of time for it's turn.
@@ -58,6 +62,7 @@ public abstract class AbstractCharacterTest {
 
   protected void basicSetUp() {
     turns = new LinkedBlockingQueue<>();
+    inventory = new ArrayList<>();
   }
 
   @Test

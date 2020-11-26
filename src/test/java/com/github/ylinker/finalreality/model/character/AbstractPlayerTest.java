@@ -4,6 +4,7 @@ import com.github.ylinker.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -18,6 +19,7 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
     protected Enemy notKillableEnemy;
     protected Enemy notDamagableEnemy;
     protected IPlayerCharacter testPlayer;
+
 
 
     @BeforeEach
@@ -70,6 +72,42 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
         assertEquals(health, notDamagableEnemy.getHealth());
     }
 
+    @Test
+    void nonInventoryWeaponTest() {
+        // Inventory is empty
+        // Try equipping weapons with empty inventory
+        assertTrue(inventory.isEmpty());
+        testPlayer.equip(weapons.get("knife"));
+        assertTrue(inventory.isEmpty());
+        assertNull(testPlayer.getEquippedWeapon());
+        testPlayer.equip(weapons.get("sword"));
+        assertTrue(inventory.isEmpty());
+        assertNull(testPlayer.getEquippedWeapon());
+        testPlayer.equip(weapons.get("bow"));
+        assertTrue(inventory.isEmpty());
+        assertNull(testPlayer.getEquippedWeapon());
+        testPlayer.equip(weapons.get("staff"));
+        assertTrue(inventory.isEmpty());
+        assertNull(testPlayer.getEquippedWeapon());
+        testPlayer.equip(weapons.get("axe"));
+        assertTrue(inventory.isEmpty());
+        assertNull(testPlayer.getEquippedWeapon());
+        // Start adding weapons but equip only weapons not in inventory
+        inventory.add(weapons.get("knife"));
+        testPlayer.equip(weapons.get("sword"));
+        assertNull(testPlayer.getEquippedWeapon());
+        inventory.add(weapons.get("sword"));
+        testPlayer.equip(weapons.get("axe"));
+        assertNull(testPlayer.getEquippedWeapon());
+        inventory.add(weapons.get("axe"));
+        testPlayer.equip(weapons.get("bow"));
+        assertNull(testPlayer.getEquippedWeapon());
+        inventory.add(weapons.get("bow"));
+        testPlayer.equip(weapons.get("staff"));
+        assertNull(testPlayer.getEquippedWeapon());
+        inventory.add(weapons.get("staff"));
+    }
+
     void weightCheck(int expected, ICharacter testCharacter) {
         assertEquals(expected, testCharacter.getWeight());
     }
@@ -82,6 +120,7 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
         for (Map.Entry<String, IWeapon> entry : weapons.entrySet()) {
             dead.equip(entry.getValue());
             assertNull(dead.getEquippedWeapon());
+            assertTrue(inventory.isEmpty());
         }
     }
 }

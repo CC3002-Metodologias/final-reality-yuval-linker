@@ -5,6 +5,7 @@ import com.github.ylinker.finalreality.model.character.player.AbstractPlayerChar
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
@@ -30,18 +31,22 @@ public class Engineer extends AbstractPlayerCharacter {
      *      The character's initial defense
      */
     public Engineer(@NotNull BlockingQueue<ICharacter> turnsQueue,
+                  @NotNull ArrayList<IWeapon> inventory,
                   @NotNull String name, final int health, final int attack, final int defense) {
-        super(turnsQueue, name, health, attack, defense);
+        super(turnsQueue, inventory, name, health, attack, defense);
     }
 
     @Override
     public void equip(IWeapon weapon) {
-        if(isAlive()) {
+        if(isAlive() && inventory.contains(weapon)) {
             IWeapon myWeapon = weapon.equipToEngineer();
+            IWeapon previousWeapon = this.equippedWeapon;
             if (myWeapon != null) {
                 this.equippedWeapon = myWeapon;
                 this.attack = this.baseAttack + myWeapon.getDamage();
                 this.weight = this.baseWeight + myWeapon.getWeight();
+                inventory.remove(weapon);
+                inventory.add(previousWeapon);
             }
         }
     }

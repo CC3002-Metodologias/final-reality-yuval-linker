@@ -2,8 +2,10 @@ package com.github.ylinker.finalreality.model.character.player.mage;
 
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -17,10 +19,11 @@ public abstract class AbstractMage extends AbstractPlayerCharacter implements IM
     protected final int mana;
 
     protected AbstractMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
+                                @NotNull ArrayList<IWeapon> inventory,
                                 @NotNull String name, final int health,
                            final int attack, final int defense,
                            final int mana) {
-        super(turnsQueue, name, health,  attack, defense);
+        super(turnsQueue, inventory, name, health,  attack, defense);
         this.mana = mana;
     }
 

@@ -6,6 +6,8 @@ import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +23,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     protected IWeapon equippedWeapon = null;
     protected int attack;
     protected int weight;
+    protected ArrayList<IWeapon> inventory;
 
     /**
      * The base constructor of every Playable Character.
@@ -36,11 +39,13 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
      *      The character's initial defense
      */
     protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
+                                      ArrayList<IWeapon> inventory,
                                       @NotNull String name, final int health,
                                       final int attack, final int defense) {
         super(turnsQueue, name, health, attack, defense);
         this.attack = attack;
         this.weight = this.baseWeight;
+        this.inventory = inventory;
     }
 
     /**
