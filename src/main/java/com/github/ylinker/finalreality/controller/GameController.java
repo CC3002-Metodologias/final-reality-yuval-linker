@@ -25,7 +25,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Controls the messages and actions between the player and the game
  */
 public class GameController {
-    private final ArrayList<ICharacter> playerCharacters;
+    private final ArrayList<IPlayerCharacter> playerCharacters;
     private final ArrayList<Enemy> enemies;
     private final ArrayList<IWeapon> inventory;
     private final BlockingQueue<ICharacter> queue;
@@ -39,7 +39,7 @@ public class GameController {
         queue = new LinkedBlockingQueue<>();
     }
 
-    public ArrayList<ICharacter> getCharacters() {
+    public ArrayList<IPlayerCharacter> getCharacters() {
         return playerCharacters;
     }
 

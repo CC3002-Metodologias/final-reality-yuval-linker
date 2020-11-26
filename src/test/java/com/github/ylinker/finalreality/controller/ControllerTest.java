@@ -7,6 +7,7 @@ import com.github.ylinker.finalreality.model.character.player.common.Knight;
 import com.github.ylinker.finalreality.model.character.player.common.Thief;
 import com.github.ylinker.finalreality.model.character.player.mage.BlackMage;
 import com.github.ylinker.finalreality.model.character.player.mage.WhiteMage;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -110,5 +111,78 @@ public class ControllerTest {
         assertFalse(testController.getCharacters().contains(testBlackMage));
         assertEquals(0, testController.getCharacters().size());
         assertEquals(1, testController.getEnemies().size());
+    }
+
+    @Test
+    void winConditionTest() {
+        assertTrue(testController.playerLost());
+        assertTrue(testController.playerWon());
+        testController.createEnemy("testEnemy", 12, 12, 12, 10);
+        assertFalse(testController.playerWon());
+        assertTrue(testController.playerLost());
+        testController.createEngineer("testCharacter", 12, 12, 12);
+        assertFalse(testController.playerLost());
+        assertFalse(testController.playerWon());
+        testController.getEnemies().clear();
+        assertTrue(testController.playerWon());
+        assertFalse(testController.playerLost());
+    }
+
+    @Test
+    void weaponsTest() {
+        // Characters to test equip
+        testController.createKnight("testKnight", 10, 10, 10);
+        testController.createWhiteMage("testWhiteMage", 10, 10, 10, 5);
+        testController.createThief("testThief", 10, 10, 10);
+        IPlayerCharacter knight = testController.getCharacters().get(0);
+        IPlayerCharacter mage = testController.getCharacters().get(1);
+        IPlayerCharacter thief = testController.getCharacters().get(2);
+
+        // Create weapons
+        testController.createAxe("testAxe", 10, 5);
+        assertEquals(1, testController.getInventory().size());
+        IWeapon axe = testController.getInventory().get(0);
+        assertTrue(testController.getInventory().contains(axe));
+        testController.createBow("testAxe", 10, 5);
+        assertEquals(2, testController.getInventory().size());
+        IWeapon bow = testController.getInventory().get(1);
+        assertTrue(testController.getInventory().contains(bow));
+        testController.createKnife("testAxe", 10, 5);
+        assertEquals(3, testController.getInventory().size());
+        IWeapon knife = testController.getInventory().get(2);
+        assertTrue(testController.getInventory().contains(knife));
+        testController.createSword("testAxe", 10, 5);
+        assertEquals(4, testController.getInventory().size());
+        IWeapon sword = testController.getInventory().get(3);
+        assertTrue(testController.getInventory().contains(sword));
+        testController.createStaff("testAxe", 10, 5, 3);
+        assertEquals(5, testController.getInventory().size());
+        IWeapon staff = testController.getInventory().get(4);
+        assertTrue(testController.getInventory().contains(staff));
+
+        // Start equipping weapons
+        testController.equip(knight, sword);
+        assertFalse(testController.getInventory().contains(sword));
+        assertEquals(sword, knight.getEquippedWeapon());
+        testController.equip(knight, staff);
+        assertTrue(testController.getInventory().contains(staff));
+        assertEquals(sword, knight.getEquippedWeapon());
+        testController.equip(knight, axe);
+        assertFalse(testController.getInventory().contains(axe));
+        assertEquals(axe, knight.getEquippedWeapon());
+        testController.equip(knight, knife);
+        assertFalse(testController.getInventory().contains(knife));
+        assertEquals(knife, knight.getEquippedWeapon());
+        testController.equip(knight, bow);
+        assertTrue(testController.getInventory().contains(bow));
+        assertEquals(knife, knight.getEquippedWeapon());
+        testController.equip(mage, staff);
+        assertFalse(testController.getInventory().contains(staff));
+        assertEquals(staff, mage.getEquippedWeapon());
+        testController.equip(thief, bow);
+        assertFalse(testController.getInventory().contains(bow));
+        assertEquals(bow, thief.getEquippedWeapon());
+        testController.equip(thief, knife);
+        assertEquals(bow, thief.getEquippedWeapon());
     }
 }
