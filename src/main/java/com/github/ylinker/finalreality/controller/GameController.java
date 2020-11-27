@@ -85,6 +85,46 @@ public class GameController {
         addPlayerCharacter(new BlackMage(this.queue, this.inventory, name, health, attack, defense, mana));
     }
 
+    public HashMap<IPlayerCharacter, Integer> getCharactersHealth() {
+        HashMap<IPlayerCharacter, Integer> charactersHealth = new HashMap<>();
+        for (IPlayerCharacter character: playerCharacters) {
+            charactersHealth.put(character, character.getHealth());
+        }
+        return charactersHealth;
+    }
+
+    public HashMap<IPlayerCharacter, Integer> getCharactersAttack() {
+        HashMap<IPlayerCharacter, Integer> charactersAttack = new HashMap<>();
+        for (IPlayerCharacter character: playerCharacters) {
+            charactersAttack.put(character, character.getAttack());
+        }
+        return charactersAttack;
+    }
+
+    public HashMap<IPlayerCharacter, Integer> getCharactersDefense() {
+        HashMap<IPlayerCharacter, Integer> charactersDefense = new HashMap<>();
+        for (IPlayerCharacter character: playerCharacters) {
+            charactersDefense.put(character, character.getDefense());
+        }
+        return charactersDefense;
+    }
+
+    public HashMap<IPlayerCharacter, String> getCharactersName() {
+        HashMap<IPlayerCharacter, String> charactersName = new HashMap<>();
+        for (IPlayerCharacter character: playerCharacters) {
+            charactersName.put(character, character.getName());
+        }
+        return charactersName;
+    }
+
+    public HashMap<IPlayerCharacter, IWeapon> getCharactersEquippedWeapon() {
+        HashMap<IPlayerCharacter, IWeapon> charactersWeapon = new HashMap<>();
+        for (IPlayerCharacter character: playerCharacters) {
+            charactersWeapon.put(character, character.getEquippedWeapon());
+        }
+        return charactersWeapon;
+    }
+
     private void addEnemy(Enemy enemy) {
         enemies.add(enemy);
         enemy.addListener(enemyDeadHandler);
@@ -92,6 +132,38 @@ public class GameController {
 
     public void createEnemy(@NotNull String name, int health, int attack, int defense, int weight) {
         addEnemy(new Enemy(queue, name, health, attack, defense, weight));
+    }
+
+    public HashMap<Enemy, Integer> getEnemiesHealth() {
+        HashMap<Enemy, Integer> enemiesHealth = new HashMap<>();
+        for (Enemy enemy: enemies) {
+            enemiesHealth.put(enemy, enemy.getHealth());
+        }
+        return enemiesHealth;
+    }
+
+    public HashMap<Enemy, Integer> getEnemiesDefense() {
+        HashMap<Enemy, Integer> enemiesDefense = new HashMap<>();
+        for (Enemy enemy: enemies) {
+            enemiesDefense.put(enemy, enemy.getDefense());
+        }
+        return enemiesDefense;
+    }
+
+    public HashMap<Enemy, Integer> getEnemiesAttack() {
+        HashMap<Enemy, Integer> enemiesAttack = new HashMap<>();
+        for (Enemy enemy: enemies) {
+            enemiesAttack.put(enemy, enemy.getAttack());
+        }
+        return enemiesAttack;
+    }
+
+    public HashMap<Enemy, String> getEnemiesName() {
+        HashMap<Enemy, String> enemiesNames = new HashMap<>();
+        for (Enemy enemy: enemies) {
+            enemiesNames.put(enemy, enemy.getName());
+        }
+        return enemiesNames;
     }
 
     /**
