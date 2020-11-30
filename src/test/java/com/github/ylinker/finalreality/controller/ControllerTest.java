@@ -224,4 +224,125 @@ public class ControllerTest {
         assertNull(knight.getEquippedWeapon());
         testController.createStaff("staff", 10, 10, 10);
     }
+
+    @Test
+    void getHealthTest() {
+        HashMap<IPlayerCharacter, Integer> expectedCharacterHealth = new HashMap<>();
+        HashMap<Enemy, Integer> expectedEnemyHealth = new HashMap<>();
+        assertEquals(expectedCharacterHealth, testController.getCharactersHealth());
+        assertEquals(expectedEnemyHealth, testController.getEnemiesHealth());
+        testController.createKnight("testKnight", 10, 10, 10);
+        testController.createEnemy("enemy1", 10, 10, 10, 10);
+        expectedCharacterHealth.put(testController.getCharacters().get(0), 10);
+        expectedEnemyHealth.put(testController.getEnemies().get(0), 10);
+        assertEquals(expectedCharacterHealth, testController.getCharactersHealth());
+        assertEquals(expectedEnemyHealth, testController.getEnemiesHealth());
+        testController.createWhiteMage("testWhiteMage", 13, 10, 10, 5);
+        testController.createEnemy("enemy2", 25, 10, 20, 1);
+        expectedCharacterHealth.put(testController.getCharacters().get(1), 13);
+        expectedEnemyHealth.put(testController.getEnemies().get(1), 25);
+        assertEquals(expectedCharacterHealth, testController.getCharactersHealth());
+        assertEquals(expectedEnemyHealth, testController.getEnemiesHealth());
+        expectedCharacterHealth.remove(testController.getCharacters().get(1));
+        expectedEnemyHealth.remove(testController.getEnemies().get(1));
+        testController.onEnemyDeath(testController.getEnemies().get(1));
+        testController.onCharacterDeath(testController.getCharacters().get(1));
+        assertEquals(expectedCharacterHealth, testController.getCharactersHealth());
+        assertEquals(expectedEnemyHealth, testController.getEnemiesHealth());
+    }
+
+    @Test
+    void getAttackTest() {
+        HashMap<IPlayerCharacter, Integer> expectedCharacterAttack = new HashMap<>();
+        HashMap<Enemy, Integer> expectedEnemyAttack = new HashMap<>();
+        assertEquals(expectedCharacterAttack, testController.getCharactersAttack());
+        assertEquals(expectedEnemyAttack, testController.getEnemiesAttack());
+        testController.createKnight("testKnight", 10, 10, 10);
+        testController.createEnemy("enemy1", 10, 10, 10, 10);
+        expectedCharacterAttack.put(testController.getCharacters().get(0), 10);
+        expectedEnemyAttack.put(testController.getEnemies().get(0), 10);
+        assertEquals(expectedCharacterAttack, testController.getCharactersAttack());
+        assertEquals(expectedEnemyAttack, testController.getEnemiesAttack());
+        testController.createWhiteMage("testWhiteMage", 13, 5, 10, 5);
+        testController.createEnemy("enemy2", 25, 8, 20, 1);
+        expectedCharacterAttack.put(testController.getCharacters().get(1), 5);
+        expectedEnemyAttack.put(testController.getEnemies().get(1), 8);
+        assertEquals(expectedCharacterAttack, testController.getCharactersAttack());
+        assertEquals(expectedEnemyAttack, testController.getEnemiesAttack());
+        expectedCharacterAttack.remove(testController.getCharacters().get(1));
+        expectedEnemyAttack.remove(testController.getEnemies().get(1));
+        testController.onEnemyDeath(testController.getEnemies().get(1));
+        testController.onCharacterDeath(testController.getCharacters().get(1));
+        assertEquals(expectedCharacterAttack, testController.getCharactersAttack());
+        assertEquals(expectedEnemyAttack, testController.getEnemiesAttack());
+    }
+
+    @Test
+    void getDefenseTest() {
+        HashMap<IPlayerCharacter, Integer> expectedCharacterDefense = new HashMap<>();
+        HashMap<Enemy, Integer> expectedEnemyDefense = new HashMap<>();
+        assertEquals(expectedCharacterDefense, testController.getCharactersDefense());
+        assertEquals(expectedEnemyDefense, testController.getEnemiesDefense());
+        testController.createKnight("testKnight", 10, 10, 10);
+        testController.createEnemy("enemy1", 10, 10, 10, 10);
+        expectedCharacterDefense.put(testController.getCharacters().get(0), 10);
+        expectedEnemyDefense.put(testController.getEnemies().get(0), 10);
+        assertEquals(expectedCharacterDefense, testController.getCharactersDefense());
+        assertEquals(expectedEnemyDefense, testController.getEnemiesHealth());
+        testController.createWhiteMage("testWhiteMage", 13, 5, 30, 5);
+        testController.createEnemy("enemy2", 25, 8, 20, 1);
+        expectedCharacterDefense.put(testController.getCharacters().get(1), 30);
+        expectedEnemyDefense.put(testController.getEnemies().get(1), 20);
+        assertEquals(expectedCharacterDefense, testController.getCharactersDefense());
+        assertEquals(expectedEnemyDefense, testController.getEnemiesDefense());
+        expectedCharacterDefense.remove(testController.getCharacters().get(1));
+        expectedEnemyDefense.remove(testController.getEnemies().get(1));
+        testController.onEnemyDeath(testController.getEnemies().get(1));
+        testController.onCharacterDeath(testController.getCharacters().get(1));
+        assertEquals(expectedCharacterDefense, testController.getCharactersDefense());
+        assertEquals(expectedEnemyDefense, testController.getEnemiesDefense());
+    }
+
+    @Test
+    void namesTest() {
+        HashMap<IPlayerCharacter, String> expectedCharacterName = new HashMap<>();
+        HashMap<Enemy, String> expectedEnemyName = new HashMap<>();
+        assertEquals(expectedCharacterName, testController.getCharactersName());
+        assertEquals(expectedEnemyName, testController.getEnemiesName());
+        testController.createKnight("testKnight", 10, 10, 10);
+        testController.createEnemy("enemy1", 10, 10, 10, 10);
+        expectedCharacterName.put(testController.getCharacters().get(0), "testKnight");
+        expectedEnemyName.put(testController.getEnemies().get(0), "enemy1");
+        testController.createWhiteMage("testWhiteMage", 13, 5, 30, 5);
+        testController.createEnemy("enemy2", 25, 8, 20, 1);
+        expectedCharacterName.put(testController.getCharacters().get(1), "testWhiteMage");
+        expectedEnemyName.put(testController.getEnemies().get(1), "enemy2");
+        assertEquals(expectedCharacterName, testController.getCharactersName());
+        assertEquals(expectedEnemyName, testController.getEnemiesName());
+        expectedCharacterName.remove(testController.getCharacters().get(1));
+        expectedEnemyName.remove(testController.getEnemies().get(1));
+        testController.onEnemyDeath(testController.getEnemies().get(1));
+        testController.onCharacterDeath(testController.getCharacters().get(1));
+        assertEquals(expectedCharacterName, testController.getCharactersName());
+        assertEquals(expectedEnemyName, testController.getEnemiesName());
+    }
+
+    @Test
+    void getEquippedWeaponsTest() {
+        HashMap<IPlayerCharacter, IWeapon> expectedEquippedWeapon = new HashMap<>();
+        assertEquals(expectedEquippedWeapon, testController.getCharactersEquippedWeapon());
+        testController.createKnight("testKnight", 10, 10, 10);
+        testController.createSword("sword", 12, 12);
+        expectedEquippedWeapon.put(testController.getCharacters().get(0), testController.getInventory().get(0));
+        testController.equip(testController.getCharacters().get(0), testController.getInventory().get(0));
+        assertEquals(expectedEquippedWeapon, testController.getCharactersEquippedWeapon());
+        testController.createWhiteMage("testWhiteMage", 13, 5, 30, 5);
+        testController.createStaff("staff", 45, 12, 1);
+        expectedEquippedWeapon.put(testController.getCharacters().get(1), testController.getInventory().get(0));
+        testController.equip(testController.getCharacters().get(1), testController.getInventory().get(0));
+        assertEquals(expectedEquippedWeapon, testController.getCharactersEquippedWeapon());
+        expectedEquippedWeapon.remove(testController.getCharacters().get(1));
+        testController.onCharacterDeath(testController.getCharacters().get(1));
+        assertEquals(expectedEquippedWeapon, testController.getCharactersEquippedWeapon());
+    }
 }
