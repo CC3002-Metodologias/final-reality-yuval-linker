@@ -207,13 +207,14 @@ public class GameController {
      */
     public void equip(IPlayerCharacter character, IWeapon weapon){
         IWeapon previousWeapon = character.getEquippedWeapon();
-        if (inventory.contains(weapon) && character.equip(weapon)) {
-            inventory.remove(weapon);
-            if (previousWeapon != null) {
-                inventory.add(previousWeapon);
+        if (inventory.contains(weapon)) {
+            if (character.equip(weapon)) {
+                inventory.remove(weapon);
+                if (previousWeapon != null) {
+                    inventory.add(previousWeapon);
+                }
             }
         }
-        character.equip(weapon);
     }
 
     /**

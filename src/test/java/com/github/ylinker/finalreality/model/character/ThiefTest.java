@@ -15,17 +15,17 @@ public class ThiefTest extends AbstractPlayerTest {
     @BeforeEach
     void thiefSetUp() {
         setUp();
-        testCommon = new Thief(inventory, THIEF_NAME, HEALTH, ATTACK, DEFENSE);
-        testPlayer = new Thief(inventory, THIEF_NAME, HEALTH, ATTACK, DEFENSE);
-        testDead = new Thief(inventory, THIEF_NAME, 0, ATTACK, DEFENSE);
+        testCommon = new Thief(THIEF_NAME, HEALTH, ATTACK, DEFENSE);
+        testPlayer = new Thief(THIEF_NAME, HEALTH, ATTACK, DEFENSE);
+        testDead = new Thief(THIEF_NAME, 0, ATTACK, DEFENSE);
     }
 
     @Test
     void constructorTest() {
-        checkConstruction(new Thief(inventory, THIEF_NAME, HEALTH, ATTACK, DEFENSE),
+        checkConstruction(new Thief(THIEF_NAME, HEALTH, ATTACK, DEFENSE),
                 (ICharacter) testCommon,
-                new Thief(inventory, "Test", HEALTH, ATTACK, DEFENSE),
-                new Knight(inventory, "Arthur", HEALTH, ATTACK, DEFENSE));
+                new Thief("Test", HEALTH, ATTACK, DEFENSE),
+                new Knight("Arthur", HEALTH, ATTACK, DEFENSE));
         assertNotEquals(testCommon, testEnemy);
     }
 
@@ -36,44 +36,30 @@ public class ThiefTest extends AbstractPlayerTest {
         attackCheck(ATTACK, testPlayer);
         weightCheck(10, testPlayer);
         // Equip Staff
-        inventory.add(weapons.get("staff"));
         testPlayer.equip(weapons.get("staff"));
         assertNull(testPlayer.getEquippedWeapon());
         attackCheck(ATTACK, testPlayer);
         weightCheck(10, testPlayer);
-        assertTrue(inventory.contains(weapons.get("staff")));
         // Equip Bow
-        inventory.add(weapons.get("bow"));
         testPlayer.equip(weapons.get("bow"));
         assertEquals(weapons.get("bow"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("bow").getDamage(),  testPlayer);
         weightCheck(10 + weapons.get("bow").getWeight(),  testPlayer);
-        assertTrue(inventory.contains(weapons.get("staff")));
-        assertFalse(inventory.contains(weapons.get("bow")));
         // Equip Knife
-        inventory.add(weapons.get("knife"));
         testPlayer.equip(weapons.get("knife"));
         assertEquals(weapons.get("knife"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("knife").getDamage(), testPlayer);
         weightCheck(10 + weapons.get("knife").getWeight(), testPlayer);
-        assertFalse(inventory.contains(weapons.get("knife")));
-        assertTrue(inventory.contains(weapons.get("bow")));
         // Equip Axe
-        inventory.add(weapons.get("axe"));
         testPlayer.equip(weapons.get("axe"));
         assertEquals(weapons.get("knife"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("knife").getDamage(), testPlayer);
         weightCheck(10 + weapons.get("knife").getWeight(), testPlayer);
-        assertTrue(inventory.contains(weapons.get("axe")));
-        assertFalse(inventory.contains(weapons.get("knife")));
         // Equip Sword
-        inventory.add(weapons.get("sword"));
         testPlayer.equip(weapons.get("sword"));
         assertEquals(weapons.get("sword"), testPlayer.getEquippedWeapon());
         attackCheck(ATTACK + weapons.get("sword").getDamage(), testPlayer);
         weightCheck(10 + weapons.get("sword").getWeight(), testPlayer);
-        assertTrue(inventory.contains(weapons.get("knife")));
-        assertFalse(inventory.contains(weapons.get("sword")));
     }
 
     @Test

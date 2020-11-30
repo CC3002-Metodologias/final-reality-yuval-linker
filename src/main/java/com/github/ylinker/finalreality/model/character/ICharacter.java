@@ -72,11 +72,7 @@ public interface ICharacter {
 
   void addBeginTurnListener(IEventHandler handler);
 
-  void addEndTurnListener(IEventHandler handler);
-
   void beginTurn();
-
-  void endTurn();
 
   int getDelay();
 

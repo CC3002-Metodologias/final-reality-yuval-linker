@@ -7,7 +7,7 @@ import com.github.ylinker.finalreality.model.character.player.common.Knight;
 import com.github.ylinker.finalreality.model.character.player.common.Thief;
 import com.github.ylinker.finalreality.model.character.player.mage.BlackMage;
 import com.github.ylinker.finalreality.model.character.player.mage.WhiteMage;
-import com.github.ylinker.finalreality.model.weapon.IWeapon;
+import com.github.ylinker.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,37 +30,37 @@ public class ControllerTest {
     void characterCreationTest() {
         testController.createEngineer("engineerTest", 10, 10, 0);
         assertTrue(testController.getCharacters().contains(
-                new Engineer(testController.getQueue(), testController.getInventory(), "engineerTest", 10, 10, 0)
+                new Engineer("engineerTest", 10, 10, 0)
                 )
         );
         assertEquals(1, testController.getCharacters().size());
         testController.createKnight("knightTest", 10, 10, 25);
         assertTrue(testController.getCharacters().contains(
-                new Knight(testController.getQueue(), testController.getInventory(), "knightTest", 10, 10, 25)
+                new Knight("knightTest", 10, 10, 25)
                 )
         );
         assertEquals(2, testController.getCharacters().size());
         testController.createThief("thiefTest", 5, 20, 5);
         assertTrue(testController.getCharacters().contains(
-                new Thief(testController.getQueue(), testController.getInventory(), "thiefTest", 5, 20, 5)
+                new Thief("thiefTest", 5, 20, 5)
                 )
         );
         assertEquals(3, testController.getCharacters().size());
         testController.createWhiteMage("whiteMageTest", 10, 10, 0, 20);
         assertTrue(testController.getCharacters().contains(
-                new WhiteMage(testController.getQueue(), testController.getInventory(), "whiteMageTest", 10, 10, 0, 20)
+                new WhiteMage("whiteMageTest", 10, 10, 0, 20)
                 )
         );
         assertEquals(4, testController.getCharacters().size());
         testController.createBlackMage("blackMageTest", 10, 20, 0, 15);
         assertTrue(testController.getCharacters().contains(
-                new BlackMage(testController.getQueue(), testController.getInventory(), "blackMageTest", 10, 20, 0, 15)
+                new BlackMage("blackMageTest", 10, 20, 0, 15)
                 )
         );
         assertEquals(5, testController.getCharacters().size());
         testController.createEnemy("enemyTest", 10, 5, 5, 10);
         assertTrue(testController.getEnemies().contains(
-                new Enemy(testController.getQueue(), "enemyTest", 10, 5, 5, 10)
+                new Enemy("enemyTest", 10, 5, 5, 10)
         ));
         assertEquals(1, testController.getEnemies().size());
     }
@@ -169,12 +169,15 @@ public class ControllerTest {
         assertEquals(sword, knight.getEquippedWeapon());
         testController.equip(knight, axe);
         assertFalse(testController.getInventory().contains(axe));
+        assertTrue(testController.getInventory().contains(sword));
         assertEquals(axe, knight.getEquippedWeapon());
         testController.equip(knight, knife);
         assertFalse(testController.getInventory().contains(knife));
+        assertTrue(testController.getInventory().contains(axe));
         assertEquals(knife, knight.getEquippedWeapon());
         testController.equip(knight, bow);
         assertTrue(testController.getInventory().contains(bow));
+        assertFalse(testController.getInventory().contains(knife));
         assertEquals(knife, knight.getEquippedWeapon());
         testController.equip(mage, staff);
         assertFalse(testController.getInventory().contains(staff));
@@ -182,7 +185,43 @@ public class ControllerTest {
         testController.equip(thief, bow);
         assertFalse(testController.getInventory().contains(bow));
         assertEquals(bow, thief.getEquippedWeapon());
-        testController.equip(thief, knife);
-        assertEquals(bow, thief.getEquippedWeapon());
+    }
+
+    @Test
+    void nonInventoryWeaponTest() {
+        // Inventory is empty
+        // Try equipping weapons with empty inventory
+        testController.createKnight("testKnight", 10, 10, 10);
+        IPlayerCharacter knight = testController.getCharacters().get(0);
+        assertTrue(testController.getInventory().isEmpty());
+        testController.equip(knight, new Knife("knife", 10, 10));
+        assertTrue(testController.getInventory().isEmpty());
+        assertNull(knight.getEquippedWeapon());
+        testController.equip(knight, new Sword("sword", 10, 10));
+        assertTrue(testController.getInventory().isEmpty());
+        assertNull(knight.getEquippedWeapon());
+        testController.equip(knight, new Bow("bow", 10, 10));
+        assertTrue(testController.getInventory().isEmpty());
+        assertNull(knight.getEquippedWeapon());;
+        testController.equip(knight, new Staff("staff", 10, 10, 10));
+        assertTrue(testController.getInventory().isEmpty());
+        assertNull(knight.getEquippedWeapon());;
+        testController.equip(knight, new Axe("axe", 10, 10));
+        assertTrue(testController.getInventory().isEmpty());
+        assertNull(knight.getEquippedWeapon());
+        // Start adding weapons but equip only weapons not in inventory
+        testController.createKnife("knife", 10, 10);
+        testController.equip(knight, new Sword("sword", 10, 10));
+        assertNull(knight.getEquippedWeapon());
+        testController.createSword("sword", 10, 10);
+        testController.equip(knight, new Axe("axe", 10, 10));
+        assertNull(knight.getEquippedWeapon());
+        testController.createAxe("axe", 10, 10);
+        testController.equip(knight, new Bow("bow", 10, 10));
+        assertNull(knight.getEquippedWeapon());
+        testController.createBow("bow", 10, 10);
+        testController.equip(knight, new Staff("staff", 10, 10, 10));
+        assertNull(knight.getEquippedWeapon());
+        testController.createStaff("staff", 10, 10, 10);
     }
 }
