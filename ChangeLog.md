@@ -3,6 +3,7 @@ ChangeLog
 
 Version 2.0
 -----------
+- (B.3) Implemented the game controller
 - (B.2) Implementation of attack, equip and defense
 - (B.1) Changed Design of model and Implemented Tests
 
