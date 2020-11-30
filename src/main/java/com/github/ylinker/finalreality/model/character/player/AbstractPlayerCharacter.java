@@ -1,16 +1,11 @@
 package com.github.ylinker.finalreality.model.character.player;
 
 import com.github.ylinker.finalreality.model.character.AbstractCharacter;
-import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * An abstract class that holds the common behaviour of all the playable characters in the game.
@@ -23,12 +18,9 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     protected IWeapon equippedWeapon = null;
     protected int attack;
     protected int weight;
-    protected ArrayList<IWeapon> inventory;
 
     /**
      * The base constructor of every Playable Character.
-     * @param turnsQueue
-     *      The character's queue to wait it's turn
      * @param name
      *      The character's name
      * @param health
@@ -38,23 +30,11 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
      * @param defense
      *      The character's initial defense
      */
-    protected AbstractPlayerCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                      ArrayList<IWeapon> inventory,
-                                      @NotNull String name, final int health,
+    protected AbstractPlayerCharacter(@NotNull String name, final int health,
                                       final int attack, final int defense) {
-        super(turnsQueue, name, health, attack, defense);
+        super(name, health, attack, defense);
         this.attack = attack;
         this.weight = this.baseWeight;
-        this.inventory = inventory;
-    }
-
-    /**
-     * Adds the character to the queue and sets a delay based on weight
-     */
-    @Override
-    public void waitTurn() {
-        scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.schedule(this::addToQueue, this.weight / 10, TimeUnit.SECONDS);
     }
 
     /**
@@ -89,7 +69,9 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
      * The weight of the character is now the base weight plus the weapon's weight
      * @param weapon
      *      The weapon that should be equipped
+     * @return
+     *      True if it equips the weapon, False otherwise
      */
     @Override
-    public abstract void equip(IWeapon weapon);
+    public abstract boolean equip(IWeapon weapon);
 }

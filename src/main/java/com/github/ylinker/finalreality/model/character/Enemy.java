@@ -23,8 +23,6 @@ public class Enemy extends AbstractCharacter {
    *    The enemy's name
    * @param weight
    *    the enemy's weight
-   * @param turnsQueue
-   *    the queue with the characters waiting for their turn
    * @param health
    *      The character's initial health points
    * @param attack
@@ -32,22 +30,11 @@ public class Enemy extends AbstractCharacter {
    * @param defense
    *      The character's initial defense
    */
-  public Enemy(@NotNull final BlockingQueue<ICharacter> turnsQueue,
-               @NotNull final String name, final int health,
+  public Enemy(@NotNull final String name, final int health,
                final int attack, final int defense, final int weight) {
-    super(turnsQueue, name, health, attack, defense);
+    super(name, health, attack, defense);
     this.baseWeight = weight;
   }
-
-  /**
-   * Puts the enemy in the queue with a delay equals to its weight
-   */
-  @Override
-  public void waitTurn() {
-    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    var enemy = (Enemy) this;
-    scheduledExecutor.schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
-    }
 
   /**
    * Test another object to see if it is equal to this enemy

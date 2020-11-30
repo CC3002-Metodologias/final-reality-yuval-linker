@@ -15,20 +15,20 @@ public class BlackMageTest extends AbstractMageTest {
     @BeforeEach
     void blackMageSetUp() {
         setUp();
-        testMage = new BlackMage(turns, inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
-        testCommon = new BlackMage(turns, inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
-        testPlayer = new BlackMage(turns, inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
-        testDead = new BlackMage(turns, inventory, BLACK_MAGE_NAME, 0, ATTACK, DEFENSE, MAGE_MANA);
+        testMage = new BlackMage(inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testCommon = new BlackMage(inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testPlayer = new BlackMage(inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA);
+        testDead = new BlackMage(inventory, BLACK_MAGE_NAME, 0, ATTACK, DEFENSE, MAGE_MANA);
     }
 
     @Test
     void constructorTest() {
-        checkConstruction(new BlackMage(turns, inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA),
+        checkConstruction(new BlackMage(inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, MAGE_MANA),
                 (ICharacter) testMage,
-                new BlackMage(turns, inventory, "Test", HEALTH, ATTACK, DEFENSE, MAGE_MANA),
-                new Knight(turns, inventory, "Arthur", HEALTH, ATTACK, DEFENSE));
+                new BlackMage(inventory, "Test", HEALTH, ATTACK, DEFENSE, MAGE_MANA),
+                new Knight(inventory, "Arthur", HEALTH, ATTACK, DEFENSE));
         assertNotEquals(testMage, testEnemy);
-        assertEquals(new BlackMage(turns, inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, 5), testMage);
+        assertEquals(new BlackMage(inventory, BLACK_MAGE_NAME, HEALTH, ATTACK, DEFENSE, 5), testMage);
     }
 
     @Test

@@ -18,12 +18,10 @@ public abstract class AbstractMage extends AbstractPlayerCharacter implements IM
 
     protected final int mana;
 
-    protected AbstractMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull ArrayList<IWeapon> inventory,
-                                @NotNull String name, final int health,
+    protected AbstractMage(@NotNull String name, final int health,
                            final int attack, final int defense,
                            final int mana) {
-        super(turnsQueue, inventory, name, health,  attack, defense);
+        super(name, health,  attack, defense);
         this.mana = mana;
     }
 

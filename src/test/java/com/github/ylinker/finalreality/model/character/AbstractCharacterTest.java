@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractCharacterTest {
 
-  protected BlockingQueue<ICharacter> turns;
   protected ICharacter testCommon;
   protected ICharacter testDead;
   protected final int HEALTH = 50;
@@ -31,6 +30,8 @@ public abstract class AbstractCharacterTest {
   /**
    * Checks that the character waits the appropriate amount of time for it's turn.
    */
+  /**
+   *
   @Test
   void waitTurnTest() {
     Assertions.assertTrue(turns.isEmpty());
@@ -48,6 +49,7 @@ public abstract class AbstractCharacterTest {
       e.printStackTrace();
     }
   }
+   */
 
   protected void checkConstruction(final ICharacter expectedCharacter,
       final ICharacter testEqualCharacter,
@@ -61,7 +63,6 @@ public abstract class AbstractCharacterTest {
   }
 
   protected void basicSetUp() {
-    turns = new LinkedBlockingQueue<>();
     inventory = new ArrayList<>();
   }
 

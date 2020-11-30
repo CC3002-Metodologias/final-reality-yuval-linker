@@ -1,12 +1,10 @@
 package com.github.ylinker.finalreality.model.character.player.mage;
 
-import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * A class that holds all the information of a single white mage character of the game.
@@ -21,8 +19,6 @@ public class WhiteMage extends AbstractMage {
      *
      * @param name
      *     the character's name
-     * @param turnsQueue
-     *     the queue with the characters waiting for their turn
      * @param mana
      *     the character's mana
      * @param attack
@@ -36,11 +32,9 @@ public class WhiteMage extends AbstractMage {
      * @param defense
      *      The character's initial defense
      */
-    public WhiteMage(@NotNull BlockingQueue<ICharacter> turnsQueue,
-                     @NotNull ArrayList<IWeapon> inventory,
-                     @NotNull String name,
+    public WhiteMage(@NotNull String name,
                      final int health, final int attack, final int defense, final int mana) {
-        super(turnsQueue, inventory, name, health, attack, defense, mana);
+        super(name, health, attack, defense, mana);
     }
 
     /**
@@ -71,18 +65,17 @@ public class WhiteMage extends AbstractMage {
     }
 
     @Override
-    public void equip(IWeapon weapon) {
-        if(isAlive() && inventory.contains(weapon)) {
+    public boolean equip(IWeapon weapon) {
+        if(isAlive()) {
             IWeapon myWeapon = weapon.equipToWhiteMage();
-            IWeapon previousWeapon = this.equippedWeapon;
             if (myWeapon != null) {
                 this.equippedWeapon = myWeapon;
                 this.attack = this.baseAttack + myWeapon.getDamage();
                 this.weight = this.baseWeight + myWeapon.getWeight();
-                inventory.remove(weapon);
-                inventory.add(previousWeapon);
+                return true;
             }
         }
+        return false;
     }
 
 }

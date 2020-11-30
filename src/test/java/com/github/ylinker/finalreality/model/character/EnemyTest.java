@@ -29,8 +29,8 @@ class EnemyTest extends AbstractCharacterTest {
   @BeforeEach
   void setUp() {
     super.basicSetUp();
-    testCommon = new Enemy(turns, ENEMY_NAME, HEALTH, ATTACK, DEFENSE, 10);
-    testDead = new Enemy(turns, ENEMY_NAME, 0, ATTACK, DEFENSE, 10);
+    testCommon = new Enemy(ENEMY_NAME, HEALTH, ATTACK, DEFENSE, 10);
+    testDead = new Enemy(ENEMY_NAME, 0, ATTACK, DEFENSE, 10);
 
     random = new Random();
     killablePlayerCharacters = new HashMap<>();
@@ -38,66 +38,66 @@ class EnemyTest extends AbstractCharacterTest {
     exactlyKillablePlayerCharacters = new HashMap<>();
     notDamageablePlayerCharacters = new HashMap<>();
     // Player Characters that have less health than 15
-    killablePlayerCharacters.put("knight", new Knight(turns, inventory,"opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
+    killablePlayerCharacters.put("knight", new Knight(inventory,"opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE));
-    killablePlayerCharacters.put("engineer", new Engineer(turns, inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
+    killablePlayerCharacters.put("engineer", new Engineer(inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE));
-    killablePlayerCharacters.put("thief", new Thief(turns, inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
+    killablePlayerCharacters.put("thief", new Thief(inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE));
-    killablePlayerCharacters.put("black", new BlackMage(turns, inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
+    killablePlayerCharacters.put("black", new BlackMage(inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE, 0));
-    killablePlayerCharacters.put("white", new WhiteMage(turns, inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
+    killablePlayerCharacters.put("white", new WhiteMage(inventory, "opponent", OPPONENT_HEALTH - (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE, 0));
 
     // Player Characters that have exactly 15 health
-    exactlyKillablePlayerCharacters.put("knight", new Knight(turns, inventory, "opponent", OPPONENT_HEALTH,
+    exactlyKillablePlayerCharacters.put("knight", new Knight(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE));
-    exactlyKillablePlayerCharacters.put("engineer", new Engineer(turns, inventory, "opponent", OPPONENT_HEALTH,
+    exactlyKillablePlayerCharacters.put("engineer", new Engineer(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE));
-    exactlyKillablePlayerCharacters.put("thief", new Thief(turns, inventory, "opponent", OPPONENT_HEALTH,
+    exactlyKillablePlayerCharacters.put("thief", new Thief(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE));
-    exactlyKillablePlayerCharacters.put("white", new WhiteMage(turns, inventory, "opponent", OPPONENT_HEALTH,
+    exactlyKillablePlayerCharacters.put("white", new WhiteMage(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE, 0));
-    exactlyKillablePlayerCharacters.put("black", new BlackMage(turns, inventory,"opponent", OPPONENT_HEALTH,
+    exactlyKillablePlayerCharacters.put("black", new BlackMage(inventory,"opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE, 0));
 
     // Player Characters that have more than 15 health
-    notKillablePlayerCharacters.put("knight", new Knight(turns, inventory,"opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
+    notKillablePlayerCharacters.put("knight", new Knight(inventory,"opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE + 2));
-    notKillablePlayerCharacters.put("engineer", new Engineer(turns, inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
+    notKillablePlayerCharacters.put("engineer", new Engineer(inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE + 2));
-    notKillablePlayerCharacters.put("thief", new Thief(turns, inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
+    notKillablePlayerCharacters.put("thief", new Thief(inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE + 2));
-    notKillablePlayerCharacters.put("black", new BlackMage(turns, inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
+    notKillablePlayerCharacters.put("black", new BlackMage(inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE + 2, 0));
-    notKillablePlayerCharacters.put("white", new WhiteMage(turns, inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
+    notKillablePlayerCharacters.put("white", new WhiteMage(inventory, "opponent", OPPONENT_HEALTH + (1 + random.nextInt(4)),
             OPPONENT_ATTACK, OPPONENT_DEFENSE + 2, 0));
 
     // Player Characters that have more armor than the enemy's attack
-    notDamageablePlayerCharacters.put("knight", new Knight(turns, inventory, "opponent", OPPONENT_HEALTH,
+    notDamageablePlayerCharacters.put("knight", new Knight(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE + (6 + random.nextInt(10))));
-    notDamageablePlayerCharacters.put("engineer", new Engineer(turns, inventory, "opponent", OPPONENT_HEALTH,
+    notDamageablePlayerCharacters.put("engineer", new Engineer(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE + (6 + random.nextInt(10))));
-    notDamageablePlayerCharacters.put("thief", new Thief(turns, inventory, "opponent", OPPONENT_HEALTH,
+    notDamageablePlayerCharacters.put("thief", new Thief(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE + (6 + random.nextInt(10))));
-    notDamageablePlayerCharacters.put("white", new WhiteMage(turns, inventory, "opponent", OPPONENT_HEALTH,
+    notDamageablePlayerCharacters.put("white", new WhiteMage(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE + (6 + random.nextInt(10)), 0));
-    notDamageablePlayerCharacters.put("black", new BlackMage(turns, inventory, "opponent", OPPONENT_HEALTH,
+    notDamageablePlayerCharacters.put("black", new BlackMage(inventory, "opponent", OPPONENT_HEALTH,
             OPPONENT_ATTACK, OPPONENT_DEFENSE + (6 + random.nextInt(10)), 0));
   }
 
   @Test
   void constructorTest() {
-    checkConstruction(new Enemy(turns, ENEMY_NAME, 50, 10, 20, 10),
+    checkConstruction(new Enemy(ENEMY_NAME, 50, 10, 20, 10),
         testCommon,
-        new Enemy(turns, ENEMY_NAME, 50, 10, 20, 20),
-        new Thief(turns, inventory, ENEMY_NAME, 50, 10, 20));
-    assertNotEquals(new Enemy(turns, "Test", 50, 10, 20, 10), testCommon);
+        new Enemy(ENEMY_NAME, 50, 10, 20, 20),
+        new Thief(inventory, ENEMY_NAME, 50, 10, 20));
+    assertNotEquals(new Enemy("Test", 50, 10, 20, 10), testCommon);
   }
 
   @Test
   void deadTest() {
-    checkDeadDontAttack(new Knight(turns, inventory, "defend", 20, 10, 20));
+    checkDeadDontAttack(new Knight(inventory, "defend", 20, 10, 20));
   }
 
   @Test

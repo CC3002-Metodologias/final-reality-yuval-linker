@@ -17,21 +17,19 @@ import java.beans.PropertyChangeSupport;
 public abstract class AbstractCharacter implements ICharacter {
 
     protected int baseWeight;
-    protected final BlockingQueue<ICharacter> turnsQueue;
     protected final String name;
     protected int health;
     protected int baseAttack;
     protected int defense;
     protected ScheduledExecutorService scheduledExecutor;
     protected final PropertyChangeSupport characterDeadEvent = new PropertyChangeSupport(this);
+    protected final PropertyChangeSupport beginTurnEvent = new PropertyChangeSupport(this);
 
 
     /**
      * Constructs an Abstract Character. It's the base of every character's constructor.
      * @param name
      *      The character's name
-     * @param turnsQueue
-     *      The queue that the character uses to wait for it's turn
      * @param health
      *      The character's initial health points
      * @param attack
@@ -39,24 +37,14 @@ public abstract class AbstractCharacter implements ICharacter {
      * @param defense
      *      The character's initial defense
      */
-    protected AbstractCharacter(@NotNull final BlockingQueue<ICharacter> turnsQueue,
-                                @NotNull final String name, final int health,
+    protected AbstractCharacter(@NotNull final String name, final int health,
                                 final int attack, final int defense) {
         // Default weight is 10
         this.baseWeight = 10;
         this.name = name;
-        this.turnsQueue = turnsQueue;
         this.health = health;
         this.baseAttack = attack;
         this.defense = defense;
-    }
-
-    /**
-     * Add this character to the turns queue
-     */
-    protected void addToQueue() {
-        turnsQueue.add(this);
-        scheduledExecutor.shutdown();
     }
 
     /**
@@ -101,6 +89,26 @@ public abstract class AbstractCharacter implements ICharacter {
         return health;
     }
 
+    @Override
+    public ScheduledExecutorService getScheduledExecutor() {
+        return scheduledExecutor;
+    }
+
+    @Override
+    public int getDelay() {
+        return getWeight()/10;
+    }
+
+    @Override
+    public void setScheduledExecutor(ScheduledExecutorService schedule) {
+        scheduledExecutor = schedule;
+    }
+
+    @Override
+    public void shutdownScheduledExecutor() {
+        scheduledExecutor.shutdown();
+    }
+
     private void setHealth(final int newHealth) {
         this.health = newHealth;
         if(!isAlive()) {
@@ -141,13 +149,18 @@ public abstract class AbstractCharacter implements ICharacter {
         }
     }
 
-    public void addListener(IEventHandler handler) {
+    @Override
+    public void addDeathListener(IEventHandler handler) {
         characterDeadEvent.addPropertyChangeListener(handler);
     }
 
-    /**
-     * Method that manages how a character should wait its turn in the queue
-     */
-    public abstract void waitTurn();
+    @Override
+    public void addBeginTurnListener(IEventHandler handler) {
+        beginTurnEvent.addPropertyChangeListener(handler);
+    }
 
+    @Override
+    public void beginTurn() {
+        beginTurnEvent.firePropertyChange("Begin Turn", null, this);
+    }
 }

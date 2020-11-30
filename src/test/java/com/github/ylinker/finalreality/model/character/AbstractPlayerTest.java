@@ -33,9 +33,9 @@ public abstract class AbstractPlayerTest extends AbstractCharacterTest {
         weapons.put("sword", new Sword("sword", 25, 20));
 
         Random rand = new Random();
-        testEnemy = new Enemy(turns, "testEnemy", 15, 0, 5, 10);
-        overkillEnemy = new Enemy(turns, "testEnemy", 15 - (1 + rand.nextInt(4)), 0, 5, 10);
-        notDamagableEnemy = new Enemy(turns, "testEnemy", 15, 0, 20, 10);
+        testEnemy = new Enemy("testEnemy", 15, 0, 5, 10);
+        overkillEnemy = new Enemy("testEnemy", 15 - (1 + rand.nextInt(4)), 0, 5, 10);
+        notDamagableEnemy = new Enemy("testEnemy", 15, 0, 20, 10);
     }
 
     @Test

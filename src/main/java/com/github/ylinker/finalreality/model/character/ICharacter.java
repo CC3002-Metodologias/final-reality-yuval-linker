@@ -2,6 +2,8 @@ package com.github.ylinker.finalreality.model.character;
 
 import com.github.ylinker.finalreality.controller.IEventHandler;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
@@ -10,13 +12,6 @@ import com.github.ylinker.finalreality.controller.IEventHandler;
  * @author Yuval Linker
  */
 public interface ICharacter {
-
-  /**
-   * Sets a scheduled executor to make this character (thread) wait for {@code speed / 10}
-   * seconds before adding the character to the queue.
-   */
-  void waitTurn();
-
   /**
    * Returns this character's name.
    */
@@ -41,6 +36,8 @@ public interface ICharacter {
    * Returns this character's Health points
    */
   int getHealth();
+
+  ScheduledExecutorService getScheduledExecutor();
 
   /**
    * Checks if the character is alive (has more than 0 health)
@@ -71,5 +68,19 @@ public interface ICharacter {
    */
   int defend(int otherAttack);
 
-  void addListener(IEventHandler handler);
+  void addDeathListener(IEventHandler handler);
+
+  void addBeginTurnListener(IEventHandler handler);
+
+  void addEndTurnListener(IEventHandler handler);
+
+  void beginTurn();
+
+  void endTurn();
+
+  int getDelay();
+
+  void setScheduledExecutor(ScheduledExecutorService schedule);
+
+  void shutdownScheduledExecutor();
 }

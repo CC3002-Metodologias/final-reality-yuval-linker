@@ -12,12 +12,12 @@ import com.github.ylinker.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 /**
  * The game controller.
@@ -31,6 +31,7 @@ public class GameController {
     private final BlockingQueue<ICharacter> queue;
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
+    private final IEventHandler beginTurnHandler = new BeginTurnHandler(this);
 
     public GameController() {
         playerCharacters = new ArrayList<>();
@@ -62,27 +63,28 @@ public class GameController {
      */
     private void addPlayerCharacter(IPlayerCharacter character){
         playerCharacters.add(character);
-        character.addListener(characterDeadHandler);
+        character.addDeathListener(characterDeadHandler);
+        character.addBeginTurnListener(beginTurnHandler);
     }
 
     public void createEngineer(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Engineer(this.queue, this.inventory, name, health, attack, defense));
+        addPlayerCharacter(new Engineer(name, health, attack, defense));
     }
 
     public void createKnight(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Knight(this.queue, this.inventory, name, health, attack, defense));
+        addPlayerCharacter(new Knight(name, health, attack, defense));
     }
 
     public void createThief(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Thief(this.queue, this.inventory, name, health, attack, defense));
+        addPlayerCharacter(new Thief(name, health, attack, defense));
     }
 
     public void createWhiteMage(@NotNull String name, int health, int attack, int defense, int mana){
-        addPlayerCharacter(new WhiteMage(this.queue, this.inventory, name, health, attack, defense, mana));
+        addPlayerCharacter(new WhiteMage(name, health, attack, defense, mana));
     }
 
     public void createBlackMage(@NotNull String name, int health, int attack, int defense, int mana){
-        addPlayerCharacter(new BlackMage(this.queue, this.inventory, name, health, attack, defense, mana));
+        addPlayerCharacter(new BlackMage(name, health, attack, defense, mana));
     }
 
     public HashMap<IPlayerCharacter, Integer> getCharactersHealth() {
@@ -127,11 +129,12 @@ public class GameController {
 
     private void addEnemy(Enemy enemy) {
         enemies.add(enemy);
-        enemy.addListener(enemyDeadHandler);
+        enemy.addDeathListener(enemyDeadHandler);
+        enemy.addBeginTurnListener(beginTurnHandler);
     }
 
     public void createEnemy(@NotNull String name, int health, int attack, int defense, int weight) {
-        addEnemy(new Enemy(queue, name, health, attack, defense, weight));
+        addEnemy(new Enemy(name, health, attack, defense, weight));
     }
 
     public HashMap<Enemy, Integer> getEnemiesHealth() {
@@ -203,7 +206,14 @@ public class GameController {
      *      The weapon to be equipped
      */
     public void equip(IPlayerCharacter character, IWeapon weapon){
-            character.equip(weapon);
+        IWeapon previousWeapon = character.getEquippedWeapon();
+        if (inventory.contains(weapon) && character.equip(weapon)) {
+            inventory.remove(weapon);
+            if (previousWeapon != null) {
+                inventory.add(previousWeapon);
+            }
+        }
+        character.equip(weapon);
     }
 
     /**
@@ -217,17 +227,31 @@ public class GameController {
         attacker.attack(attacked);
     }
 
-    public ICharacter beginTurn() throws InterruptedException {
-        if (queue.isEmpty()) {
-            Thread.sleep(6000);
-            return beginTurn();
-        } else {
-            return queue.poll();
+    public void beginTurn() {
+        ICharacter character = queue.peek();
+        if (!(character == null)) {
+            character.beginTurn();
+            queue.poll();
+            waitTurn(character);
+            beginTurn();
         }
     }
 
-    public void endTurn(ICharacter character) {
-        character.waitTurn();
+    public void waitTurn(ICharacter character) {
+        character.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
+        Runnable command = () -> this.addToQueue(character);
+        character.getScheduledExecutor().schedule(command, character.getDelay(), TimeUnit.SECONDS);
+    }
+
+    public void addToQueue(ICharacter character) {
+        if (queue.isEmpty()) {
+            queue.add(character);
+            character.shutdownScheduledExecutor();
+            beginTurn();
+        } else {
+            queue.add(character);
+            character.shutdownScheduledExecutor();
+        }
     }
 
     public void onCharacterDeath(IPlayerCharacter character) {
