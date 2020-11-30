@@ -232,6 +232,7 @@ public class GameController {
         ICharacter character = queue.peek();
         if (!(character == null)) {
             character.beginTurn();
+            // Here the character's turn ends
             queue.poll();
             waitTurn(character);
             beginTurn();
@@ -252,6 +253,15 @@ public class GameController {
         } else {
             queue.add(character);
             character.shutdownScheduledExecutor();
+        }
+    }
+
+    public void initTurns() {
+        for (IPlayerCharacter character: playerCharacters) {
+            waitTurn(character);
+        }
+        for (Enemy enemy: enemies) {
+            waitTurn(enemy);
         }
     }
 
