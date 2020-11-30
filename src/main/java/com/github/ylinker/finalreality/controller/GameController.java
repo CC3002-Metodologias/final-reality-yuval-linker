@@ -7,16 +7,12 @@ import com.github.ylinker.finalreality.model.character.player.common.Engineer;
 import com.github.ylinker.finalreality.model.character.player.common.Knight;
 import com.github.ylinker.finalreality.model.character.player.common.Thief;
 import com.github.ylinker.finalreality.model.character.player.mage.BlackMage;
+import com.github.ylinker.finalreality.model.character.player.mage.IMage;
 import com.github.ylinker.finalreality.model.character.player.mage.WhiteMage;
 import com.github.ylinker.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Queue;
 import java.util.concurrent.*;
 
 /**
@@ -31,7 +27,8 @@ public class GameController {
     private final BlockingQueue<ICharacter> queue;
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
-    private final IEventHandler beginTurnHandler = new BeginTurnHandler(this);
+    private final IEventHandler characterTurnHandler = new PlayerCharacterTurnHandler(this);
+    private final IEventHandler enemyTurnHandler = new EnemyTurnHandler(this);
 
     public GameController() {
         playerCharacters = new ArrayList<>();
@@ -64,7 +61,7 @@ public class GameController {
     private void addPlayerCharacter(IPlayerCharacter character){
         playerCharacters.add(character);
         character.addDeathListener(characterDeadHandler);
-        character.addBeginTurnListener(beginTurnHandler);
+        character.addBeginTurnListener(characterTurnHandler);
     }
 
     public void createEngineer(@NotNull String name, int health, int attack, int defense){
@@ -87,86 +84,38 @@ public class GameController {
         addPlayerCharacter(new BlackMage(name, health, attack, defense, mana));
     }
 
-    public HashMap<IPlayerCharacter, Integer> getCharactersHealth() {
-        HashMap<IPlayerCharacter, Integer> charactersHealth = new HashMap<>();
-        for (IPlayerCharacter character: playerCharacters) {
-            charactersHealth.put(character, character.getHealth());
-        }
-        return charactersHealth;
+    public int getCharacterHealth(ICharacter character) {
+        return character.getHealth();
     }
 
-    public HashMap<IPlayerCharacter, Integer> getCharactersAttack() {
-        HashMap<IPlayerCharacter, Integer> charactersAttack = new HashMap<>();
-        for (IPlayerCharacter character: playerCharacters) {
-            charactersAttack.put(character, character.getAttack());
-        }
-        return charactersAttack;
+    public int getCharacterAttack(ICharacter character) {
+        return character.getAttack();
     }
 
-    public HashMap<IPlayerCharacter, Integer> getCharactersDefense() {
-        HashMap<IPlayerCharacter, Integer> charactersDefense = new HashMap<>();
-        for (IPlayerCharacter character: playerCharacters) {
-            charactersDefense.put(character, character.getDefense());
-        }
-        return charactersDefense;
+    public int getCharacterDefense(ICharacter character) {
+        return character.getDefense();
     }
 
-    public HashMap<IPlayerCharacter, String> getCharactersName() {
-        HashMap<IPlayerCharacter, String> charactersName = new HashMap<>();
-        for (IPlayerCharacter character: playerCharacters) {
-            charactersName.put(character, character.getName());
-        }
-        return charactersName;
+    public String getCharacterName(ICharacter character) {
+        return character.getName();
     }
 
-    public HashMap<IPlayerCharacter, IWeapon> getCharactersEquippedWeapon() {
-        HashMap<IPlayerCharacter, IWeapon> charactersWeapon = new HashMap<>();
-        for (IPlayerCharacter character: playerCharacters) {
-            charactersWeapon.put(character, character.getEquippedWeapon());
-        }
-        return charactersWeapon;
+    public IWeapon getCharacterEquippedWeapon(IPlayerCharacter character) {
+        return character.getEquippedWeapon();
+    }
+
+    public int getMageMana(IMage mage) {
+        return mage.getMana();
     }
 
     private void addEnemy(Enemy enemy) {
         enemies.add(enemy);
         enemy.addDeathListener(enemyDeadHandler);
-        enemy.addBeginTurnListener(beginTurnHandler);
+        enemy.addBeginTurnListener(enemyTurnHandler);
     }
 
     public void createEnemy(@NotNull String name, int health, int attack, int defense, int weight) {
         addEnemy(new Enemy(name, health, attack, defense, weight));
-    }
-
-    public HashMap<Enemy, Integer> getEnemiesHealth() {
-        HashMap<Enemy, Integer> enemiesHealth = new HashMap<>();
-        for (Enemy enemy: enemies) {
-            enemiesHealth.put(enemy, enemy.getHealth());
-        }
-        return enemiesHealth;
-    }
-
-    public HashMap<Enemy, Integer> getEnemiesDefense() {
-        HashMap<Enemy, Integer> enemiesDefense = new HashMap<>();
-        for (Enemy enemy: enemies) {
-            enemiesDefense.put(enemy, enemy.getDefense());
-        }
-        return enemiesDefense;
-    }
-
-    public HashMap<Enemy, Integer> getEnemiesAttack() {
-        HashMap<Enemy, Integer> enemiesAttack = new HashMap<>();
-        for (Enemy enemy: enemies) {
-            enemiesAttack.put(enemy, enemy.getAttack());
-        }
-        return enemiesAttack;
-    }
-
-    public HashMap<Enemy, String> getEnemiesName() {
-        HashMap<Enemy, String> enemiesNames = new HashMap<>();
-        for (Enemy enemy: enemies) {
-            enemiesNames.put(enemy, enemy.getName());
-        }
-        return enemiesNames;
     }
 
     /**
@@ -196,6 +145,22 @@ public class GameController {
 
     public void createStaff(@NotNull String name, final int damage, final int weight, final int magicDamage){
         addWeapon(new Staff(name, damage, weight, magicDamage));
+    }
+
+    public String getWeaponName(IWeapon weapon) {
+        return weapon.getName();
+    }
+
+    public int getWeaponDamage(IWeapon weapon) {
+        return weapon.getDamage();
+    }
+
+    public int getWeaponWeight(IWeapon weapon) {
+        return weapon.getWeight();
+    }
+
+    public int getStaffMagicDamage(Staff staff) {
+        return staff.getMagicDamage();
     }
 
     /**
