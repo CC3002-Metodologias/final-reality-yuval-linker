@@ -4,9 +4,17 @@ import com.github.ylinker.finalreality.model.character.Enemy;
 
 import java.beans.PropertyChangeEvent;
 
+/**
+ * Observer for the event of an enemy dying
+ */
 public class EnemyDeadHandler implements IEventHandler {
     private final GameController controller;
 
+    /**
+     * Creates the a handler for the enemy's death
+     * @param controller
+     *      The game controller
+     */
     public EnemyDeadHandler(GameController controller) {
         this.controller=controller;
     }

@@ -89,21 +89,39 @@ public abstract class AbstractCharacter implements ICharacter {
         return health;
     }
 
+    /**
+     * Gets the Scheduled Executor of this character
+     * @return
+     *    The scheduled executor
+     */
     @Override
     public ScheduledExecutorService getScheduledExecutor() {
         return scheduledExecutor;
     }
 
+    /**
+     * Returns the character's delay based on their weight and turns formula
+     * @return
+     *    The amount of seconds of delay between turns
+     */
     @Override
     public int getDelay() {
         return getWeight()/10;
     }
 
+    /**
+     * Sets the Schedule Executor of this character
+     * @param schedule
+     *    The scheduled executor value
+     */
     @Override
     public void setScheduledExecutor(ScheduledExecutorService schedule) {
         scheduledExecutor = schedule;
     }
 
+    /**
+     * Shuts down the Scheduled Executor of this character
+     */
     @Override
     public void shutdownScheduledExecutor() {
         scheduledExecutor.shutdown();
@@ -149,16 +167,30 @@ public abstract class AbstractCharacter implements ICharacter {
         }
     }
 
+    /**
+     * Adds an observer for the character's death event
+     * @param handler
+     *    The Death Listener
+     */
     @Override
     public void addDeathListener(IEventHandler handler) {
         characterDeadEvent.addPropertyChangeListener(handler);
     }
 
+    /**
+     * Adds an observer for the character's turn beginning
+     * @param handler
+     *    The Turn Listener
+     */
     @Override
     public void addBeginTurnListener(IEventHandler handler) {
         beginTurnEvent.addPropertyChangeListener(handler);
     }
 
+    /**
+     * Warns for the event of starting this character's turn
+     * For observers to act
+     */
     @Override
     public void beginTurn() {
         beginTurnEvent.firePropertyChange("Begin Turn", null, this);

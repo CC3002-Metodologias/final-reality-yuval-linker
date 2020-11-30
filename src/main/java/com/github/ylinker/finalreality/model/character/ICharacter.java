@@ -37,6 +37,11 @@ public interface ICharacter {
    */
   int getHealth();
 
+  /**
+   * Gets the Scheduled Executor of this character
+   * @return
+   *    The scheduled executor
+   */
   ScheduledExecutorService getScheduledExecutor();
 
   /**
@@ -68,15 +73,42 @@ public interface ICharacter {
    */
   int defend(int otherAttack);
 
+  /**
+   * Adds an observer for the character's death event
+   * @param handler
+   *    The Death Listener
+   */
   void addDeathListener(IEventHandler handler);
 
+  /**
+   * Adds an observer for the character's turn beginning
+   * @param handler
+   *    The Turn Listener
+   */
   void addBeginTurnListener(IEventHandler handler);
 
+  /**
+   * Warns for the event of starting this character's turn
+   * For observers to act
+   */
   void beginTurn();
 
+  /**
+   * Returns the character's delay based on their weight and turns formula
+   * @return
+   *    The amount of seconds of delay between turns
+   */
   int getDelay();
 
+  /**
+   * Sets the Schedule Executor of this character
+   * @param schedule
+   *    The scheduled executor value
+   */
   void setScheduledExecutor(ScheduledExecutorService schedule);
 
+  /**
+   * Shuts down the Scheduled Executor of this character
+   */
   void shutdownScheduledExecutor();
 }
