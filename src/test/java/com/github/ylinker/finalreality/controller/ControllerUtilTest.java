@@ -21,17 +21,17 @@ public class ControllerUtilTest {
 
     @Test
     void winConditionTest() {
-        assertTrue(testController.playerLost());
-        assertTrue(testController.playerWon());
+        assertTrue(testController.loseCondition());
+        assertTrue(testController.winCondition());
         testController.createEnemy("testEnemy", 12, 12, 12, 10);
-        assertFalse(testController.playerWon());
-        assertTrue(testController.playerLost());
+        assertFalse(testController.winCondition());
+        assertTrue(testController.loseCondition());
         testController.createEngineer("testCharacter", 12, 12, 12);
-        assertFalse(testController.playerLost());
-        assertFalse(testController.playerWon());
+        assertFalse(testController.loseCondition());
+        assertFalse(testController.winCondition());
         testController.getEnemies().clear();
-        assertTrue(testController.playerWon());
-        assertFalse(testController.playerLost());
+        assertTrue(testController.winCondition());
+        assertFalse(testController.loseCondition());
     }
 
     @Test

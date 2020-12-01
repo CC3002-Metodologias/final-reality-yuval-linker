@@ -50,8 +50,15 @@ public class GameController {
      * @return
      *      True if the player won, False otherwise
      */
-    public boolean playerWon() {
+    public boolean winCondition() {
         return enemies.isEmpty();
+    }
+
+    /**
+     * Method that manages the event of the player winning
+     */
+    public void playerWon() {
+
     }
 
     /**
@@ -60,8 +67,15 @@ public class GameController {
      * @return
      *      True if the player lost, False otherwise
      */
-    public boolean playerLost() {
+    public boolean loseCondition() {
         return playerCharacters.isEmpty();
+    }
+
+    /**
+     * Method that manages the event of the player losing
+     */
+    public void playerLost() {
+
     }
 
     /**

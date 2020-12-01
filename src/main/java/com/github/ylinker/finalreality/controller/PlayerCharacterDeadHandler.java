@@ -22,5 +22,8 @@ public class PlayerCharacterDeadHandler implements IEventHandler {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         controller.onCharacterDeath((IPlayerCharacter) evt.getNewValue());
+        if (controller.loseCondition()) {
+            controller.playerLost();
+        }
     }
 }

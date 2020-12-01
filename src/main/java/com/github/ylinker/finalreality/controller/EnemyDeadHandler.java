@@ -22,5 +22,8 @@ public class EnemyDeadHandler implements IEventHandler {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         controller.onEnemyDeath((Enemy) evt.getNewValue());
+        if (controller.winCondition()) {
+            controller.playerWon();
+        }
     }
 }

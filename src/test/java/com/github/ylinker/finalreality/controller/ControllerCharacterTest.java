@@ -109,6 +109,12 @@ public class ControllerCharacterTest {
         assertFalse(testController.getCharacters().contains(testBlackMage));
         assertEquals(0, testController.getCharacters().size());
         assertEquals(1, testController.getEnemies().size());
+
+        testController.createKnight("playerWinner", 10, 20, 0);
+        testKnight = (Knight) testController.getCharacters().get(0);
+        testController.attack(testKnight, otherEnemy);
+        assertFalse(testController.getEnemies().contains(otherEnemy));
+        assertEquals(0, testController.getEnemies().size());
     }
 
     @Test
