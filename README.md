@@ -61,7 +61,8 @@ IEventHandler is the interface used to group every handler. This are `EnemyDeadH
 
 `EnemyDeadHandler` and `PlayerCharacterDeadHandler` are observer for the event of a character dying. Since
 there are two different Array Lists (one for enemies and other one for the player characters) two different
-handlers are needed to call two different methods: `onCharacterDeath` or `onEnemyDeath`.
+handlers are needed to call two different methods: `onCharacterDeath` or `onEnemyDeath`. On every character
+death the win or lose conditions (as appropriate) are tested.
 
 The same happens with the turns handlers. This is because the computer's turn is different to the player's
 turn.
