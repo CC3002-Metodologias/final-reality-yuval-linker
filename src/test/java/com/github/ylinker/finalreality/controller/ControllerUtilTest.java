@@ -99,9 +99,12 @@ public class ControllerUtilTest {
         try {
             Thread.sleep(1100);
             assertTrue(engineer.getScheduledExecutor().isShutdown());
+            assertTrue(testController.getQueue().contains(engineer));
             assertFalse(enemy.getScheduledExecutor().isShutdown());
+            assertFalse(testController.getQueue().contains(enemy));
             Thread.sleep(1000);
             assertTrue(enemy.getScheduledExecutor().isShutdown());
+            assertTrue(testController.getQueue().contains(enemy));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -128,4 +131,34 @@ public class ControllerUtilTest {
         }
     }
 
+    @Test
+    void beginTurnTest() {
+        // When queue is empty begin turn does nothing
+        assertTrue(testController.getQueue().isEmpty());
+        testController.createEnemy("test", 5, 10, 10, 10);
+        testController.createEngineer("characterTest", 5, 10, 5);
+        IPlayerCharacter engineer = testController.getCharacters().get(0);
+        Enemy enemy = testController.getEnemies().get(0);
+        testController.beginTurn();
+        // Nothing should happen since queue is empty, so no enemy attack
+        assertEquals(5, testController.getCharacterHealth(engineer));
+        // Now we put a character on queue. We test that its turn starts instantly
+        // This means that he is pulled from the queue
+        testController.getQueue().add(engineer);
+        testController.beginTurn();
+        assertFalse(testController.getQueue().contains(engineer));
+        assertNotNull(engineer.getScheduledExecutor());
+        try {
+            testController.getQueue().add(enemy);
+            Thread.sleep(1000);
+            // Now the turn should not begin instantly since the queue is not empty
+            assertTrue(testController.getQueue().contains(engineer));
+            assertTrue(testController.getQueue().contains(enemy));
+            // Now we begin the enemy's turn that should kill the engineer
+            testController.beginTurn();
+            assertFalse(testController.getCharacters().contains(engineer));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -399,6 +399,11 @@ public class GameController {
         attacker.attack(attacked);
     }
 
+    /**
+     * Method to begin a new turn.
+     * If the queue is empty then it does nothing
+     * Ig the queue has a character it starts its turn
+     */
     public void beginTurn() {
         ICharacter character = queue.peek();
         if (!(character == null)) {
