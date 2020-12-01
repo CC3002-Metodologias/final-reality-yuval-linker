@@ -71,7 +71,9 @@ public class ControllerUtilTest {
         testController.createEnemy("testEnemy", 10, 10, 10, 20);
         testController.initTurns();
         assertNotNull(testController.getCharacters().get(0).getScheduledExecutor());
+        assertFalse(testController.getCharacters().get(0).getScheduledExecutor().isShutdown());
         assertNotNull(testController.getEnemies().get(0).getScheduledExecutor());
+        assertFalse(testController.getEnemies().get(0).getScheduledExecutor().isShutdown());
     }
 
     @Test
