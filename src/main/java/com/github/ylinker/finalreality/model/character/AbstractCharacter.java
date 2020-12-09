@@ -1,9 +1,8 @@
 package com.github.ylinker.finalreality.model.character;
 
-import com.github.ylinker.finalreality.controller.IEventHandler;
+import com.github.ylinker.finalreality.controller.handler.IEventHandler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.beans.PropertyChangeSupport;
 

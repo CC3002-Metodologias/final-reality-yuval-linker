@@ -1,6 +1,6 @@
 package com.github.ylinker.finalreality.model.character;
 
-import com.github.ylinker.finalreality.controller.IEventHandler;
+import com.github.ylinker.finalreality.controller.handler.IEventHandler;
 
 import java.util.concurrent.ScheduledExecutorService;
 
