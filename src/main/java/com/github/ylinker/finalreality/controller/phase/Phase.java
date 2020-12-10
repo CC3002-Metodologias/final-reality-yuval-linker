@@ -18,6 +18,10 @@ public class Phase {
         this.character = character;
     }
 
+    public GameController getController() {
+        return controller;
+    }
+
     protected void changePhase(Phase phase) {
         controller.setPhase(phase);
     }
@@ -46,7 +50,6 @@ public class Phase {
         throw new InvalidActionException("Can't select a weapon to equip in this phase");
     }
 
-    public void beginTurn() throws InvalidActionException {
-        throw new InvalidActionException("Can't begin a turn in this phase");
+    public void beginTurn() {
     }
 }

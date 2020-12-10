@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.controller;
 
 import com.github.ylinker.finalreality.controller.handler.*;
 import com.github.ylinker.finalreality.controller.phase.BeginTurnPhase;
+import com.github.ylinker.finalreality.controller.phase.SelectAttackingTargetPhase;
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidActionException;
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidTransitionException;
 import com.github.ylinker.finalreality.controller.phase.Phase;
@@ -433,10 +434,7 @@ public class GameController {
             // Here the character's turn ends
             queue.poll();
             waitTurn(character);
-            try {
-                phase.beginTurn();
-            } catch (InvalidActionException e) {
-            }
+            phase.beginTurn();
         }
     }
 
@@ -462,10 +460,7 @@ public class GameController {
         if (queue.isEmpty()) {
             queue.add(character);
             character.shutdownScheduledExecutor();
-            try {
-                phase.beginTurn();
-            } catch (InvalidActionException e){
-            }
+            phase.beginTurn();
         } else {
             queue.add(character);
             character.shutdownScheduledExecutor();
@@ -548,6 +543,7 @@ public class GameController {
         try {
             phase.selectTarget(character);
         } catch (InvalidActionException e) {
+            // TODO: implement what happens when invalid action is executed
             e.printStackTrace();
         }
     }
@@ -557,6 +553,7 @@ public class GameController {
             phase.selectWeapon(weapon);
             phase.toSelectActionPhase();
         } catch (InvalidActionException | InvalidTransitionException e) {
+            // TODO: implement what happens when invalid action is executed
             e.printStackTrace();
         }
     }
@@ -565,6 +562,7 @@ public class GameController {
         try {
             phase.toSelectWeaponPhase();
         } catch (InvalidTransitionException e) {
+            // TODO: implement what happens when invalid action is executed
             e.printStackTrace();
         }
     }
@@ -573,6 +571,7 @@ public class GameController {
         try {
             phase.toSelectAttackingTargetPhase();
         } catch (InvalidTransitionException e) {
+            // TODO: implement what happens when invalid action is executed
             e.printStackTrace();
         }
     }
@@ -581,7 +580,12 @@ public class GameController {
         try {
             phase.toSelectActionPhase();
         } catch (InvalidTransitionException e) {
+            // TODO: implement what happens when invalid action is executed
             e.printStackTrace();
         }
+    }
+
+    public Phase getPhase() {
+        return phase;
     }
 }

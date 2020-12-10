@@ -7,11 +7,6 @@ import com.github.ylinker.finalreality.model.weapon.IWeapon;
 public class SelectWeaponPhase extends Phase {
 
     @Override
-    public void toBeginTurnPhase() {
-        changePhase(new BeginTurnPhase());
-    }
-
-    @Override
     public void toSelectActionPhase() {
         SelectActionPhase phase = new SelectActionPhase();
         phase.setCharacter(character);
