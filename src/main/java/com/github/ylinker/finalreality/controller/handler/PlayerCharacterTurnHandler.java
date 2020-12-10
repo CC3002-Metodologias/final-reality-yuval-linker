@@ -24,6 +24,7 @@ public class PlayerCharacterTurnHandler implements IEventHandler {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         IPlayerCharacter character = (IPlayerCharacter) evt.getNewValue();
-        // TODO: implement player turn here
+        controller.toActionPhase();
+        controller.setPhaseCharacter(character);
     }
 }

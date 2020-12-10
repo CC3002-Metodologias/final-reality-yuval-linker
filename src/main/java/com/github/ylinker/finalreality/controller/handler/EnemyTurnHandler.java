@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.controller.handler;
 
 import com.github.ylinker.finalreality.controller.GameController;
 import com.github.ylinker.finalreality.controller.handler.IEventHandler;
+import com.github.ylinker.finalreality.controller.phase.SelectAttackingTargetPhase;
 import com.github.ylinker.finalreality.model.character.Enemy;
 
 import java.beans.PropertyChangeEvent;
@@ -34,6 +35,8 @@ public class EnemyTurnHandler implements IEventHandler {
 
         // Find random target in Player roster
         int target = random.nextInt(controller.getCharacters().size());
-        controller.attack(enemy, controller.getCharacters().get(target));
+        controller.toAttackPhase();
+        controller.setPhaseCharacter(enemy);
+        controller.tryToAttack(controller.getCharacters().get(target));
     }
 }

@@ -1,6 +1,10 @@
 package com.github.ylinker.finalreality.controller;
 
 import com.github.ylinker.finalreality.controller.handler.*;
+import com.github.ylinker.finalreality.controller.phase.BeginTurnPhase;
+import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidActionException;
+import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidTransitionException;
+import com.github.ylinker.finalreality.controller.phase.Phase;
 import com.github.ylinker.finalreality.model.character.Enemy;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
@@ -26,6 +30,8 @@ public class GameController {
     private final ArrayList<Enemy> enemies;
     private final ArrayList<IWeapon> inventory;
     private final BlockingQueue<ICharacter> queue;
+    private Phase phase;
+
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
     private final IEventHandler characterTurnHandler = new PlayerCharacterTurnHandler(this);
@@ -43,6 +49,7 @@ public class GameController {
         enemies = new ArrayList<>();
         inventory = new ArrayList<>();
         queue = new LinkedBlockingQueue<>();
+        setPhase(new BeginTurnPhase());
     }
 
     /**
@@ -426,7 +433,10 @@ public class GameController {
             // Here the character's turn ends
             queue.poll();
             waitTurn(character);
-            beginTurn();
+            try {
+                phase.beginTurn();
+            } catch (InvalidActionException e) {
+            }
         }
     }
 
@@ -452,7 +462,10 @@ public class GameController {
         if (queue.isEmpty()) {
             queue.add(character);
             character.shutdownScheduledExecutor();
-            beginTurn();
+            try {
+                phase.beginTurn();
+            } catch (InvalidActionException e){
+            }
         } else {
             queue.add(character);
             character.shutdownScheduledExecutor();
@@ -469,6 +482,15 @@ public class GameController {
         for (Enemy enemy: enemies) {
             waitTurn(enemy);
         }
+    }
+
+    public void setPhase(@NotNull Phase phase) {
+        this.phase = phase;
+        phase.setController(this);
+    }
+
+    public void setPhaseCharacter(@NotNull ICharacter character){
+        phase.setCharacter(character);
     }
 
     /**
@@ -520,5 +542,46 @@ public class GameController {
      */
     private void addWeapon(IWeapon weapon){
         inventory.add(weapon);
+    }
+
+    public void tryToAttack(ICharacter character) {
+        try {
+            phase.selectTarget(character);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToEquip(IWeapon weapon) {
+        try {
+            phase.selectWeapon(weapon);
+            phase.toSelectActionPhase();
+        } catch (InvalidActionException | InvalidTransitionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toEquipPhase() {
+        try {
+            phase.toSelectWeaponPhase();
+        } catch (InvalidTransitionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toAttackPhase() {
+        try {
+            phase.toSelectAttackingTargetPhase();
+        } catch (InvalidTransitionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toActionPhase() {
+        try {
+            phase.toSelectActionPhase();
+        } catch (InvalidTransitionException e) {
+            e.printStackTrace();
+        }
     }
 }

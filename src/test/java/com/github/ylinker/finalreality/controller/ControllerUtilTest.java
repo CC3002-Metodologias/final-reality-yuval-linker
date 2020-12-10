@@ -48,7 +48,11 @@ public class ControllerUtilTest {
         // On an empty queue the characters should immediately start their turn
         assertFalse(queue.contains(knight));
         assertTrue(queue.isEmpty());
+        testController.toAttackPhase();
+        testController.tryToAttack(enemy);
+        knight.shutdownScheduledExecutor();
         testController.addToQueue(enemy);
+        enemy.shutdownScheduledExecutor();
         assertFalse(queue.contains(enemy));
         assertTrue(queue.isEmpty());
 
