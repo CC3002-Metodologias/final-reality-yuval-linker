@@ -3,7 +3,6 @@ package com.github.ylinker.finalreality.controller.phase;
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidTransitionException;
 
 public class SelectActionPhase extends Phase {
-
     @Override
     public void toSelectAttackingTargetPhase() {
         SelectAttackingTargetPhase phase = new SelectAttackingTargetPhase();

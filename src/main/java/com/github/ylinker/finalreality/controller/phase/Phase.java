@@ -22,6 +22,10 @@ public class Phase {
         return controller;
     }
 
+    public ICharacter getCharacter() {
+        return character;
+    }
+
     protected void changePhase(Phase phase) {
         controller.setPhase(phase);
     }
@@ -51,5 +55,9 @@ public class Phase {
     }
 
     public void beginTurn() {
+    }
+
+    public void goBack() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to a previous phase");
     }
 }

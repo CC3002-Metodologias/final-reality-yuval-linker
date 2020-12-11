@@ -583,4 +583,12 @@ public class GameController {
     public Phase getPhase() {
         return phase;
     }
+
+    public void goBack() {
+        try {
+            phase.goBack();
+        } catch (InvalidTransitionException e) {
+            // Do nothing for now
+        }
+    }
 }

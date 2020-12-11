@@ -68,6 +68,16 @@ public abstract class AbstractPhaseTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
+    void goBackError() {
+        Exception exception = assertThrows(InvalidTransitionException.class, () -> {
+            phase.goBack();
+        });
+        String expectedMessage = "Can't go to a previous phase";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+
     void selectAttackingTarget() {
         Exception exception = assertThrows(InvalidActionException.class, () -> {
             phase.selectTarget(dummy);

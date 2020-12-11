@@ -16,6 +16,14 @@ public class EquipPhaseTest extends AbstractPhaseTest {
     }
 
     @Test
+    void goBackTest() throws InvalidTransitionException {
+        phase.goBack();
+        assertEquals(SelectActionPhase.class, controller.getPhase().getClass());
+        assertEquals(controller, controller.getPhase().getController());
+        assertEquals(myCharacter, controller.getPhase().getCharacter());
+    }
+
+    @Test
     void toBeginningPhaseTest() {
         toBeginningPhase();
     }
@@ -35,6 +43,7 @@ public class EquipPhaseTest extends AbstractPhaseTest {
         phase.toSelectActionPhase();
         assertEquals(SelectActionPhase.class, controller.getPhase().getClass());
         assertEquals(controller, controller.getPhase().getController());
+        assertEquals(myCharacter, controller.getPhase().getCharacter());
     }
 
     @Test

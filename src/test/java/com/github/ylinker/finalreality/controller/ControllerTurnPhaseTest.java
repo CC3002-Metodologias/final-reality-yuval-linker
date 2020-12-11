@@ -48,6 +48,31 @@ public class ControllerTurnPhaseTest {
     }
 
     @Test
+    void invalidGoBackTest() {
+        // Try to go back on begin turn
+        assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());
+        testController.goBack();
+        assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());
+        // Try to go back on select action
+        testController.setPhase(new SelectActionPhase());
+        assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+        testController.goBack();
+        assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+    }
+
+    @Test
+    void validGoBackTest() {
+        // Go back on select attacking target
+        testController.setPhase(new SelectAttackingTargetPhase());
+        testController.goBack();
+        assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+        // Go back on select weapon
+        testController.setPhase(new SelectWeaponPhase());
+        testController.goBack();
+        assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+    }
+
+    @Test
     void invalidAttackActionTest() {
         // Try to attack on Begin Turn
         assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());

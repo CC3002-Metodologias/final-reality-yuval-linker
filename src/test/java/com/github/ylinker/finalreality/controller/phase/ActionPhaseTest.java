@@ -14,6 +14,11 @@ public class ActionPhaseTest extends AbstractPhaseTest {
     }
 
     @Test
+    void goBackTest() {
+        goBackError();
+    }
+
+    @Test
     void toBeginningPhaseTest() {
         toBeginningPhase();
     }
@@ -23,6 +28,7 @@ public class ActionPhaseTest extends AbstractPhaseTest {
         phase.toSelectAttackingTargetPhase();
         assertEquals(SelectAttackingTargetPhase.class, controller.getPhase().getClass());
         assertEquals(controller, controller.getPhase().getController());
+        assertEquals(myCharacter, controller.getPhase().getCharacter());
     }
 
     @Test
@@ -30,6 +36,7 @@ public class ActionPhaseTest extends AbstractPhaseTest {
         phase.toSelectWeaponPhase();
         assertEquals(SelectWeaponPhase.class, controller.getPhase().getClass());
         assertEquals(controller, controller.getPhase().getController());
+        assertEquals(myCharacter, controller.getPhase().getCharacter());
     }
 
     @Test

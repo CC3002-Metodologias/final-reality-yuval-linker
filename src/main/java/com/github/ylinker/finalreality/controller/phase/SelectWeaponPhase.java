@@ -5,6 +5,10 @@ import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 import com.github.ylinker.finalreality.model.weapon.IWeapon;
 
 public class SelectWeaponPhase extends Phase {
+    @Override
+    public void goBack() {
+        toSelectActionPhase();
+    }
 
     @Override
     public void toSelectActionPhase() {

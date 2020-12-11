@@ -15,6 +15,11 @@ public class BeginTurnPhaseTest extends AbstractPhaseTest{
     }
 
     @Test
+    void goBackTest() {
+        goBackError();
+    }
+
+    @Test
     void toAttackPhaseTest() throws InvalidTransitionException {
         phase.toSelectAttackingTargetPhase();
         assertEquals(SelectAttackingTargetPhase.class, controller.getPhase().getClass());
