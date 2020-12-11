@@ -543,8 +543,7 @@ public class GameController {
             waitTurn(turnCharacter);
             phase.beginTurn();
         } catch (InvalidActionException e) {
-            // TODO: implement what happens when invalid action is executed
-            e.printStackTrace();
+            // For now we do nothing
         }
     }
 
@@ -553,8 +552,7 @@ public class GameController {
             phase.selectWeapon(weapon);
             phase.toSelectActionPhase();
         } catch (InvalidActionException | InvalidTransitionException e) {
-            // TODO: implement what happens when invalid action is executed
-            e.printStackTrace();
+            // For now we do nothing
         }
     }
 
@@ -562,8 +560,7 @@ public class GameController {
         try {
             phase.toSelectWeaponPhase();
         } catch (InvalidTransitionException e) {
-            // TODO: implement what happens when invalid action is executed
-            e.printStackTrace();
+            // For now we do nothing
         }
     }
 
@@ -571,8 +568,7 @@ public class GameController {
         try {
             phase.toSelectAttackingTargetPhase();
         } catch (InvalidTransitionException e) {
-            // TODO: implement what happens when invalid action is executed
-            e.printStackTrace();
+            // For now we do nothing
         }
     }
 
@@ -580,8 +576,7 @@ public class GameController {
         try {
             phase.toSelectActionPhase();
         } catch (InvalidTransitionException e) {
-            // TODO: implement what happens when invalid action is executed
-            e.printStackTrace();
+            // For now we do nothing
         }
     }
 
