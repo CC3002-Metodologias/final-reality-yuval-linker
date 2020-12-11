@@ -431,10 +431,6 @@ public class GameController {
         ICharacter character = queue.peek();
         if (!(character == null)) {
             character.beginTurn();
-            // Here the character's turn ends
-            queue.poll();
-            waitTurn(character);
-            phase.beginTurn();
         }
     }
 
@@ -542,6 +538,10 @@ public class GameController {
     public void tryToAttack(ICharacter character) {
         try {
             phase.selectTarget(character);
+            // Here the character's turn ends
+            ICharacter turnCharacter = queue.poll();
+            waitTurn(turnCharacter);
+            phase.beginTurn();
         } catch (InvalidActionException e) {
             // TODO: implement what happens when invalid action is executed
             e.printStackTrace();

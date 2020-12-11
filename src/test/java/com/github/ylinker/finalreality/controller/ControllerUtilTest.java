@@ -1,5 +1,7 @@
 package com.github.ylinker.finalreality.controller;
 
+import com.github.ylinker.finalreality.controller.phase.BeginTurnPhase;
+import com.github.ylinker.finalreality.controller.phase.SelectActionPhase;
 import com.github.ylinker.finalreality.model.character.Enemy;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
@@ -46,10 +48,10 @@ public class ControllerUtilTest {
         enemy.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         testController.addToQueue(knight);
         // On an empty queue the characters should immediately start their turn
-        assertFalse(queue.contains(knight));
-        assertTrue(queue.isEmpty());
         testController.toAttackPhase();
         testController.tryToAttack(enemy);
+        assertFalse(queue.contains(knight));
+        assertTrue(queue.isEmpty());
         knight.shutdownScheduledExecutor();
         testController.addToQueue(enemy);
         enemy.shutdownScheduledExecutor();
@@ -126,9 +128,12 @@ public class ControllerUtilTest {
             assertEquals(20, testController.getCharacterHealth(knight));
             Thread.sleep(600);
             assertEquals(10, testController.getCharacterHealth(knight));
+            assertNotNull(enemy.getScheduledExecutor());
             Thread.sleep(500);
             assertEquals(10, testController.getCharacterHealth(knight));
+            assertNotNull(enemy.getScheduledExecutor());
             Thread.sleep(600);
+            assertNotNull(enemy.getScheduledExecutor());
             assertEquals(0, testController.getCharacters().size());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -150,7 +155,10 @@ public class ControllerUtilTest {
         // This means that he is pulled from the queue
         testController.getQueue().add(engineer);
         testController.beginTurn();
-        assertFalse(testController.getQueue().contains(engineer));
+        assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+        testController.toAttackPhase();
+        testController.tryToAttack(enemy);
+        assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());
         assertNotNull(engineer.getScheduledExecutor());
         try {
             testController.getQueue().add(enemy);
