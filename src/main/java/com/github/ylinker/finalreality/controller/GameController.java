@@ -44,6 +44,7 @@ public class GameController {
      *      Enemy Roster
      *      Player Inventory
      *      Queue
+     *      And initial Begin Turn Phase
      */
     public GameController() {
         playerCharacters = new ArrayList<>();
@@ -425,7 +426,7 @@ public class GameController {
     /**
      * Method to begin a new turn.
      * If the queue is empty then it does nothing
-     * Ig the queue has a character it starts its turn
+     * If the queue has a character it starts its turn
      */
     public void beginTurn() {
         ICharacter character = queue.peek();
@@ -448,7 +449,7 @@ public class GameController {
 
     /**
      * Adds a character to the turns queue
-     * If the queue is empty then it immediatly starts its turn
+     * If the queue is empty then it immediately starts its turn
      * @param character
      *      The character to be added
      */
@@ -475,11 +476,21 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to set the phase that the controller is currently in
+     * @param phase
+     *      The phase that the controller has to be set
+     */
     public void setPhase(@NotNull Phase phase) {
         this.phase = phase;
         phase.setController(this);
     }
 
+    /**
+     * Method to set the character's phase
+     * @param character
+     *      The character that is passed to tha phase
+     */
     public void setPhaseCharacter(@NotNull ICharacter character){
         phase.setCharacter(character);
     }
@@ -535,6 +546,13 @@ public class GameController {
         inventory.add(weapon);
     }
 
+    /**
+     * Method to try to Attack.
+     * If its not a phase in which you can attack then does nothing.
+     * After attacking it knows its the end of the turn so passes to a begin turn phase
+     * @param character
+     *      The character that is being attacked
+     */
     public void tryToAttack(ICharacter character) {
         try {
             phase.selectTarget(character);
@@ -547,6 +565,13 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to try to equip a weapon.
+     * If its not a phase in which you can equip a weapon then does nothing.
+     * After equipping it goes back to the selection phase.
+     * @param weapon
+     *      The weapon that is being equipped.
+     */
     public void tryToEquip(IWeapon weapon) {
         try {
             phase.selectWeapon(weapon);
@@ -556,6 +581,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to go to the Equipping Phase.
+     * If its not a valid transition then does nothing.
+     */
     public void toEquipPhase() {
         try {
             phase.toSelectWeaponPhase();
@@ -564,6 +593,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to go to the Select Attacking Target Phase.
+     * If its not a valid transition then does nothing.
+     */
     public void toAttackPhase() {
         try {
             phase.toSelectAttackingTargetPhase();
@@ -572,6 +605,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to go to the Select Action Phase.
+     * If its not a valid transition then does nothing.
+     */
     public void toActionPhase() {
         try {
             phase.toSelectActionPhase();
@@ -580,10 +617,19 @@ public class GameController {
         }
     }
 
+    /**
+     * Current Phase Getter
+     * @return
+     *      Current turn Phase
+     */
     public Phase getPhase() {
         return phase;
     }
 
+    /**
+     * Method to go back to a previous phase.
+     * If its not a valid transition then does nothing.
+     */
     public void goBack() {
         try {
             phase.goBack();

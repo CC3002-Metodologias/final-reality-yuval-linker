@@ -86,4 +86,37 @@ When the queue is empty, the `addToQueue` method knows to add a character to the
 its turn.
 
 On an enemy's turn a random player character is chosen to be attacked. On the player's turn, input is waited
-(*On the version B.3 player's turn is not implemented*)
+
+### Turns
+To implement the turns the state pattern is utilized. For this the controller has a turn phase that it is in
+and 4 possible phases are implemented.
+
+Each phase represents a moment in a character's turn, although a computer controlled character will only use 2.
+The 4 phases are:
+- Begin Turn Phase
+- Select Action Phase
+- Select Weapon Phase
+- Select Attacking Target Phase
+
+The turn begins in the ***Begin Turn Phase*** where the controller can take a character from the queue and
+trigger the begin turn event. After this there are 2 options to go.
+
+If the character is an enemy it will go directly to the ***Attack Phase*** since its the only thing it can do.
+Here it will choose a target randomly, attack and end its turn.
+
+If the character is controlled by the player then it goes to the ***Select Action Phase*** where the player
+can choose between equipping a weapon and attacking an enemy.
+
+From the ***Select Weapon Phase*** the player can equip a weapon and the go back to the Select Action Phase
+to continue with the turn.
+
+From the ***Select Attacking Target Phase*** the player decides who to attack and after attacking the turn
+ends.
+
+The following diagram shows the flow of the turn phases:
+
+
+![Turns phase diagram](./media/Tarea 3 Phase Diagram.png)
+
+For each action the controller implements a *try to do* type of method that tries to do a certain aciton and
+depending on the current phase of the turn it can do it or do nothing.
