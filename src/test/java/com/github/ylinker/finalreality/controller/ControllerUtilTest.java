@@ -5,6 +5,7 @@ import com.github.ylinker.finalreality.controller.phase.SelectActionPhase;
 import com.github.ylinker.finalreality.model.character.Enemy;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -169,6 +170,56 @@ public class ControllerUtilTest {
             // Now we begin the enemy's turn that should kill the engineer
             testController.beginTurn();
             assertFalse(testController.getCharacters().contains(engineer));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void turnProcessTest() {
+        testController.createEnemy("test", 20, 10, 10, 20);
+        testController.createEngineer("engineer", 10, 10, 5);
+        testController.createAxe("axe", 10, 10);
+        IPlayerCharacter engineer = testController.getCharacters().get(0);
+        Enemy enemy = testController.getEnemies().get(0);
+        IWeapon axe = testController.getInventory().get(0);
+        BlockingQueue<ICharacter> queue = testController.getQueue();
+        testController.initTurns();
+        // Every character is waiting to enter the queue
+        assertTrue(queue.isEmpty());
+        try {
+            Thread.sleep(1100);
+            // Engineer enters the queue and start its turn
+            assertTrue(queue.contains(engineer));
+            assertFalse(queue.contains(enemy));
+            assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+            testController.toAttackPhase();
+            testController.tryToAttack(enemy);
+            assertFalse(queue.contains(engineer));
+            assertNotNull(engineer.getScheduledExecutor());
+            assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());
+            Thread.sleep(1000);
+            // The enemy had his turn so it attacked the engineer
+            assertEquals(5, engineer.getHealth());
+            assertNotNull(enemy.getScheduledExecutor());
+            // Now its the engineer turn
+            assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+            testController.toEquipPhase();
+            testController.tryToEquip(axe);
+            assertFalse(testController.getInventory().contains(axe));
+            assertEquals(axe, engineer.getEquippedWeapon());
+            assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+            // Wait until enemy is in queue, the engineer turn is still going
+            Thread.sleep(2000);
+            assertTrue(queue.contains(engineer));
+            assertTrue(queue.contains(enemy));
+            assertEquals(SelectActionPhase.class, testController.getPhase().getClass());
+            testController.toEquipPhase();
+            testController.tryToEquip(axe);
+            testController.toAttackPhase();
+            testController.tryToAttack(enemy);
+            // Now is the enemy's turn so the engineer gets killed
+            assertEquals(0, engineer.getHealth());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
