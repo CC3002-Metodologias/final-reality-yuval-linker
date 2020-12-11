@@ -116,7 +116,7 @@ ends.
 The following diagram shows the flow of the turn phases:
 
 
-![Turns phase diagram](./media/Tarea 3 Phase Diagram.png)
+![Turns phase diagram](media/Tarea_3_Phase_Diagram.png)
 
 For each action the controller implements a *try to do* type of method that tries to do a certain aciton and
 depending on the current phase of the turn it can do it or do nothing.
