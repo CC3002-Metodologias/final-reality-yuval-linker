@@ -32,6 +32,7 @@ public class GameController {
     private final ArrayList<IWeapon> inventory;
     private final BlockingQueue<ICharacter> queue;
     private Phase phase;
+    private ICharacter currentTurnCharacter;
 
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
@@ -122,6 +123,15 @@ public class GameController {
      */
     public BlockingQueue<ICharacter> getQueue() {
         return queue;
+    }
+
+    /**
+     * Gets the current turn character
+     * @return
+     *      A character
+     */
+    public ICharacter getCurrentTurnCharacter() {
+        return currentTurnCharacter;
     }
 
     /**
@@ -431,6 +441,7 @@ public class GameController {
     public void beginTurn() {
         ICharacter character = queue.peek();
         if (!(character == null)) {
+            currentTurnCharacter = character;
             character.beginTurn();
         }
     }
