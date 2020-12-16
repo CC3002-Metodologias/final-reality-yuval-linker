@@ -1,5 +1,6 @@
 package com.github.ylinker.finalreality.gui;
 
+import com.github.ylinker.finalreality.controller.GameController;
 import com.github.ylinker.finalreality.gui.nodes.MovableNodeBuilder;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
