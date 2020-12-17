@@ -29,14 +29,8 @@ public class EnemyTurnHandler implements IEventHandler {
     public void propertyChange(PropertyChangeEvent evt) {
         Enemy enemy = (Enemy) evt.getNewValue();
 
-        // Create random index number
-        seed = new Random().nextLong();
-        random = new Random(seed);
-
-        // Find random target in Player roster
-        int target = random.nextInt(controller.getCharacters().size());
         controller.toAttackPhase();
         controller.setPhaseCharacter(enemy);
-        controller.tryToAttack(controller.getCharacters().get(target));
+        controller.enemyTurnStarted();
     }
 }

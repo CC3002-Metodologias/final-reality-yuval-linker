@@ -102,8 +102,9 @@ public class Phase {
      *      The character that is being attacked
      * @throws InvalidActionException
      *      When attacking is not a valid action in the current phase
+     * @return
      */
-    public void selectTarget(ICharacter character) throws InvalidActionException {
+    public int selectTarget(ICharacter character) throws InvalidActionException {
         throw new InvalidActionException("Can't select a target to attack in this phase");
     }
 

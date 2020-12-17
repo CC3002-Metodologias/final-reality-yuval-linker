@@ -34,10 +34,11 @@ public class SelectAttackingTargetPhase extends Phase {
      * since attacking is always the last action in a turn.
      * @param attacked
      *      The character that is being attacked
+     * @return
      */
     @Override
-    public void selectTarget(ICharacter attacked) {
-        controller.attack(character, attacked);
-        toBeginTurnPhase();
+    public int selectTarget(ICharacter attacked) {
+        return controller.attack(character, attacked);
+
     }
 }

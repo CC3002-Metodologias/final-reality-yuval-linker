@@ -2,6 +2,7 @@ package com.github.ylinker.finalreality.gui.scenes;
 
 import com.github.ylinker.finalreality.controller.GameController;
 import com.github.ylinker.finalreality.model.character.ICharacter;
+import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,47 +12,46 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class ChooseUIScene {
+public class ChooseInventoryScene {
     private GameController controller;
-    private final List<String> classes;
     private Random random;
-    private TextArea nameArea;
-    private ChooseInventoryScene nextScene;
+    private MainScene nextScene;
     private Stage primaryStage;
+    private HashMap<IWeapon, String> playerWeapons;
+    private List<String> classes;
+    private List<String> names;
     private HashMap<ICharacter, String> playerClasses;
     private int i = 0;
 
-    public ChooseUIScene(GameController controller, Stage primaryStage, ChooseInventoryScene nextScene) {
+    public ChooseInventoryScene(GameController controller, Stage primaryStage, MainScene nextScene) {
         this.controller = controller;
-        classes = Arrays.asList("Knight", "Engineer", "Black Mage", "White Mage", "Thief");
+        classes = Arrays.asList("Knife", "Axe", "Bow", "Staff", "Sword");
+        names = Arrays.asList("Dyrnwyn", "Sharur", "Halayudha", "Zulfiqar", "Tyrfing", "Gram", "Kusanagi", "Tonbogiri");
+        Collections.shuffle(names);
         Random seed = new Random();
         random = new Random(seed.nextInt());
         this.nextScene = nextScene;
         this.primaryStage = primaryStage;
-        playerClasses = new HashMap<>();
+        playerWeapons = new HashMap<>();
     }
 
     private void changeScene() throws FileNotFoundException {
-        nextScene.setPlayerClasses(playerClasses);
+        nextScene.setWeapons(playerWeapons);
+        nextScene.setClasses(playerClasses);
         Scene next = nextScene.build();
         primaryStage.setScene(next);
     }
 
-    private TextArea makeTextArea(int width, int height) {
-        TextArea nameArea = new TextArea();
-        nameArea.setText("Put your character's name here!");
-        nameArea.setPrefWidth(width);
-        nameArea.setPrefHeight(height);
-        this.nameArea = nameArea;
-        return nameArea;
+
+    public void setPlayerClasses(HashMap<ICharacter, String> array) {
+        playerClasses = array;
     }
+
 
     private Text makeTitle() {
         Text title = new Text("Final Reality!");
@@ -79,9 +79,8 @@ public class ChooseUIScene {
         VBox top = new VBox();
         top.setSpacing(10);
         top.getChildren().add(makeTitle());
-        top.getChildren().add(makeInstructions("Write a name for your character and press on " +
-                "a button to choose a class."));
-        top.getChildren().add(makeInstructions("Choose 5 characters to start playing!"));
+        top.getChildren().add(makeInstructions("Press a button to choose a weapon"));
+        top.getChildren().add(makeInstructions("You need to have 5 weapons in your inventory. Choose wisely"));
         top.setPadding(new Insets(50, 0, 0, 0));
         return top;
     }
@@ -95,18 +94,16 @@ public class ChooseUIScene {
             buttons.getChildren().add(button);
             button.setPrefSize(buttonWidth, buttonHeight);
             switch (c) {
-                case "Knight":
+                case "Knife":
                     button.setOnAction((event -> {
-                        controller.createKnight(
-                                nameArea.getText(),
-                                random.nextInt(40) + 20,
-                                random.nextInt(20) + 10,
-                                random.nextInt(13) + 5
+                        controller.createKnife(
+                                names.get(i),
+                                random.nextInt(5) + 15,
+                                random.nextInt(10) + 10
                         );
-                        nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
+                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
-                        if(controller.getCharacters().size() == 5) {
+                        if(controller.getInventory().size() == 5) {
                             try {
                                 changeScene();
                             } catch (FileNotFoundException e) {
@@ -114,18 +111,16 @@ public class ChooseUIScene {
                         }
                     }));
                     break;
-                case "Engineer":
+                case "Axe":
                     button.setOnAction((event -> {
-                        controller.createEngineer(
-                                nameArea.getText(),
-                                random.nextInt(40) + 20,
-                                random.nextInt(20) + 10,
-                                random.nextInt(13) + 5
+                        controller.createAxe(
+                                names.get(i),
+                                random.nextInt(5) + 15,
+                                random.nextInt(10) + 10
                         );
-                        nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
+                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
-                        if(controller.getCharacters().size() == 5) {
+                        if(controller.getInventory().size() == 5) {
                             try {
                                 changeScene();
                             } catch (FileNotFoundException e) {
@@ -133,18 +128,16 @@ public class ChooseUIScene {
                         }
                     }));
                     break;
-                case "Thief":
+                case "Sword":
                     button.setOnAction((event -> {
-                        controller.createThief(
-                            nameArea.getText(),
-                            random.nextInt(40) + 20,
-                            random.nextInt(20) + 10,
-                            random.nextInt(13) + 5
+                        controller.createSword(
+                                names.get(i),
+                                random.nextInt(5) + 15,
+                                random.nextInt(10) + 10
                         );
-                        nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
+                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
-                        if(controller.getCharacters().size() == 5) {
+                        if(controller.getInventory().size() == 5) {
                             try {
                                 changeScene();
                             } catch (FileNotFoundException e) {
@@ -153,19 +146,17 @@ public class ChooseUIScene {
                     }));
 
                     break;
-                case "Black Mage":
+                case "Staff":
                     button.setOnAction((event -> {
-                        controller.createBlackMage(
-                                nameArea.getText(),
-                                random.nextInt(40) + 20,
-                                random.nextInt(20) + 10,
-                                random.nextInt(13) + 5,
+                        controller.createStaff(
+                                names.get(i),
+                                random.nextInt(5) + 15,
+                                random.nextInt(10) + 10,
                                 0
                         );
-                        nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
+                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
-                        if(controller.getCharacters().size() == 5) {
+                        if(controller.getInventory().size() == 5) {
                             try {
                                 changeScene();
                             } catch (FileNotFoundException e) {
@@ -173,19 +164,16 @@ public class ChooseUIScene {
                         }
                     }));
                     break;
-                case "White Mage":
+                case "Bow":
                     button.setOnAction((event -> {
-                        controller.createWhiteMage(
-                                nameArea.getText(),
-                                random.nextInt(40) + 20,
-                                random.nextInt(20) + 10,
-                                random.nextInt(13) + 5,
-                                0
+                        controller.createBow(
+                                names.get(i),
+                                random.nextInt(5) + 15,
+                                random.nextInt(10) + 10
                         );
-                        nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
+                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
-                        if(controller.getCharacters().size() == 5) {
+                        if(controller.getInventory().size() == 5) {
                             try {
                                 changeScene();
                             } catch (FileNotFoundException e) {
@@ -200,7 +188,6 @@ public class ChooseUIScene {
 
     private VBox center() {
         VBox center = new VBox();
-        center.getChildren().add(makeTextArea(600, 50));
         center.getChildren().add(makeButtons(200, 100));
         center.setMaxWidth(1000);
         center.setSpacing(50);

@@ -22,6 +22,7 @@ public class ControllerCharacterTest {
     @BeforeEach
     void setUp() {
         testController = new GameController();
+        testController.setScene(new NullScene());
     }
 
     @Test

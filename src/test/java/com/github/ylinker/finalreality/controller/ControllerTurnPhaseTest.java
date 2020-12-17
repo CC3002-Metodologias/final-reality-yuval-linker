@@ -21,6 +21,7 @@ public class ControllerTurnPhaseTest {
     @BeforeEach
     void setUp() {
         testController = new GameController();
+        testController.setScene(new NullScene());
         testController.createEnemy("enemy", 25, 10, 5, 10);
         enemy = testController.getEnemies().get(0);
         testController.createKnight("knight", 15, 10, 5);
@@ -114,6 +115,8 @@ public class ControllerTurnPhaseTest {
         testController.setPhaseCharacter(knight);
         testController.tryToAttack(enemy);
         assertEquals(20, enemy.getHealth());
+        assertEquals(SelectAttackingTargetPhase.class, testController.getPhase().getClass());
+        testController.toBeginTurnPhase();
         assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());
         assertNotNull(knight.getScheduledExecutor());
         assertTrue(testController.getQueue().isEmpty());
@@ -123,6 +126,8 @@ public class ControllerTurnPhaseTest {
         testController.setPhaseCharacter(enemy);
         testController.tryToAttack(knight);
         assertEquals(10, knight.getHealth());
+        assertEquals(SelectAttackingTargetPhase.class, testController.getPhase().getClass());
+        testController.toBeginTurnPhase();
         assertEquals(BeginTurnPhase.class, testController.getPhase().getClass());
         assertNotNull(enemy.getScheduledExecutor());
         assertTrue(testController.getQueue().isEmpty());

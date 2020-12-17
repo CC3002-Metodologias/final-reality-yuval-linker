@@ -3,6 +3,7 @@ package com.github.ylinker.finalreality.gui;
 import com.github.ylinker.finalreality.controller.GameController;
 import com.github.ylinker.finalreality.gui.nodes.EnemyNode;
 import com.github.ylinker.finalreality.gui.nodes.EnemyNodeBuilder;
+import com.github.ylinker.finalreality.gui.scenes.ChooseInventoryScene;
 import com.github.ylinker.finalreality.gui.scenes.ChooseUIScene;
 import com.github.ylinker.finalreality.gui.scenes.MainScene;
 import javafx.application.Application;
@@ -23,10 +24,7 @@ import javafx.stage.Stage;
 import java.awt.event.ActionEvent;
 import java.beans.EventHandler;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Main entry point for the application.
@@ -48,14 +46,15 @@ public class FinalReality extends Application {
 
   private void initEnemies(GameController controller) {
     Random rand = new Random();
-    List<String> names = Arrays.asList("Alejandra", "Bernardo", "Camila", "Damian", "Esteban", "Francisca");
+    List<String> names = Arrays.asList("Drazzadol", "Rag'Dros", "Brogthomoth", "Irthroxir", "Trostras", "Rarran",
+            "Drustrun", "Egannen", "Tilmozul", "Sozrith");
+    Collections.shuffle(names);
     for (int i = 0; i < 5; i++) {
-      int nameIndex = rand.nextInt(names.size());
       int health = rand.nextInt(40) + 10;
       int attack = rand.nextInt(20) + 5;
       int defense = rand.nextInt(10) + 10;
       int weight = rand.nextInt(20) + 10;
-      controller.createEnemy(names.get(nameIndex), health, attack, defense, weight);
+      controller.createEnemy(names.get(i), health, attack, defense, weight);
     }
   }
 
@@ -68,9 +67,11 @@ public class FinalReality extends Application {
     initEnemies(controller);
     primaryStage.setTitle("Final reality");
 
-    MainScene mainScene = new MainScene(controller);
+    MainScene mainScene = new MainScene(controller, primaryStage);
+    controller.setScene(mainScene);
+    ChooseInventoryScene inventoryScene = new ChooseInventoryScene(controller, primaryStage, mainScene);
 
-    ChooseUIScene chooseScene = new ChooseUIScene(controller, stage, mainScene);
+    ChooseUIScene chooseScene = new ChooseUIScene(controller, stage, inventoryScene);
     primaryStage.setScene(chooseScene.build());
 
     primaryStage.show();

@@ -6,6 +6,8 @@ import com.github.ylinker.finalreality.controller.phase.SelectAttackingTargetPha
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidActionException;
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidTransitionException;
 import com.github.ylinker.finalreality.controller.phase.Phase;
+import com.github.ylinker.finalreality.gui.scenes.IScene;
+import com.github.ylinker.finalreality.gui.scenes.MainScene;
 import com.github.ylinker.finalreality.model.character.Enemy;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
@@ -18,7 +20,10 @@ import com.github.ylinker.finalreality.model.character.player.mage.WhiteMage;
 import com.github.ylinker.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.*;
 
 /**
@@ -33,6 +38,7 @@ public class GameController {
     private final BlockingQueue<ICharacter> queue;
     private Phase phase;
     private ICharacter currentTurnCharacter;
+    private IScene view;
 
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
@@ -53,6 +59,25 @@ public class GameController {
         inventory = new ArrayList<>();
         queue = new LinkedBlockingQueue<>();
         setPhase(new BeginTurnPhase());
+        currentTurnCharacter = null;
+    }
+
+    public void turnStarted() {
+        try {
+            view.playerTurn(currentTurnCharacter);
+        } catch (FileNotFoundException e) {
+        }
+    }
+
+    public void enemyTurnStarted() {
+        try {
+            view.enemyTurn(currentTurnCharacter);
+        } catch (FileNotFoundException e) {
+        }
+    }
+
+    public void setScene(IScene scene) {
+        this.view = scene;
     }
 
     /**
@@ -69,7 +94,7 @@ public class GameController {
      * Method that manages the event of the player winning
      */
     public void playerWon() {
-
+        view.winScene();
     }
 
     /**
@@ -86,7 +111,7 @@ public class GameController {
      * Method that manages the event of the player losing
      */
     public void playerLost() {
-
+        view.loseScene();
     }
 
     /**
@@ -429,8 +454,8 @@ public class GameController {
      * @param attacked
      *      The character that is being attacked
      */
-    public void attack(ICharacter attacker, ICharacter attacked){
-        attacker.attack(attacked);
+    public int attack(ICharacter attacker, ICharacter attacked){
+        return attacker.attack(attacked);
     }
 
     /**
@@ -440,7 +465,8 @@ public class GameController {
      */
     public void beginTurn() {
         ICharacter character = queue.peek();
-        if (!(character == null)) {
+        if (!(character == null) && currentTurnCharacter == null) {
+            System.out.println(character.getName() + " tried to start turn");
             currentTurnCharacter = character;
             character.beginTurn();
         }
@@ -465,7 +491,7 @@ public class GameController {
      *      The character to be added
      */
     public void addToQueue(ICharacter character) {
-        if (queue.isEmpty()) {
+        if (queue.isEmpty() && currentTurnCharacter == null) {
             queue.add(character);
             character.shutdownScheduledExecutor();
             phase.beginTurn();
@@ -479,12 +505,11 @@ public class GameController {
      * Method to start the turns of every player character and enemy.
      */
     public void initTurns() {
-        for (IPlayerCharacter character: playerCharacters) {
-            waitTurn(character);
-        }
-        for (Enemy enemy: enemies) {
-            waitTurn(enemy);
-        }
+        ArrayList<ICharacter> startingCharacters = new ArrayList<>(playerCharacters);
+        startingCharacters.addAll(enemies);
+        Collections.shuffle(startingCharacters);
+        queue.addAll(startingCharacters);
+        phase.beginTurn();
     }
 
     /**
@@ -564,15 +589,16 @@ public class GameController {
      * @param character
      *      The character that is being attacked
      */
-    public void tryToAttack(ICharacter character) {
+    public int tryToAttack(ICharacter character) {
         try {
-            phase.selectTarget(character);
+            int damage = phase.selectTarget(character);
             // Here the character's turn ends
             ICharacter turnCharacter = queue.poll();
             waitTurn(turnCharacter);
-            phase.beginTurn();
+            return damage;
         } catch (InvalidActionException e) {
             // For now we do nothing
+            return -1;
         }
     }
 
@@ -646,6 +672,16 @@ public class GameController {
             phase.goBack();
         } catch (InvalidTransitionException e) {
             // Do nothing for now
+        }
+    }
+
+    public void toBeginTurnPhase() {
+        try {
+            phase.toBeginTurnPhase();
+            currentTurnCharacter = null;
+            phase.beginTurn();
+        } catch (InvalidTransitionException e) {
+
         }
     }
 }

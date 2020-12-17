@@ -6,6 +6,7 @@ import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * An abstract class that holds the common behaviour of all the playable characters in the game.
@@ -34,6 +35,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
                                       final int attack, final int defense) {
         super(name, health, attack, defense);
         this.attack = attack;
+        Random random = new Random();
         this.weight = this.baseWeight;
     }
 
