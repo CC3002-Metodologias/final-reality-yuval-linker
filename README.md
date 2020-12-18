@@ -41,6 +41,14 @@ is written. If it's your turn, the current turn character's name will be shown u
 with the equipped weapon and two buttons will appear. With one button you can choose to attack 
 and with the other one you can equip a weapon.
 
+If you choose to equip a weapon your available inventory will be in the form
+of different buttons. Press a weapon to equip it. If you can't equip that
+weapon then you will see no change on your character's equipped weapon.
+You can choose to equip as many times as you want.
+
+If you choose to attack, the enemies will be shown in the form of buttons.
+Press one to attack it. After that your turn will end.
+
 If you run out of characters you lose. If you defeat every enemy you win.
 
 Have fun!
