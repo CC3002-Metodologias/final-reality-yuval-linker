@@ -2,12 +2,10 @@ package com.github.ylinker.finalreality.controller;
 
 import com.github.ylinker.finalreality.controller.handler.*;
 import com.github.ylinker.finalreality.controller.phase.BeginTurnPhase;
-import com.github.ylinker.finalreality.controller.phase.SelectAttackingTargetPhase;
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidActionException;
 import com.github.ylinker.finalreality.controller.phase.exceptions.InvalidTransitionException;
 import com.github.ylinker.finalreality.controller.phase.Phase;
 import com.github.ylinker.finalreality.gui.scenes.IScene;
-import com.github.ylinker.finalreality.gui.scenes.MainScene;
 import com.github.ylinker.finalreality.model.character.Enemy;
 import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
@@ -23,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.concurrent.*;
 
 /**
@@ -62,6 +59,10 @@ public class GameController {
         currentTurnCharacter = null;
     }
 
+    /**
+     * Method that announces that a turn has started and calls for the
+     * player's character scene to be made in the view
+     */
     public void turnStarted() {
         try {
             view.playerTurn(currentTurnCharacter);
@@ -69,6 +70,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Method that announces that a turn has started and calls for the
+     * enemy's character scene to be made in the view
+     */
     public void enemyTurnStarted() {
         try {
             view.enemyTurn(currentTurnCharacter);
@@ -76,6 +81,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Sets the view for the controller
+     * @param scene
+     *      The scene to be considered the view
+     */
     public void setScene(IScene scene) {
         this.view = scene;
     }
@@ -466,7 +476,6 @@ public class GameController {
     public void beginTurn() {
         ICharacter character = queue.peek();
         if (!(character == null) && currentTurnCharacter == null) {
-            System.out.println(character.getName() + " tried to start turn");
             currentTurnCharacter = character;
             character.beginTurn();
         }
@@ -503,6 +512,8 @@ public class GameController {
 
     /**
      * Method to start the turns of every player character and enemy.
+     * It randomly puts every character of the game in the queue and calls for
+     * a turn to start
      */
     public void initTurns() {
         ArrayList<ICharacter> startingCharacters = new ArrayList<>(playerCharacters);
@@ -675,6 +686,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to go to the Begin Turn Phase
+     * It sets the current Turn Character to null
+     * And calls for a turn to begin
+     */
     public void toBeginTurnPhase() {
         try {
             phase.toBeginTurnPhase();

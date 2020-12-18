@@ -13,13 +13,26 @@ import org.jetbrains.annotations.Nullable;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Class that creates the ending screen scene
+ */
 public class EndScreenScene {
     private static final String RESOURCE_PATH = "src/main/resources/endScreen.png";
 
+    /**
+     * Builds the Victory screen
+     * @return
+     *      The victory scene
+     */
     public Scene buildWinScreen() {
         return getScene("Victory!");
     }
 
+    /**
+     * Builds the "You Lose" Screen
+     * @return
+     *      Returns the losing screen
+     */
     public Scene buildLoseScreen() {
         return getScene("You Lose");
     }

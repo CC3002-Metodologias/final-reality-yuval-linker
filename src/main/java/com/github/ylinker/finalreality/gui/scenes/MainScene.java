@@ -1,7 +1,6 @@
 package com.github.ylinker.finalreality.gui.scenes;
 
 import com.github.ylinker.finalreality.controller.GameController;
-import com.github.ylinker.finalreality.controller.handler.IEventHandler;
 import com.github.ylinker.finalreality.gui.nodes.EnemyNodeBuilder;
 import com.github.ylinker.finalreality.gui.nodes.PlayerNodeBuilder;
 import com.github.ylinker.finalreality.gui.nodes.WeaponNodeBuilder;
@@ -17,20 +16,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class that makes and controls the main scene of the game
+ */
 public class MainScene implements IScene {
     private static final String RESOURCE_PATH = "src/main/resources/";
     private final GameController controller;
@@ -43,20 +42,41 @@ public class MainScene implements IScene {
     private HashMap<IWeapon, String> weapons;
     private EndScreenScene endScreenScene = new EndScreenScene();
 
+    /**
+     * Creates the main scene controller
+     * @param controller
+     *      The game controller
+     * @param stage
+     *      The Application stage
+     */
     public MainScene(GameController controller, Stage stage) {
         this.controller = controller;
         this.primaryStage = stage;
     }
 
+    /**
+     * Sets the classes of the characters that the player chose
+     * @param classes
+     *      A hashmap containing the mapping between a character and its class
+     */
     public void setClasses(HashMap<ICharacter, String> classes) {
         this.classes = classes;
     }
 
+    /**
+     * Sets the types of weapons that the player chose
+     * @param weapons
+     *      A hashmap containing the mapping between a weapon and its class
+     */
     public void setWeapons(HashMap<IWeapon, String> weapons) {
         this.weapons = weapons;
     }
 
-
+    /**
+     * Makes the title Text of the game
+     * @return
+     *      The Text node with the game title
+     */
     public Text makeTitle() {
         Text title = new Text("Final Reality!");
         title.setFont(Font.font("suruma", FontWeight.BOLD, FontPosture.REGULAR, 50));
@@ -70,6 +90,10 @@ public class MainScene implements IScene {
         return title;
     }
 
+    /**
+     * Makes the Top node of the application
+     * @return
+     */
     public Group top(){
         Group top = new Group();
         top.getChildren().add(makeTitle());
@@ -207,9 +231,15 @@ public class MainScene implements IScene {
     }
 
 
+    /**
+     * Changes the center node to show the player's turn screen
+     * @param currentTurnChar
+     *      The current turn's character
+     * @throws FileNotFoundException
+     *      When an image is not found on resources
+     */
     @Override
     public void playerTurn(ICharacter currentTurnChar) throws FileNotFoundException {
-        System.out.println("Making View");
         main = new Group();
         BorderPane playerTurn = new BorderPane();
         playerTurn.setPadding(new Insets(0, 0, 100, 0));
@@ -218,22 +248,18 @@ public class MainScene implements IScene {
 
         Button attack = new Button("Attack");
         attack.setOnAction(event -> {
-            System.out.println("Pressed attack button");
             controller.toAttackPhase();
             try {
                 chooseTarget(currentTurnChar);
             } catch (FileNotFoundException e) {
-                System.out.println("Error");
             }
         });
         Button equip = new Button("Equip a Weapon");
         equip.setOnAction(event -> {
-            System.out.println("Pressed equip button");
             controller.toEquipPhase();
             try {
                 chooseWeapon(currentTurnChar);
             } catch (FileNotFoundException e) {
-                System.out.println("Error");
             }
         });
         HBox buttons = new HBox();
@@ -261,7 +287,6 @@ public class MainScene implements IScene {
         playerTurn.setCenter(dialog);
         center = playerTurn;
         main.getChildren().add(playerTurn);
-        System.out.println("Player Turn is made");
     }
 
     private void chooseWeapon(ICharacter currentTurnChar) throws FileNotFoundException {
@@ -387,6 +412,13 @@ public class MainScene implements IScene {
         return enemy;
     }
 
+    /**
+     * Changes the center node to show the screen when its the enemy's turn
+     * @param currentTurnChar
+     *      The current turn's character
+     * @throws FileNotFoundException
+     *      When an image is not found on resources
+     */
     @Override
     public void enemyTurn(ICharacter currentTurnChar) throws FileNotFoundException {
         main = new Group();
@@ -471,12 +503,18 @@ public class MainScene implements IScene {
         root.setRight(right());
     }
 
+    /**
+     * Changes the scene to show the victory screen
+     */
     @Override
     public void winScene() {
         Scene scene = endScreenScene.buildWinScreen();
         primaryStage.setScene(scene);
     }
 
+    /**
+     * Changes the scene to show the losing screen
+     */
     @Override
     public void loseScene() {
         Scene scene = endScreenScene.buildLoseScreen();

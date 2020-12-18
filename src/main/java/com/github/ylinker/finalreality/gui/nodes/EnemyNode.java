@@ -14,6 +14,9 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that represents a GUI Node with an image and enemy's info
+ */
 public class EnemyNode {
     private final int imgHeight;
     private final int imgWidth;
@@ -28,6 +31,29 @@ public class EnemyNode {
     private HBox enemyNode;
     private Map<String, Label> labels;
 
+    /**
+     * Initializes an Enemy Node
+     * @param name
+     *      The enemy name
+     * @param health
+     *      The enemy health
+     * @param attack
+     *      The enemy attack
+     * @param defense
+     *      The enemy defense
+     * @param hPos
+     *      The node horizontal position
+     * @param vPos
+     *      The node vertical position
+     * @param imgHeight
+     *      The image's height
+     * @param imgWidth
+     *      The image's width
+     * @param spritePath
+     *      The path to the image
+     * @throws FileNotFoundException
+     *      When the image is not found
+     */
     public EnemyNode(@NotNull final String name, final int health, final int attack, final int defense,
                      final int hPos, final int vPos,
                      final int imgHeight, final int imgWidth, final String spritePath)
@@ -77,6 +103,11 @@ public class EnemyNode {
         infoNode.getChildren().add(defenseLabel);
     }
 
+    /**
+     * Gets the enemy node already built
+     * @return
+     *      The enemy node
+     */
     public HBox getNode() {
         return enemyNode;
     }

@@ -1,7 +1,6 @@
 package com.github.ylinker.finalreality.controller.handler;
 
 import com.github.ylinker.finalreality.controller.GameController;
-import com.github.ylinker.finalreality.controller.handler.IEventHandler;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
 
 import java.beans.PropertyChangeEvent;

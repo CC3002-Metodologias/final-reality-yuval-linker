@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+/**
+ * Class that makes the Scene where the player chooses the weapons for the inventory
+ */
 public class ChooseInventoryScene {
     private GameController controller;
     private Random random;
@@ -28,6 +31,15 @@ public class ChooseInventoryScene {
     private HashMap<ICharacter, String> playerClasses;
     private int i = 0;
 
+    /**
+     * Constructor for the class
+     * @param controller
+     *      The game controller
+     * @param primaryStage
+     *      The application stage
+     * @param nextScene
+     *      The next scene (The Main Scene)
+     */
     public ChooseInventoryScene(GameController controller, Stage primaryStage, MainScene nextScene) {
         this.controller = controller;
         classes = Arrays.asList("Knife", "Axe", "Bow", "Staff", "Sword");
@@ -48,6 +60,11 @@ public class ChooseInventoryScene {
     }
 
 
+    /**
+     * Sets the classes of the characters that the player chose
+     * @param array
+     *      A hashmap containing the mapping between a character and its class
+     */
     public void setPlayerClasses(HashMap<ICharacter, String> array) {
         playerClasses = array;
     }
@@ -195,6 +212,11 @@ public class ChooseInventoryScene {
         return center;
     }
 
+    /**
+     * Builds the scene where the player chooses the inventory
+     * @return
+     *      The choose inventory scene
+     */
     public Scene build() {
         BorderPane root = new BorderPane();
         root.setTop(Top());

@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that represents a GUI node with an image and weapon info
+ */
 public class WeaponNode {
     private final int imgHeight;
     private final int imgWidth;
@@ -28,6 +31,29 @@ public class WeaponNode {
     private VBox imageNode;
     private String charClass;
 
+    /**
+     * Creates a weapon node
+     * @param name
+     *      The weapon's name
+     * @param attack
+     *      The weapon's attack
+     * @param weight
+     *      The weapon's weight
+     * @param weaponClass
+     *      The weapon's class name
+     * @param hPos
+     *      The node's horizontal position
+     * @param vPos
+     *      The node's vertical position
+     * @param imgHeight
+     *      The image's hegight
+     * @param imgWidth
+     *      The image's width
+     * @param spritePath
+     *      The path to the image
+     * @throws FileNotFoundException
+     *      When the image is not found
+     */
     public WeaponNode(@NotNull final String name, final int attack, final int weight,
                      String weaponClass, final int hPos, final int vPos,
                      final int imgHeight, final int imgWidth, final String spritePath)
@@ -85,6 +111,11 @@ public class WeaponNode {
         infoNode.getChildren().add(attackLabel);
     }
 
+    /**
+     * Gets the weapon node
+     * @return
+     *      The weapon node
+     */
     public HBox getNode() {
         return enemyNode;
     }

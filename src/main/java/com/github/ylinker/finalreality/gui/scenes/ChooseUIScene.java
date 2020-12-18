@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+/**
+ * The class that controls the scene where the player chooses the roster
+ */
 public class ChooseUIScene {
     private GameController controller;
     private final List<String> classes;
@@ -28,6 +31,15 @@ public class ChooseUIScene {
     private HashMap<ICharacter, String> playerClasses;
     private int i = 0;
 
+    /**
+     * Creates the choos UI Scene controller/builder
+     * @param controller
+     *      The game controller
+     * @param primaryStage
+     *      The application controller
+     * @param nextScene
+     *      The next scene (Choos inventory scene)
+     */
     public ChooseUIScene(GameController controller, Stage primaryStage, ChooseInventoryScene nextScene) {
         this.controller = controller;
         classes = Arrays.asList("Knight", "Engineer", "Black Mage", "White Mage", "Thief");
@@ -208,6 +220,11 @@ public class ChooseUIScene {
         return center;
     }
 
+    /**
+     * Builds the scene where the player chooses the character roster
+     * @return
+     *      The Choose Character Scene
+     */
     public Scene build() {
         BorderPane root = new BorderPane();
         root.setTop(Top());
