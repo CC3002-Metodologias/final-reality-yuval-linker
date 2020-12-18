@@ -13,6 +13,8 @@ import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.Executors;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -69,7 +71,9 @@ public class ControllerCharacterTest {
         testController.createEngineer("engineerTest", 10, 10, 0);
         testController.createEnemy("enemyTest", 10, 10, 5, 10);
         Engineer testEngineer = (Engineer) testController.getCharacters().get(0);
+        testEngineer.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         Enemy testEnemy = testController.getEnemies().get(0);
+        testEnemy.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
 
         testController.attack(testEnemy, testEngineer);
         assertFalse(testController.getCharacters().contains(testEngineer));
@@ -78,7 +82,9 @@ public class ControllerCharacterTest {
         testController.createKnight("knightTest", 10, 10, 0);
         testController.createThief("thiefTest", 10, 10, 0);
         Knight testKnight = (Knight) testController.getCharacters().get(0);
+        testKnight.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         Thief testThief = (Thief) testController.getCharacters().get(1);
+        testThief.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         assertEquals(2, testController.getCharacters().size());
 
         testController.attack(testEnemy, testKnight);
@@ -88,7 +94,9 @@ public class ControllerCharacterTest {
         testController.createWhiteMage("whiteMageTest", 10, 10, 0, 20);
         testController.createBlackMage("blackMageTest", 10, 10, 0, 15);
         WhiteMage testWhiteMage = (WhiteMage) testController.getCharacters().get(1);
+        testWhiteMage.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         BlackMage testBlackMage = (BlackMage) testController.getCharacters().get(2);
+        testBlackMage.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
 
         testController.attack(testEnemy, testWhiteMage);
         assertFalse(testController.getCharacters().contains(testWhiteMage));
@@ -100,6 +108,7 @@ public class ControllerCharacterTest {
 
         testController.createEnemy("otherEnemy", 20, 10, 0, 10);
         Enemy otherEnemy = testController.getEnemies().get(1);
+        otherEnemy.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
 
         testController.attack(testBlackMage, testEnemy);
         testController.attack(testBlackMage, testEnemy);
@@ -113,6 +122,7 @@ public class ControllerCharacterTest {
 
         testController.createKnight("playerWinner", 10, 20, 0);
         testKnight = (Knight) testController.getCharacters().get(0);
+        testKnight.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         testController.attack(testKnight, otherEnemy);
         assertFalse(testController.getEnemies().contains(otherEnemy));
         assertEquals(0, testController.getEnemies().size());

@@ -127,6 +127,7 @@ public class ControllerUtilTest {
         testController.createKnight("testKnight", 20, 10, 10);
         Enemy enemy = testController.getEnemies().get(0);
         IPlayerCharacter knight = testController.getCharacters().get(0);
+        knight.setScheduledExecutor(Executors.newSingleThreadScheduledExecutor());
         testController.waitTurn(enemy);
         try {
             Thread.sleep(500);
@@ -178,7 +179,7 @@ public class ControllerUtilTest {
         assertNotNull(engineer.getScheduledExecutor());
         try {
             testController.getQueue().add(enemy);
-            Thread.sleep(1000);
+            Thread.sleep(1100);
             // Now the turn should not begin instantly since the queue is not empty
             assertTrue(testController.getQueue().contains(engineer));
             assertTrue(testController.getQueue().contains(enemy));
