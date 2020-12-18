@@ -548,7 +548,9 @@ public class GameController {
      *      The dead character
      */
     public void onCharacterDeath(IPlayerCharacter character) {
-        character.shutdownScheduledExecutor();
+        if(character.getScheduledExecutor() != null) {
+            character.getScheduledExecutor().shutdownNow();
+        }
         playerCharacters.remove(character);
         queue.remove(character);
     }
@@ -559,7 +561,9 @@ public class GameController {
      *      The dead enemy
      */
     public void onEnemyDeath(Enemy enemy) {
-        enemy.shutdownScheduledExecutor();
+        if(enemy.getScheduledExecutor() != null) {
+            enemy.getScheduledExecutor().shutdownNow();
+        }
         enemies.remove(enemy);
         queue.remove(enemy);
     }
