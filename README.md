@@ -9,6 +9,8 @@ This work is licensed under a
 
 Sprite art credit goes to:
 - Redshrike for the enemy sprite pixel art
+- Phillip Lensen for the character sprites
+- Mathew Pablo for the soundtrack
 
 Context
 -------

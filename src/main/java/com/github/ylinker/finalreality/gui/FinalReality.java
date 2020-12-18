@@ -1,29 +1,15 @@
 package com.github.ylinker.finalreality.gui;
 
 import com.github.ylinker.finalreality.controller.GameController;
-import com.github.ylinker.finalreality.gui.nodes.EnemyNode;
-import com.github.ylinker.finalreality.gui.nodes.EnemyNodeBuilder;
 import com.github.ylinker.finalreality.gui.scenes.ChooseInventoryScene;
 import com.github.ylinker.finalreality.gui.scenes.ChooseUIScene;
 import com.github.ylinker.finalreality.gui.scenes.MainScene;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.beans.EventHandler;
-import java.io.FileNotFoundException;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -60,6 +46,20 @@ public class FinalReality extends Application {
     }
   }
 
+  private void startSound() {
+    String path = "src/main/resources/Heroic_Demise.wav";
+
+    try {
+      System.out.println("Starting sound");
+      Clip sound = AudioSystem.getClip();
+      try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path))) {
+        sound.open(audioInputStream);
+        sound.start();
+      }
+    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+    }
+  }
+
   /**
    * Starts the application.
    * For this 3 scenes are created.
@@ -80,6 +80,7 @@ public class FinalReality extends Application {
     ChooseUIScene chooseScene = new ChooseUIScene(controller, stage, inventoryScene);
     primaryStage.setScene(chooseScene.build());
 
+    startSound();
     primaryStage.show();
   }
 
