@@ -548,6 +548,7 @@ public class GameController {
      *      The dead character
      */
     public void onCharacterDeath(IPlayerCharacter character) {
+        character.shutdownScheduledExecutor();
         playerCharacters.remove(character);
         queue.remove(character);
     }
@@ -558,6 +559,7 @@ public class GameController {
      *      The dead enemy
      */
     public void onEnemyDeath(Enemy enemy) {
+        enemy.shutdownScheduledExecutor();
         enemies.remove(enemy);
         queue.remove(enemy);
     }
