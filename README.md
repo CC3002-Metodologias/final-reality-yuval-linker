@@ -11,6 +11,7 @@ Credit goes to:
 - Redshrike for the enemy sprite pixel art
 - Phillip Lensen for the character sprites
 - Mathew Pablo for the soundtrack
+- Me for the game :)
 
 Context
 -------
