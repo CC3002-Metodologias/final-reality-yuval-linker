@@ -31,22 +31,27 @@ public class ControllerWeaponTest {
         assertEquals(1, testController.getInventory().size());
         IWeapon axe = testController.getInventory().get(0);
         assertTrue(testController.getInventory().contains(axe));
+        assertEquals("Axe", testController.getWeaponClass(axe));
         testController.createBow("testAxe", 10, 5);
         assertEquals(2, testController.getInventory().size());
         IWeapon bow = testController.getInventory().get(1);
         assertTrue(testController.getInventory().contains(bow));
+        assertEquals("Bow", testController.getWeaponClass(bow));
         testController.createKnife("testAxe", 10, 5);
         assertEquals(3, testController.getInventory().size());
         IWeapon knife = testController.getInventory().get(2);
         assertTrue(testController.getInventory().contains(knife));
+        assertEquals("Knife", testController.getWeaponClass(knife));
         testController.createSword("testAxe", 10, 5);
         assertEquals(4, testController.getInventory().size());
         IWeapon sword = testController.getInventory().get(3);
         assertTrue(testController.getInventory().contains(sword));
+        assertEquals("Sword", testController.getWeaponClass(sword));
         testController.createStaff("testAxe", 10, 5, 3);
         assertEquals(5, testController.getInventory().size());
         IWeapon staff = testController.getInventory().get(4);
         assertTrue(testController.getInventory().contains(staff));
+        assertEquals("Staff", testController.getWeaponClass(staff));
 
         // Start equipping weapons
         testController.equip(knight, sword);

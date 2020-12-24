@@ -35,30 +35,35 @@ public class ControllerCharacterTest {
                 )
         );
         assertEquals(1, testController.getCharacters().size());
+        assertEquals("Engineer", testController.getCharacterClass(testController.getCharacters().get(0)));
         testController.createKnight("knightTest", 10, 10, 25);
         assertTrue(testController.getCharacters().contains(
                 new Knight("knightTest", 10, 10, 25)
                 )
         );
         assertEquals(2, testController.getCharacters().size());
+        assertEquals("Knight", testController.getCharacterClass(testController.getCharacters().get(1)));
         testController.createThief("thiefTest", 5, 20, 5);
         assertTrue(testController.getCharacters().contains(
                 new Thief("thiefTest", 5, 20, 5)
                 )
         );
         assertEquals(3, testController.getCharacters().size());
+        assertEquals("Thief", testController.getCharacterClass(testController.getCharacters().get(2)));
         testController.createWhiteMage("whiteMageTest", 10, 10, 0, 20);
         assertTrue(testController.getCharacters().contains(
                 new WhiteMage("whiteMageTest", 10, 10, 0, 20)
                 )
         );
         assertEquals(4, testController.getCharacters().size());
+        assertEquals("White Mage", testController.getCharacterClass(testController.getCharacters().get(3)));
         testController.createBlackMage("blackMageTest", 10, 20, 0, 15);
         assertTrue(testController.getCharacters().contains(
                 new BlackMage("blackMageTest", 10, 20, 0, 15)
                 )
         );
         assertEquals(5, testController.getCharacters().size());
+        assertEquals("Black Mage", testController.getCharacterClass(testController.getCharacters().get(4)));
         testController.createEnemy("enemyTest", 10, 5, 5, 10);
         assertTrue(testController.getEnemies().contains(
                 new Enemy("enemyTest", 10, 5, 5, 10)

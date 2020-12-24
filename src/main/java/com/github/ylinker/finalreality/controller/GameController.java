@@ -19,8 +19,7 @@ import com.github.ylinker.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -36,6 +35,9 @@ public class GameController {
     private Phase phase;
     private ICharacter currentTurnCharacter;
     private IScene view;
+    private Map<ICharacter, String> playerClasses;
+    private Map<IWeapon, String> playerWeaponClasses;
+    private IPlayerCharacter lastAttackedCharacter;
 
     private final IEventHandler characterDeadHandler = new PlayerCharacterDeadHandler(this);
     private final IEventHandler enemyDeadHandler = new EnemyDeadHandler(this);
@@ -57,6 +59,8 @@ public class GameController {
         queue = new LinkedBlockingQueue<>();
         setPhase(new BeginTurnPhase());
         currentTurnCharacter = null;
+        playerClasses = new HashMap<>();
+        playerWeaponClasses = new HashMap<>();
     }
 
     /**
@@ -65,7 +69,7 @@ public class GameController {
      */
     public void turnStarted() {
         try {
-            view.playerTurn(currentTurnCharacter);
+            view.playerTurn();
         } catch (FileNotFoundException e) {
         }
     }
@@ -76,7 +80,7 @@ public class GameController {
      */
     public void enemyTurnStarted() {
         try {
-            view.enemyTurn(currentTurnCharacter);
+            view.enemyTurn();
         } catch (FileNotFoundException e) {
         }
     }
@@ -170,6 +174,15 @@ public class GameController {
     }
 
     /**
+     * Gets the character that was attacked last
+     * @return
+     *      A character
+     */
+    public ICharacter getLastAttackedCharacter() {
+        return lastAttackedCharacter;
+    }
+
+    /**
      * Creates an Engineer for the player and adds it to the player's roster
      * @param name
      *      The character's name
@@ -181,7 +194,9 @@ public class GameController {
      *      The character's defense
      */
     public void createEngineer(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Engineer(name, health, attack, defense));
+        IPlayerCharacter character = new Engineer(name, health, attack, defense);
+        playerClasses.put(character, "Engineer");
+        addPlayerCharacter(character);
     }
 
     /**
@@ -196,7 +211,9 @@ public class GameController {
      *      The character's defense
      */
     public void createKnight(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Knight(name, health, attack, defense));
+        IPlayerCharacter character = new Knight(name, health, attack, defense);
+        playerClasses.put(character, "Knight");
+        addPlayerCharacter(character);
     }
 
     /**
@@ -211,7 +228,9 @@ public class GameController {
      *      The character's defense
      */
     public void createThief(@NotNull String name, int health, int attack, int defense){
-        addPlayerCharacter(new Thief(name, health, attack, defense));
+        IPlayerCharacter character = new Thief(name, health, attack, defense);
+        playerClasses.put(character, "Thief");
+        addPlayerCharacter(character);
     }
 
     /**
@@ -226,7 +245,9 @@ public class GameController {
      *      The character's defense
      */
     public void createWhiteMage(@NotNull String name, int health, int attack, int defense, int mana){
-        addPlayerCharacter(new WhiteMage(name, health, attack, defense, mana));
+        IPlayerCharacter character = new WhiteMage(name, health, attack, defense, mana);
+        playerClasses.put(character, "White Mage");
+        addPlayerCharacter(character);
     }
 
     /**
@@ -241,7 +262,9 @@ public class GameController {
      *      The character's defense
      */
     public void createBlackMage(@NotNull String name, int health, int attack, int defense, int mana){
-        addPlayerCharacter(new BlackMage(name, health, attack, defense, mana));
+        IPlayerCharacter character = new BlackMage(name, health, attack, defense, mana);
+        playerClasses.put(character, "Black Mage");
+        addPlayerCharacter(character);
     }
 
     /**
@@ -300,6 +323,17 @@ public class GameController {
     }
 
     /**
+     * Gets the Player Character's class
+     * @param character
+     *      The character
+     * @return
+     *      A string with the type of character
+     */
+    public String getCharacterClass(IPlayerCharacter character) {
+        return playerClasses.get(character);
+    }
+
+    /**
      * Gets the mage's mana
      * @param mage
      *      The mage
@@ -337,7 +371,9 @@ public class GameController {
      *      The axe weight
      */
     public void createAxe(@NotNull String name, final int damage, final int weight){
-        addWeapon(new Axe(name, damage, weight));
+        IWeapon weapon = new Axe(name, damage, weight);
+        playerWeaponClasses.put(weapon, "Axe");
+        addWeapon(weapon);
     }
 
     /**
@@ -350,7 +386,9 @@ public class GameController {
      *      The bow weight
      */
     public void createBow(@NotNull String name, final int damage, final int weight){
-        addWeapon(new Bow(name, damage, weight));
+        IWeapon weapon = new Bow(name, damage, weight);
+        playerWeaponClasses.put(weapon, "Bow");
+        addWeapon(weapon);
     }
 
     /**
@@ -363,7 +401,9 @@ public class GameController {
      *      The knife weight
      */
     public void createKnife(@NotNull String name, final int damage, final int weight){
-        addWeapon(new Knife(name, damage, weight));
+        IWeapon weapon = new Knife(name, damage, weight);
+        playerWeaponClasses.put(weapon, "Knife");
+        addWeapon(weapon);
     }
 
     /**
@@ -376,7 +416,9 @@ public class GameController {
      *      The sword weight
      */
     public void createSword(@NotNull String name, final int damage, final int weight){
-        addWeapon(new Sword(name, damage, weight));
+        IWeapon weapon = new Sword(name, damage, weight);
+        playerWeaponClasses.put(weapon, "Sword");
+        addWeapon(weapon);
     }
 
     /**
@@ -391,7 +433,9 @@ public class GameController {
      *      The staff magic damage
      */
     public void createStaff(@NotNull String name, final int damage, final int weight, final int magicDamage){
-        addWeapon(new Staff(name, damage, weight, magicDamage));
+        IWeapon weapon = new Staff(name, damage, weight, magicDamage);
+        playerWeaponClasses.put(weapon, "Staff");
+        addWeapon(weapon);
     }
 
     /**
@@ -425,6 +469,17 @@ public class GameController {
      */
     public int getWeaponWeight(IWeapon weapon) {
         return weapon.getWeight();
+    }
+
+    /**
+     * Gets the weapon's class
+     * @param weapon
+     *      The weapon
+     * @return
+     *      A string with the type of weapon
+     */
+    public String getWeaponClass(IWeapon weapon) {
+        return playerWeaponClasses.get(weapon);
     }
 
     /**
@@ -617,6 +672,20 @@ public class GameController {
             // For now we do nothing
             return -1;
         }
+    }
+
+    /**
+     * Chooses a random player character for an enemy to attack
+     * @return
+     *      The player character chosen
+     */
+    public ICharacter chooseRandomTarget() {
+        Random random = new Random();
+        // Find random target in Player roster
+        int target = random.nextInt(getCharacters().size());
+        IPlayerCharacter character = getCharacters().get(target);
+        lastAttackedCharacter = character;
+        return character;
     }
 
     /**

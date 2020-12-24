@@ -281,4 +281,13 @@ public class ControllerUtilTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void checkRandomTarget() {
+        testController.createEngineer("engineer", 10, 10, 5);
+        testController.createAxe("axe", 10, 10);
+        ICharacter character = testController.chooseRandomTarget();
+        assertEquals(character, testController.getLastAttackedCharacter());
+        assertTrue(testController.getCharacters().contains(character));
+    }
 }
