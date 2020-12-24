@@ -1,18 +1,17 @@
 package com.github.ylinker.finalreality.controller;
 
 import com.github.ylinker.finalreality.gui.scenes.IScene;
-import com.github.ylinker.finalreality.model.character.ICharacter;
 
 import java.io.FileNotFoundException;
 
 public class NullScene implements IScene {
 
     @Override
-    public void playerTurn(ICharacter character) throws FileNotFoundException {
+    public void playerTurn() throws FileNotFoundException {
     }
 
     @Override
-    public void enemyTurn(ICharacter character) throws FileNotFoundException {
+    public void enemyTurn() throws FileNotFoundException {
     }
 
     @Override

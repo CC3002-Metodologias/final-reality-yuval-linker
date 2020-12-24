@@ -4,11 +4,9 @@ import com.github.ylinker.finalreality.controller.GameController;
 import com.github.ylinker.finalreality.gui.nodes.EnemyNodeBuilder;
 import com.github.ylinker.finalreality.gui.nodes.PlayerNodeBuilder;
 import com.github.ylinker.finalreality.gui.nodes.WeaponNodeBuilder;
-import com.github.ylinker.finalreality.model.character.Enemy;
-import com.github.ylinker.finalreality.model.character.ICharacter;
 import com.github.ylinker.finalreality.model.character.IPlayerCharacter;
-import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -23,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -38,8 +35,6 @@ public class MainScene implements IScene {
     private BorderPane root;
     private BorderPane center;
     private Group main;
-    private HashMap<ICharacter, String> classes;
-    private HashMap<IWeapon, String> weapons;
     private EndScreenScene endScreenScene = new EndScreenScene();
 
     /**
@@ -52,24 +47,6 @@ public class MainScene implements IScene {
     public MainScene(GameController controller, Stage stage) {
         this.controller = controller;
         this.primaryStage = stage;
-    }
-
-    /**
-     * Sets the classes of the characters that the player chose
-     * @param classes
-     *      A hashmap containing the mapping between a character and its class
-     */
-    public void setClasses(HashMap<ICharacter, String> classes) {
-        this.classes = classes;
-    }
-
-    /**
-     * Sets the types of weapons that the player chose
-     * @param weapons
-     *      A hashmap containing the mapping between a weapon and its class
-     */
-    public void setWeapons(HashMap<IWeapon, String> weapons) {
-        this.weapons = weapons;
     }
 
     /**
@@ -147,7 +124,7 @@ public class MainScene implements IScene {
         int i = 0;
         for (var e: controller.getCharacters()) {
             String imgName;
-            switch (classes.get(e)){
+            switch (controller.getCharacterClass(e)){
                 case "White Mage":
                     imgName = "wMage";
                     break;
@@ -155,14 +132,14 @@ public class MainScene implements IScene {
                     imgName = "bMage";
                     break;
                 default:
-                    imgName = classes.get(e);
+                    imgName = controller.getCharacterClass(e);
             }
             nodeBuilder.setImagePath(RESOURCE_PATH + imgName + ".gif");
             nodeBuilder.setInfo(controller.getCharacterName(e),
                     controller.getCharacterHealth(e),
                     controller.getCharacterAttack(e),
                     controller.getCharacterDefense(e),
-                    classes.get(e));
+                    controller.getCharacterClass(e));
             playerCharacters.add(nodeBuilder.build());
             i++;
         }
@@ -233,24 +210,22 @@ public class MainScene implements IScene {
 
     /**
      * Changes the center node to show the player's turn screen
-     * @param currentTurnChar
-     *      The current turn's character
      * @throws FileNotFoundException
      *      When an image is not found on resources
      */
     @Override
-    public void playerTurn(ICharacter currentTurnChar) throws FileNotFoundException {
+    public void playerTurn() throws FileNotFoundException {
         main = new Group();
         BorderPane playerTurn = new BorderPane();
         playerTurn.setPadding(new Insets(0, 0, 100, 0));
-        makeTurnLabel("It's " + controller.getCharacterName(currentTurnChar) + "'s Turn!");
+        makeTurnLabel("It's " + controller.getCharacterName(controller.getCurrentTurnCharacter()) + "'s Turn!");
         playerTurn.setTop(currentTurn);
 
         Button attack = new Button("Attack");
         attack.setOnAction(event -> {
             controller.toAttackPhase();
             try {
-                chooseTarget(currentTurnChar);
+                chooseTarget();
             } catch (FileNotFoundException e) {
             }
         });
@@ -258,7 +233,7 @@ public class MainScene implements IScene {
         equip.setOnAction(event -> {
             controller.toEquipPhase();
             try {
-                chooseWeapon(currentTurnChar);
+                chooseWeapon();
             } catch (FileNotFoundException e) {
             }
         });
@@ -269,13 +244,16 @@ public class MainScene implements IScene {
         buttons.getChildren().add(equip);
 
         VBox dialog = new VBox();
-        IWeapon equippedWeapon = controller.getCharacterEquippedWeapon((IPlayerCharacter) currentTurnChar);
+        boolean hasWeapon = controller.getCharacterEquippedWeapon((IPlayerCharacter) controller.getCurrentTurnCharacter())
+                != null;
         String text;
-        if (equippedWeapon != null) {
-             text = controller.getCharacterName(currentTurnChar) +
-                    " has the weapon " + controller.getWeaponName(equippedWeapon) + " equipped.";
+        if (hasWeapon) {
+             text = controller.getCharacterName(controller.getCurrentTurnCharacter()) +
+                    " has the weapon " + controller.getWeaponName(
+                     controller.getCharacterEquippedWeapon((IPlayerCharacter) controller.getCurrentTurnCharacter())
+             ) + " equipped.";
         } else {
-            text = controller.getCharacterName(currentTurnChar) + " has no weapon equipped.";
+            text = controller.getCharacterName(controller.getCurrentTurnCharacter()) + " has no weapon equipped.";
         }
         Label label = new Label(text);
         label.setFont(Font.font(15));
@@ -289,11 +267,11 @@ public class MainScene implements IScene {
         main.getChildren().add(playerTurn);
     }
 
-    private void chooseWeapon(ICharacter currentTurnChar) throws FileNotFoundException {
+    private void chooseWeapon() throws FileNotFoundException {
         main = new Group();
         BorderPane equipTurn = new BorderPane();
         equipTurn.setPadding(new Insets(0, 0, 100, 0));
-        makeTurnLabel("It's " + controller.getCharacterName(currentTurnChar) + "'s Turn!");
+        makeTurnLabel("It's " + controller.getCharacterName(controller.getCurrentTurnCharacter()) + "'s Turn!");
         equipTurn.setTop(currentTurn);
 
         VBox content = new VBox();
@@ -311,15 +289,27 @@ public class MainScene implements IScene {
         inventory.setVgap(10);
         inventory.setMinWidth(800);
         int i = 0;
-        for(IWeapon w : controller.getInventory()) {
-            inventory.getChildren().add(makeWeaponButton(currentTurnChar, w, i));
+        for(var w : controller.getInventory()) {
+            inventory.getChildren().add(makeWeaponButton(
+                    controller.getWeaponName(w),
+                    controller.getWeaponWeight(w),
+                    controller.getWeaponDamage(w),
+                    controller.getWeaponClass(w),
+                    (event -> {
+                        controller.tryToEquip(w);
+                        try {
+                            playerTurn();
+                        } catch (FileNotFoundException e) {
+                        }
+                    })
+            ));
             i++;
         }
         Button goBack = new Button("Cancel");
         goBack.setOnAction(event -> {
             controller.goBack();
             try {
-                playerTurn(currentTurnChar);
+                playerTurn();
             } catch (FileNotFoundException e) {
             }
         });
@@ -332,32 +322,26 @@ public class MainScene implements IScene {
         main.getChildren().add(center);
     }
 
-    private Button makeWeaponButton(ICharacter currentTurnChar, IWeapon weapon, int i) throws FileNotFoundException {
+    private Button makeWeaponButton(String name, int weight, int damage, String className, EventHandler function) throws FileNotFoundException {
         Button b = new Button();
         WeaponNodeBuilder wb = new WeaponNodeBuilder();
         wb.setImagePath(RESOURCE_PATH + "weapon1.png");
         wb.setPosition(10, 10);
         wb.setSize(75, 90);
-        wb.setInfo(controller.getWeaponName(weapon),
-                controller.getWeaponWeight(weapon),
-                controller.getWeaponDamage(weapon),
-                weapons.get(weapon));
+        wb.setInfo(name,
+                weight,
+                damage,
+                className);
         b.setGraphic(wb.build());
-        b.setOnAction(event -> {
-            controller.tryToEquip(weapon);
-            try {
-                playerTurn(currentTurnChar);
-            } catch (FileNotFoundException e) {
-            }
-        });
+        b.setOnAction(function);
         return b;
     }
 
-    private void chooseTarget(ICharacter currentTurnChar) throws FileNotFoundException {
+    private void chooseTarget() throws FileNotFoundException {
         main = new Group();
         BorderPane targetTurn = new BorderPane();
         targetTurn.setPadding(new Insets(0, 0, 100, 0));
-        makeTurnLabel("It's " + controller.getCharacterName(currentTurnChar) + "'s Turn!");
+        makeTurnLabel("It's " + controller.getCharacterName(controller.getCurrentTurnCharacter()) + "'s Turn!");
         targetTurn.setTop(currentTurn);
 
         VBox content = new VBox();
@@ -371,15 +355,25 @@ public class MainScene implements IScene {
         instruction.setAlignment(Pos.TOP_CENTER);
         enemies.setHgap(10);
         enemies.setVgap(10);
-        for(Enemy e : controller.getEnemies()) {
-            enemies.getChildren().add(makeEnemyButton(currentTurnChar, e));
+        for(var e : controller.getEnemies()) {
+            enemies.getChildren().add(makeEnemyButton(controller.getCharacterName(e),
+                    controller.getCharacterHealth(e),
+                    controller.getCharacterAttack(e),
+                    controller.getCharacterDefense(e),
+                    (event -> {
+                        try {
+                            dialogTurn(controller.tryToAttack(e),
+                                    controller.getCharacterName(e));
+                        } catch (FileNotFoundException fileNotFoundException) {
+                        }
+                    })));
         }
         enemies.setAlignment(Pos.CENTER);
         Button back = new Button("Cancel");
         back.setOnAction(event -> {
             controller.goBack();
             try {
-                playerTurn(currentTurnChar);
+                playerTurn();
             } catch (FileNotFoundException e) {
             }
         });
@@ -392,64 +386,40 @@ public class MainScene implements IScene {
         main.getChildren().add(center);
     }
 
-    private Button makeEnemyButton(ICharacter character, Enemy e) throws FileNotFoundException {
+    private Button makeEnemyButton(String name, int health, int attack, int defense, EventHandler function) throws FileNotFoundException {
         Button enemy = new Button();
-        enemy.setOnAction(event -> {
-            try {
-                dialogTurn(character, controller.tryToAttack(e), e);
-            } catch (FileNotFoundException fileNotFoundException) {
-            }
-        });
+        enemy.setOnAction(function);
         EnemyNodeBuilder eb = new EnemyNodeBuilder();
         eb.setImagePath(RESOURCE_PATH + "enemy.png");
         eb.setPosition(10, 10);
         eb.setSize(75, 90);
-        eb.setInfo(controller.getCharacterName(e),
-                controller.getCharacterHealth(e),
-                controller.getCharacterAttack(e),
-                controller.getCharacterDefense(e));
+        eb.setInfo(name, health, attack, defense);
         enemy.setGraphic(eb.build());
         return enemy;
     }
 
     /**
      * Changes the center node to show the screen when its the enemy's turn
-     * @param currentTurnChar
-     *      The current turn's character
      * @throws FileNotFoundException
      *      When an image is not found on resources
      */
     @Override
-    public void enemyTurn(ICharacter currentTurnChar) throws FileNotFoundException {
+    public void enemyTurn() throws FileNotFoundException {
         main = new Group();
         BorderPane enemyTurn = new BorderPane();
         enemyTurn.setPadding(new Insets(0, 0, 100, 0));
-        makeTurnLabel("It's " + controller.getCharacterName(currentTurnChar) + "'s Turn!");
+        makeTurnLabel("It's " + controller.getCharacterName(controller.getCurrentTurnCharacter()) + "'s Turn!");
         enemyTurn.setTop(currentTurn);
 
-        // Create random index number
-        long seed = new Random().nextLong();
-        Random random = new Random(seed);
-
-        // Find random target in Player roster
-        int target = random.nextInt(controller.getCharacters().size());
-        ICharacter character = controller.getCharacters().get(target);
-
-        int damage = controller.tryToAttack(character);
+        int damage = controller.tryToAttack(controller.chooseRandomTarget());
         VBox dialog = new VBox();
         dialog.setSpacing(10);
-        Label text = new Label(controller.getCharacterName(currentTurnChar) +
+        Label text = new Label(controller.getCharacterName(controller.getCurrentTurnCharacter()) +
                 " did " + damage + " damage to " +
-                controller.getCharacterName(character));
+                controller.getCharacterName(controller.getLastAttackedCharacter()));
         Button cont = new Button("Continue");
         cont.setOnAction(event -> {
             controller.toBeginTurnPhase();
-            if (currentTurnChar == controller.getCurrentTurnCharacter()) {
-                try {
-                    initialCenter();
-                } catch (FileNotFoundException e) {
-                }
-            }
         });
         cont.setAlignment(Pos.BOTTOM_RIGHT);
         text.setFont(Font.font(15));
@@ -462,22 +432,22 @@ public class MainScene implements IScene {
         updatePlayer();
     }
 
-    private void dialogTurn(ICharacter currentTurnChar, int damage, Enemy enemy) throws FileNotFoundException {
+    private void dialogTurn(int damage, String enemyName) throws FileNotFoundException {
         main = new Group();
         BorderPane dialogTurn = new BorderPane();
         dialogTurn.setPadding(new Insets(0, 0, 100, 0));
-        makeTurnLabel("It's " + controller.getCharacterName(currentTurnChar) + "'s Turn!");
+        makeTurnLabel("It's " + controller.getCharacterName(controller.getCurrentTurnCharacter()) + "'s Turn!");
         dialogTurn.setTop(currentTurn);
 
         VBox dialog = new VBox();
         dialog.setSpacing(10);
-        Label text = new Label(controller.getCharacterName(currentTurnChar) +
+        Label text = new Label(controller.getCharacterName(controller.getCurrentTurnCharacter()) +
                 " did " + damage + " damage to " +
-                controller.getCharacterName(enemy));
+                enemyName);
         Button cont = new Button("Continue");
         cont.setOnAction(event -> {
             controller.toBeginTurnPhase();
-            if (currentTurnChar == controller.getCurrentTurnCharacter()) {
+            if (controller.getCurrentTurnCharacter() == null) {
                 try {
                     initialCenter();
                 } catch (FileNotFoundException e) {

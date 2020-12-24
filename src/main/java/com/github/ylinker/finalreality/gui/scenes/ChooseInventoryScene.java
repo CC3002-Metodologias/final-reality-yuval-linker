@@ -1,12 +1,9 @@
 package com.github.ylinker.finalreality.gui.scenes;
 
 import com.github.ylinker.finalreality.controller.GameController;
-import com.github.ylinker.finalreality.model.character.ICharacter;
-import com.github.ylinker.finalreality.model.weapon.IWeapon;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -25,10 +22,8 @@ public class ChooseInventoryScene {
     private Random random;
     private MainScene nextScene;
     private Stage primaryStage;
-    private HashMap<IWeapon, String> playerWeapons;
     private List<String> classes;
     private List<String> names;
-    private HashMap<ICharacter, String> playerClasses;
     private int i = 0;
 
     /**
@@ -49,24 +44,11 @@ public class ChooseInventoryScene {
         random = new Random(seed.nextInt());
         this.nextScene = nextScene;
         this.primaryStage = primaryStage;
-        playerWeapons = new HashMap<>();
     }
 
     private void changeScene() throws FileNotFoundException {
-        nextScene.setWeapons(playerWeapons);
-        nextScene.setClasses(playerClasses);
         Scene next = nextScene.build();
         primaryStage.setScene(next);
-    }
-
-
-    /**
-     * Sets the classes of the characters that the player chose
-     * @param array
-     *      A hashmap containing the mapping between a character and its class
-     */
-    public void setPlayerClasses(HashMap<ICharacter, String> array) {
-        playerClasses = array;
     }
 
 
@@ -118,7 +100,6 @@ public class ChooseInventoryScene {
                                 random.nextInt(5) + 15,
                                 random.nextInt(10) + 10
                         );
-                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
                         if(controller.getInventory().size() == 5) {
                             try {
@@ -135,7 +116,6 @@ public class ChooseInventoryScene {
                                 random.nextInt(5) + 15,
                                 random.nextInt(10) + 10
                         );
-                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
                         if(controller.getInventory().size() == 5) {
                             try {
@@ -152,7 +132,6 @@ public class ChooseInventoryScene {
                                 random.nextInt(5) + 15,
                                 random.nextInt(10) + 10
                         );
-                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
                         if(controller.getInventory().size() == 5) {
                             try {
@@ -171,7 +150,6 @@ public class ChooseInventoryScene {
                                 random.nextInt(10) + 10,
                                 0
                         );
-                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
                         if(controller.getInventory().size() == 5) {
                             try {
@@ -188,7 +166,6 @@ public class ChooseInventoryScene {
                                 random.nextInt(5) + 15,
                                 random.nextInt(10) + 10
                         );
-                        playerWeapons.put(controller.getInventory().get(i), c);
                         i++;
                         if(controller.getInventory().size() == 5) {
                             try {

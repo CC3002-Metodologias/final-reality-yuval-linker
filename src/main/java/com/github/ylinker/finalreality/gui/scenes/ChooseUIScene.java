@@ -1,7 +1,6 @@
 package com.github.ylinker.finalreality.gui.scenes;
 
 import com.github.ylinker.finalreality.controller.GameController;
-import com.github.ylinker.finalreality.model.character.ICharacter;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,7 +27,6 @@ public class ChooseUIScene {
     private TextArea nameArea;
     private ChooseInventoryScene nextScene;
     private Stage primaryStage;
-    private HashMap<ICharacter, String> playerClasses;
     private int i = 0;
 
     /**
@@ -47,11 +45,9 @@ public class ChooseUIScene {
         random = new Random(seed.nextInt());
         this.nextScene = nextScene;
         this.primaryStage = primaryStage;
-        playerClasses = new HashMap<>();
     }
 
     private void changeScene() throws FileNotFoundException {
-        nextScene.setPlayerClasses(playerClasses);
         Scene next = nextScene.build();
         primaryStage.setScene(next);
     }
@@ -115,8 +111,7 @@ public class ChooseUIScene {
                                 random.nextInt(20) + 10,
                                 random.nextInt(13) + 5
                         );
-                        nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
+                        nameArea.clear();;
                         i++;
                         if(controller.getCharacters().size() == 5) {
                             try {
@@ -135,7 +130,6 @@ public class ChooseUIScene {
                                 random.nextInt(13) + 5
                         );
                         nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
                         i++;
                         if(controller.getCharacters().size() == 5) {
                             try {
@@ -154,7 +148,6 @@ public class ChooseUIScene {
                             random.nextInt(13) + 5
                         );
                         nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
                         i++;
                         if(controller.getCharacters().size() == 5) {
                             try {
@@ -175,7 +168,6 @@ public class ChooseUIScene {
                                 0
                         );
                         nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
                         i++;
                         if(controller.getCharacters().size() == 5) {
                             try {
@@ -195,7 +187,6 @@ public class ChooseUIScene {
                                 0
                         );
                         nameArea.clear();
-                        playerClasses.put(controller.getCharacters().get(i), c);
                         i++;
                         if(controller.getCharacters().size() == 5) {
                             try {
